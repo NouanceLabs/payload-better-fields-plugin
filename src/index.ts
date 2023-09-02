@@ -1,2 +1,2 @@
-export { samplePlugin } from './plugin'
+export { betterFieldsPlugin } from './plugin'
 export type { PluginTypes } from './types'

@@ -5,7 +5,3 @@ export interface PluginTypes {
    */
   enabled?: boolean
 }
-
-export interface NewCollectionTypes {
-  title: string
-}

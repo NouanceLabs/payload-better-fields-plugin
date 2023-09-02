@@ -1,8 +1,8 @@
-import { buildConfig } from 'payload/config';
-import path from 'path';
-import Users from './collections/Users';
-import Examples from './collections/Examples';
-import { samplePlugin } from '../../src/index'
+import { buildConfig } from 'payload/config'
+import path from 'path'
+import Users from './collections/Users'
+import Examples from './collections/Examples'
+import { betterFieldsPlugin } from '../../src/index'
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
@@ -24,9 +24,7 @@ export default buildConfig({
       return newConfig
     },
   },
-  collections: [
-    Examples, Users,
-  ],
+  collections: [Examples, Users],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
@@ -34,8 +32,8 @@ export default buildConfig({
     schemaOutputFile: path.resolve(__dirname, 'generated-schema.graphql'),
   },
   plugins: [
-    samplePlugin({
+    betterFieldsPlugin({
       enabled: true,
-    })
+    }),
   ],
 })
