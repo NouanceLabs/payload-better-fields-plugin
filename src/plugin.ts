@@ -2,7 +2,6 @@ import type { Config } from 'payload/config'
 
 import type { PluginTypes } from './types'
 import { extendWebpackConfig } from './webpack'
-import AfterNav from './components/AfterNav'
 
 export const betterFieldsPlugin =
   (pluginOptions: PluginTypes) =>
@@ -22,8 +21,6 @@ export const betterFieldsPlugin =
 
       components: {
         ...(config.admin?.components || {}),
-        // Add additional admin components here
-        beforeNavLinks: [...(config.admin?.components?.beforeNavLinks || []), AfterNav],
       },
     }
 

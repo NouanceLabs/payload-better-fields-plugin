@@ -1,2 +1,1 @@
-export { betterFieldsPlugin } from './plugin'
-export type { PluginTypes } from './types'
+export { SlugField } from './fields/Slug'
