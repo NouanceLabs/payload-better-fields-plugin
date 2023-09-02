@@ -5,7 +5,7 @@ import TextInputField from 'payload/dist/admin/components/forms/field-types/Text
 import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/Checkbox/Input'
 import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
 import type { SlugifyOptions } from '../../types'
-import type { Field } from 'payload/types'
+import type { CheckboxField } from 'payload/types'
 
 import '../../styles/slug.scss'
 
@@ -17,7 +17,7 @@ type Props = TextFieldType & {
   custom: {
     watchFields: string[]
     slugifyOptions?: SlugifyOptions
-    editFieldConfig: Field
+    editFieldConfig: CheckboxField
     enableEditSlug: boolean
   }
 }
@@ -38,10 +38,8 @@ const SlugComponent: React.FC<Props> = ({
   const { value, setValue, showError } = useField<Props>({ path })
 
   const checkboxPath = path.includes('.')
-    ? /* @ts-expect-error */
-      path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
-    : /* @ts-expect-error */
-      editFieldConfig.name
+    ? path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
+    : editFieldConfig.name
 
   const editSlugField = useField<Props>({ path: checkboxPath })
 
@@ -113,7 +111,6 @@ const SlugComponent: React.FC<Props> = ({
           <div className={'srOnly'}>
             <Label
               htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
-              /* @ts-expect-error */
               label={editFieldConfig?.label ?? ''}
             />
           </div>

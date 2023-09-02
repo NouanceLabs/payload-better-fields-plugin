@@ -2,6 +2,8 @@ import type { Field } from 'payload/types'
 import deepMerge, { isObject } from '../../utilities/deepMerge'
 import Component from './Component'
 import type { SlugifyOptions } from '../../types'
+import { TextField, CheckboxField } from 'payload/types'
+import beforeValidate from './beforeValidate'
 
 type Slug = (
   /**
@@ -17,7 +19,7 @@ type Slug = (
   /**
    * Slug field overrides
    */
-  slugOverrides?: Partial<Field>,
+  slugOverrides?: Partial<TextField>,
   /**
    * Disable or enable the checkbox for edit slug field
    * @default true
@@ -31,7 +33,7 @@ type Slug = (
       label: 'Edit slug',
     }
    */
-  editSlugOverrides?: Partial<Field>,
+  editSlugOverrides?: Partial<CheckboxField>,
 ) => Field[]
 
 export const SlugField: Slug = (
@@ -52,12 +54,12 @@ export const SlugField: Slug = (
     editSlugOverrides,
   )
 
-  const editField = deepMerge<Field, Partial<Field>>(
+  const editField = deepMerge<CheckboxField, Partial<CheckboxField>>(
     {
       name: editFieldName.name,
       label: editFieldName.label,
       type: 'checkbox',
-      required: true,
+      required: false,
       admin: {
         disabled: !enableEditSlug,
         hidden: true,
@@ -66,14 +68,18 @@ export const SlugField: Slug = (
     editSlugOverrides,
   )
 
-  const slugField = deepMerge<Field, Partial<Field>>(
+  const slugField = deepMerge<TextField, Partial<TextField>>(
     {
       name: 'slug',
       label: 'Slug',
       type: 'text',
       index: true,
-      required: true,
-
+      required: false,
+      hooks: {
+        beforeValidate: [
+          beforeValidate(fieldToUse, enableEditSlug, editField.name, slugifyOptions),
+        ],
+      },
       unique: true,
       admin: {
         readOnly: false,
