@@ -19,8 +19,7 @@
     "test": "cd dev && yarn test",
     "lint": "eslint src",
     "lint:fix": "eslint --fix --ext .ts,.tsx src",
-    "clean": "rimraf dist && rimraf dev/yarn.lock",
-    "prepublishOnly": "yarn clean && yarn build && cd dev && yarn test"
+    "clean": "rimraf dist && rimraf dev/yarn.lock"
   },
   "author": "dev@nouance.io",
   "license": "MIT",
