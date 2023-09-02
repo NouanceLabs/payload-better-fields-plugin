@@ -3,12 +3,11 @@ import { Label, useField, useFormFields } from 'payload/components/forms'
 import slugify from 'slugify'
 import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
 import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/Checkbox/Input'
-import { Checkbox } from 'payload/components/forms'
 import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
 import type { SlugifyOptions } from '../../types'
 import type { Field } from 'payload/types'
-/* @ts-expect-error */
-import styles from './styles.module.css'
+
+import '../../styles/slug.scss'
 
 type Props = TextFieldType & {
   path: string
@@ -44,15 +43,7 @@ const SlugComponent: React.FC<Props> = ({
     : /* @ts-expect-error */
       editFieldConfig.name
 
-  console.log('checkboxPath', checkboxPath)
-
   const editSlugField = useField<Props>({ path: checkboxPath })
-
-  console.log('editSlugField', checkboxPath, editSlugField.value)
-
-  /* React.useEffect(() => {
-    setStoredValue(value)
-  }, [value]) */
 
   const classes = [
     'field-type',
@@ -60,7 +51,7 @@ const SlugComponent: React.FC<Props> = ({
     className,
     showError && 'error',
     readOnly && 'read-only',
-    styles.container,
+    'container',
   ]
     .filter(Boolean)
     .join(' ')
@@ -71,8 +62,6 @@ const SlugComponent: React.FC<Props> = ({
 
   const isRequired = required
   const isReadonly = readOnly || !Boolean(editSlugField.value)
-
-  console.log('fields', fields)
 
   const processedValue = useMemo(() => {
     const separator = slugifyOptions?.replacement ?? '-'
@@ -94,16 +83,13 @@ const SlugComponent: React.FC<Props> = ({
     }
   }, [isReadonly, processedValue])
 
-  const handleCheckbox: React.FormEventHandler<HTMLInputElement> = () => {
+  const handleCheckbox: React.FormEventHandler<HTMLInputElement> = e => {
     editSlugField.setValue(!Boolean(editSlugField.value))
+    e.stopPropagation()
   }
 
-  console.log('isReadonly', isReadonly)
-  console.log('processedValue', processedValue)
-  console.log('storedValue', value)
-
   return (
-    <div className={styles.wrapper}>
+    <div className={`bfSlugFieldWrapper`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} />
       <div className={classes}>
         <TextInputField
@@ -115,7 +101,7 @@ const SlugComponent: React.FC<Props> = ({
           onChange={e => {
             setValue(e.target.value)
           }}
-          className={styles.slugInput}
+          className={'slugInput'}
           /* @ts-expect-error */
           value={value}
           showError={showError}
@@ -123,13 +109,18 @@ const SlugComponent: React.FC<Props> = ({
             marginBottom: 0,
           }}
         />
-        <div className={styles.checkbox}>
-          <div className={styles.srOnly}>
-            <Label htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`} label="hey" />
+        <div className={'checkbox'}>
+          <div className={'srOnly'}>
+            <Label
+              htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
+              /* @ts-expect-error */
+              label={editFieldConfig?.label ?? ''}
+            />
           </div>
           <CheckboxInput
             id={`field-${checkboxPath.replaceAll('.', '-')}`}
             onToggle={handleCheckbox}
+            defaultChecked={editSlugField.value}
             /* @ts-expect-error */
             checked={editSlugField.value ?? false}
             label={''}
