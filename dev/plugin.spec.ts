@@ -16,15 +16,12 @@ describe('Plugin tests', () => {
     server.close()
   })
 
-  // Add tests to ensure that the plugin works as expected
-
-  // Example test to check for seeded data
-  /* it('seeds data accordingly', async () => {
+  it('seeds data accordingly', async () => {
     const newCollectionQuery = await payload.find({
       collection: 'new-collection',
       sort: 'createdAt',
     })
 
     expect(newCollectionQuery.totalDocs).toEqual(1)
-  }) */
+  })
 })
