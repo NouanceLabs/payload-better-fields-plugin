@@ -18,6 +18,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Slug field](#slug-field)
 
 ## Slug field
+![slugField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/c12c522a-c5c9-49ca-8998-c8ca3eba60bc)
 
 ### Usage
 
