@@ -1,14 +1,8 @@
 import React, { useMemo } from 'react'
 import { Label, useField, useFormFields } from 'payload/components/forms'
-import slugify from 'slugify'
 import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/Checkbox/Input'
 import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
-import type { SlugifyOptions } from '../../types'
-import type { CheckboxField } from 'payload/types'
 import { Config } from '.'
-
-import '../../styles/slug.scss'
 
 type Props = TextFieldType & {
   path: string
@@ -21,7 +15,7 @@ type Props = TextFieldType & {
   }
 }
 
-const SlugComponent: React.FC<Props> = ({
+const ComboComponent: React.FC<Props> = ({
   readOnly,
   className,
   required,
@@ -66,7 +60,7 @@ const SlugComponent: React.FC<Props> = ({
 
         return String(accumulator) + (currentIndex > 0 ? separator : '') + value
       }, options.initial)
-  }, [fields, custom, slugify])
+  }, [fields, custom])
 
   React.useEffect(() => {
     setValue(processedValue)
@@ -98,4 +92,4 @@ const SlugComponent: React.FC<Props> = ({
   )
 }
 
-export default SlugComponent
+export default ComboComponent
