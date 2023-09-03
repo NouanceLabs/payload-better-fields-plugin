@@ -69,6 +69,9 @@ The `SlugField` accepts the following parameters, all are optional
 
 ## Combo field
 
+![comboField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/cbe90336-197b-4372-b267-5a453bfdcc5e)
+
+
 ### Usage
 
 ```ts
