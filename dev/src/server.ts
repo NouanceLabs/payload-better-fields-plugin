@@ -20,8 +20,10 @@ export const start = async (args: { local: boolean } = { local: false }): Promis
     secret: process.env.PAYLOAD_SECRET || 'here-is-a-secret',
     mongoURL: process.env.MONGODB_URI || 'mongodb://127.0.0.1/plugin-development',
     express: app,
+    onInit: async () => {
+      payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
+    },
   })
-
 
   if (process.env.PAYLOAD_SEED === 'true') {
     await seed(payload)

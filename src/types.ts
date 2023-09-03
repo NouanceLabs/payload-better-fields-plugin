@@ -1,5 +1,3 @@
-import type slugify from 'slugify'
-
 export interface PluginTypes {
   /**
    * Enable or disable plugin

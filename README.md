@@ -17,7 +17,10 @@ Every field will come with its own usage instructions and structure. These are s
 
 - [Slug field](#slug-field)
 
+- [Combo field](#combo-field)
+
 ## Slug field
+
 ![slugField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/c12c522a-c5c9-49ca-8998-c8ca3eba60bc)
 
 ### Usage
@@ -58,11 +61,59 @@ The `SlugField` accepts the following parameters, all are optional
 { lower: true, remove: /[*+~.()'"!?#\.,:@]/g }
 ```
 
-- `slugOverrides` - `Field` Slug field overrides, use this to rename the machine name or label of the field
+- `slugOverrides` - `TextField` Slug field overrides, use this to rename the machine name or label of the field
 
 - `enableEditSlug` - `boolean` `@default true` Enable or disable the checkbox field
 
-- `editSlugOverrides` - `Field` `@default ['title']` Checkbox field overrides
+- `editSlugOverrides` - `CheckboxField` `@default ['title']` Checkbox field overrides
+
+## Combo field
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { ComboField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'fullName',
+  },
+  fields: [
+    {
+      type: 'row',
+      fields: [
+        {
+          name: 'firstName',
+          type: 'text',
+        },
+        {
+          name: 'lastName',
+          type: 'text',
+        },
+      ],
+    },
+    ...ComboField(['firstName', 'lastName'], { name: 'fullName' }),
+  ],
+}
+```
+
+### Options
+
+The `ComboField` accepts the following parameters, all are optional
+
+- `fieldToUse` - `string[]` required
+
+- `overrides` - `TextField` required for name attribute
+
+- `options`
+
+  - `separator` - `string` `@default ' '`
+
+  - `initial` - `string` The starting string value before all fields are concatenated
+
+  - `callback` - `(value: string) => string` You can apply a callback to modify each field value if you want to preprocess them
 
 ## Contributing
 

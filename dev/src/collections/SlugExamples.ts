@@ -1,9 +1,8 @@
 import { CollectionConfig } from 'payload/types'
 import { SlugField } from '../../../src'
 
-// Example Collection - For reference only, this must be added to payload.config.ts to be used.
-const Examples: CollectionConfig = {
-  slug: 'examples',
+const SlugExamples: CollectionConfig = {
+  slug: 'slugExamples',
   admin: {
     useAsTitle: 'title',
   },
@@ -55,4 +54,4 @@ const Examples: CollectionConfig = {
   ],
 }
 
-export default Examples
+export default SlugExamples
