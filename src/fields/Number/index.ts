@@ -53,8 +53,6 @@ export const NumberField: Number = (format, overrides) => {
     overrides,
   )
 
-  console.log('numberField', numberField)
-
   const fields = [numberField]
 
   return fields
