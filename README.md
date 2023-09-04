@@ -16,10 +16,19 @@ Every field will come with its own usage instructions and structure. These are s
 ## Fields
 
 - [Slug field](#slug-field)
-
 - [Combo field](#combo-field)
+- [Number field](#number-field)
+- [Pattern field](#pattern-field)
+
+## Styling
+
+We've tried to re-use the internal components of Payload as much as possible. Where we can't we will re-use the CSS variables used in the core theme to ensure as much compatibility with user customisations.
+
+If you want to further customise the CSS of these components, every component comes with a unique class wrapper in the format of `bf<field-name>Wrapper`, eg `bfPatternFieldWrapper`, to help you target these inputs consistently.
 
 ## Slug field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Slug)
 
 ![slugField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/c12c522a-c5c9-49ca-8998-c8ca3eba60bc)
 
@@ -69,8 +78,9 @@ The `SlugField` accepts the following parameters, all are optional
 
 ## Combo field
 
-![comboField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/cbe90336-197b-4372-b267-5a453bfdcc5e)
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Combo)
 
+![comboField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/cbe90336-197b-4372-b267-5a453bfdcc5e)
 
 ### Usage
 
@@ -117,6 +127,118 @@ The `ComboField` accepts the following parameters, all are optional
   - `initial` - `string` The starting string value before all fields are concatenated
 
   - `callback` - `(value: string) => string` You can apply a callback to modify each field value if you want to preprocess them
+
+## Number field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Number) | [react-number-format NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { NumberField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'fullName',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...NumberField(
+          {
+            prefix: '$ ',
+            thousandSeparator: ',',
+            decimalScale: 2,
+            fixedDecimalScale: true,
+          },
+          {
+            name: 'price',
+            required: true,
+          },
+        ),
+  ],
+}
+```
+
+### Options
+
+The `NumberField` accepts the following parameters, all are optional
+
+- `format` - `NumericFormatProps` required accepts props for [NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
+
+  - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
+
+  ```ts
+  // example
+  callback: (value) => parseFloat(value) + 20,
+  ```
+
+- `overrides` - `NumberField` required for name attribute
+
+## Pattern field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Pattern) | [react-number-format PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { PatternField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'fullName',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...PatternField(
+      {
+        format: '+1 (###) #### ###',
+        prefix: '% ',
+        allowEmptyFormatting: true,
+        mask: '_',
+      },
+      {
+        name: 'telephone',
+        type: 'text',
+        required: false,
+        admin: {
+          placeholder: '% 20',
+        },
+      },
+    ),
+  ],
+}
+```
+
+### Options
+
+The `PatternField` accepts the following parameters, all are optional
+
+- `format` - `PatternFormatProps` required accepts props for [PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
+
+  - `format` required input for the pattern to be applied
+
+  - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
+
+  ```ts
+  // example
+  callback: (value) => value + 'ID',
+  ```
+
+- `overrides` - `TextField` required for name attribute
+
+### Notes
+
+We recommend using a text field in Payload.
 
 ## Contributing
 
