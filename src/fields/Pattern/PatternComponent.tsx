@@ -32,9 +32,15 @@ const PatternComponent: React.FC<Props> = ({
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
 
+  const { callback, ...componentProps } = format
+
   const formatValue = useCallback(
     (value: string) => {
-      const prefix = format.prefix
+      const prefix = componentProps.prefix
+
+      if (callback) {
+        return callback(value)
+      }
 
       if (type === 'number') {
         let cleanValue: string | number = value
@@ -48,7 +54,7 @@ const PatternComponent: React.FC<Props> = ({
         return value
       }
     },
-    [type, format],
+    [type, callback, componentProps],
   )
 
   const classes = [
@@ -57,7 +63,6 @@ const PatternComponent: React.FC<Props> = ({
     className,
     showError && 'error',
     readOnly && 'read-only',
-    format.component,
     'container',
   ]
     .filter(Boolean)
@@ -67,7 +72,7 @@ const PatternComponent: React.FC<Props> = ({
   const isReadonly = readOnly || admin?.readOnly
 
   return (
-    <div className={`bfNumericFieldWrapper`}>
+    <div className={`bfPatternFieldWrapper`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
         <Error showError={showError} message={errorMessage ?? ''} />
@@ -81,9 +86,9 @@ const PatternComponent: React.FC<Props> = ({
           name={path}
           required={isRequired}
           readOnly={isReadonly}
-          className="numberInput"
+          className="patternInput"
           placeholder={typeof placeholder === 'string' ? placeholder : ''}
-          {...format}
+          {...componentProps}
         />
       </div>
     </div>

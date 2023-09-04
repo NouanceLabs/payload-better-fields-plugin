@@ -32,26 +32,32 @@ const NumericComponent: React.FC<Props> = ({
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
 
+  const { callback, ...componentProps } = format
+
   const formatValue = useCallback(
     (value: string) => {
-      const prefix = format.prefix
-      const suffix = format.suffix
+      const prefix = componentProps.prefix
+      const suffix = componentProps.suffix
 
-      if (type === 'number') {
-        let cleanValue: string | number = value
-
-        if (prefix) cleanValue = cleanValue.replaceAll(prefix, '')
-
-        if (suffix) cleanValue = cleanValue.replaceAll(suffix, '')
-
-        cleanValue = parseFloat(cleanValue)
-
-        return cleanValue
+      if (callback) {
+        return callback(value)
       } else {
-        return value
+        if (type === 'number') {
+          let cleanValue: string | number = value
+
+          if (prefix) cleanValue = cleanValue.replaceAll(prefix, '')
+
+          if (suffix) cleanValue = cleanValue.replaceAll(suffix, '')
+
+          cleanValue = parseFloat(cleanValue)
+
+          return cleanValue
+        } else {
+          return value
+        }
       }
     },
-    [type, format],
+    [type, componentProps, callback],
   )
 
   const classes = [
@@ -60,7 +66,6 @@ const NumericComponent: React.FC<Props> = ({
     className,
     showError && 'error',
     readOnly && 'read-only',
-    format.component,
     'container',
   ]
     .filter(Boolean)
@@ -86,7 +91,7 @@ const NumericComponent: React.FC<Props> = ({
           readOnly={isReadonly}
           className="numberInput"
           placeholder={typeof placeholder === 'string' ? placeholder : ''}
-          {...format}
+          {...componentProps}
         />
       </div>
     </div>

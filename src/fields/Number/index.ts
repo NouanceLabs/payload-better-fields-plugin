@@ -1,23 +1,17 @@
 import type { Field } from 'payload/types'
 import deepMerge from '../../utilities/deepMerge'
 import NumericComponent from './NumericComponent'
-import PatternComponent from './PatternComponent'
-import { TextField as TextFieldType, NumberField as NumberFieldType } from 'payload/types'
-import beforeValidate from './beforeValidate'
+import { NumberField as NumberFieldType } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'
 import { NumericFormatProps, PatternFormatProps } from 'react-number-format'
 
-type FieldTypes = NumberFieldType | TextFieldType
+type FieldTypes = NumberFieldType
 
 export interface NumericConfig extends NumericFormatProps {
-  component: 'numeric'
+  callback?: (value: string) => number
 }
 
-export interface PatternConfig extends PatternFormatProps {
-  component: 'pattern'
-}
-
-export type Config = NumericConfig | PatternConfig
+export type Config = NumericConfig & {}
 
 type Number = (
   /**
@@ -53,13 +47,7 @@ export const NumberField: Number = (format, overrides) => {
       admin: {
         readOnly: format.readOnly,
         components: {
-          ...(format.component === 'numeric'
-            ? {
-                Field: NumericComponent,
-              }
-            : {
-                Field: PatternComponent,
-              }),
+          Field: NumericComponent,
         },
       },
       custom: {

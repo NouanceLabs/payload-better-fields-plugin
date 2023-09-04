@@ -4,6 +4,7 @@ import Users from './collections/Users'
 import SlugExamples from './collections/SlugExamples'
 import ComboExamples from './collections/ComboExamples'
 import NumberExamples from './collections/NumberExamples'
+import PatternExamples from './collections/PatternExamples'
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
@@ -25,7 +26,7 @@ export default buildConfig({
       return newConfig
     },
   },
-  collections: [SlugExamples, ComboExamples, NumberExamples, Users],
+  collections: [SlugExamples, ComboExamples, NumberExamples, PatternExamples, Users],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },

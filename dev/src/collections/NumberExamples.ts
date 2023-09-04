@@ -17,7 +17,6 @@ const NumberExamples: CollectionConfig = {
       fields: [
         ...NumberField(
           {
-            component: 'numeric',
             prefix: '$ ',
             min: 5,
             thousandSeparator: ',',
@@ -32,7 +31,6 @@ const NumberExamples: CollectionConfig = {
         ),
         ...NumberField(
           {
-            component: 'numeric',
             prefix: '% ',
             max: 20,
             min: 5,
@@ -51,22 +49,6 @@ const NumberExamples: CollectionConfig = {
         ),
       ],
     },
-    ...NumberField(
-      {
-        component: 'pattern',
-        format: '+1 (###) #### ###',
-        prefix: '% ',
-        allowEmptyFormatting: true,
-        mask: '_',
-      },
-      {
-        name: 'telephone',
-        required: false,
-        admin: {
-          placeholder: '% 20',
-        },
-      },
-    ),
   ],
 }
 
