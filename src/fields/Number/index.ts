@@ -30,18 +30,14 @@ export const NumberField: Number = (format, overrides) => {
       name: 'number',
       type: 'number',
       required: format.required,
-      ...('type' in overrides && overrides.type === 'number'
+      ...(format?.min
         ? {
-            ...(format?.min
-              ? {
-                  min: typeof format.min === 'string' ? parseInt(format.min) : format.min,
-                }
-              : {}),
-            ...(format?.max
-              ? {
-                  max: typeof format.max === 'string' ? parseInt(format.max) : format.max,
-                }
-              : {}),
+            min: typeof format.min === 'string' ? parseInt(format.min) : format.min,
+          }
+        : {}),
+      ...(format?.max
+        ? {
+            max: typeof format.max === 'string' ? parseInt(format.max) : format.max,
           }
         : {}),
       admin: {
@@ -56,6 +52,8 @@ export const NumberField: Number = (format, overrides) => {
     },
     overrides,
   )
+
+  console.log('numberField', numberField)
 
   const fields = [numberField]
 

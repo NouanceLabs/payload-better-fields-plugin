@@ -26,14 +26,13 @@ const NumberExamples: CollectionConfig = {
           {
             name: 'price',
             required: true,
-            admin: {},
           },
         ),
         ...NumberField(
           {
             prefix: '% ',
-            max: 20,
             min: 5,
+            max: 20,
             decimalScale: 0,
             fixedDecimalScale: true,
           },
