@@ -132,6 +132,8 @@ The `ComboField` accepts the following parameters, all are optional
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Number) | [react-number-format NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
 
+![numberField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/0edbcbad-116a-4fcb-b44f-837a32ffa80a)
+
 ### Usage
 
 ```ts
@@ -182,6 +184,8 @@ The `NumberField` accepts the following parameters, all are optional
 ## Pattern field
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Pattern) | [react-number-format PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
+
+![patternField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/332597f3-1c99-4657-972c-223f0ea06ea8)
 
 ### Usage
 
