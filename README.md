@@ -255,7 +255,7 @@ We recommend using a text field in Payload.
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { ColourTextField } from '../../../src'
+import { ColourTextField } from '@nouance/payload-better-fields-plugin'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
