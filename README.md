@@ -249,6 +249,8 @@ We recommend using a text field in Payload.
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/ColourText) | [validate-color](https://github.com/dreamyguy/validate-color)
 
+![colourTextField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/0ffce2e4-f628-44a0-acac-127cf1f396a8)
+
 ### Usage
 
 ```ts
