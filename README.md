@@ -19,6 +19,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Combo field](#combo-field)
 - [Number field](#number-field)
 - [Pattern field](#pattern-field)
+- [Colour Text field](#colour-text-field)
 
 ## Styling
 
@@ -59,7 +60,7 @@ const Examples: CollectionConfig = {
 
 ### Options
 
-The `SlugField` accepts the following parameters, all are optional
+The `SlugField` accepts the following parameters
 
 - `fieldToUse` - `string[]` `@default ['title']`
 
@@ -114,11 +115,11 @@ const Examples: CollectionConfig = {
 
 ### Options
 
-The `ComboField` accepts the following parameters, all are optional
+The `ComboField` accepts the following parameters
 
-- `fieldToUse` - `string[]` required
+- `fieldToUse` - `string[]` **required**
 
-- `overrides` - `TextField` required for name attribute
+- `overrides` - `TextField` **required** for name attribute
 
 - `options`
 
@@ -168,9 +169,9 @@ const Examples: CollectionConfig = {
 
 ### Options
 
-The `NumberField` accepts the following parameters, all are optional
+The `NumberField` accepts the following parameters
 
-- `format` - `NumericFormatProps` required accepts props for [NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
+- `format` - `NumericFormatProps` **required**, accepts props for [NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
 
   - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
 
@@ -179,7 +180,7 @@ The `NumberField` accepts the following parameters, all are optional
   callback: (value) => parseFloat(value) + 20,
   ```
 
-- `overrides` - `NumberField` required for name attribute
+- `overrides` - `NumberField` **required** for name attribute
 
 ## Pattern field
 
@@ -225,11 +226,11 @@ const Examples: CollectionConfig = {
 
 ### Options
 
-The `PatternField` accepts the following parameters, all are optional
+The `PatternField` accepts the following parameters
 
-- `format` - `PatternFormatProps` required accepts props for [PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
+- `format` - `PatternFormatProps` **required**, accepts props for [PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
 
-  - `format` required input for the pattern to be applied
+  - `format` **required**, input for the pattern to be applied
 
   - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
 
@@ -238,11 +239,46 @@ The `PatternField` accepts the following parameters, all are optional
   callback: (value) => value + 'ID',
   ```
 
-- `overrides` - `TextField` required for name attribute
+- `overrides` - `TextField` **required** for name attribute
 
 ### Notes
 
 We recommend using a text field in Payload.
+
+## Colour Text field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/ColourText) | [validate-color](https://github.com/dreamyguy/validate-color)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { ColourTextField } from '../../../src'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...ColourTextField({
+      name: 'colour',
+    }),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `ColourTextField` accepts the following parameters
+
+- `overrides` - `TextField` **required** for name attribute
 
 ## Contributing
 
