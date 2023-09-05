@@ -35,7 +35,7 @@ const SlugComponent: React.FC<Props> = ({
 }) => {
   const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } = custom
   const [storedValue, setStoredValue] = React.useState('')
-  const { value, setValue, showError } = useField<Props>({ path })
+  const { value, setValue, showError, errorMessage } = useField<Props>({ path })
 
   const checkboxPath = path.includes('.')
     ? path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
@@ -88,7 +88,7 @@ const SlugComponent: React.FC<Props> = ({
 
   return (
     <div className={`bfSlugFieldWrapper`}>
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} />
+      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
         <TextInputField
           path={path}
@@ -103,6 +103,7 @@ const SlugComponent: React.FC<Props> = ({
           /* @ts-expect-error */
           value={value}
           showError={showError}
+          errorMessage={errorMessage}
           style={{
             marginBottom: 0,
           }}
