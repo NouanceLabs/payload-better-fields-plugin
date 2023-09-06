@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload/types'
 import { RangeField } from '../../../src'
-import slugify from 'slugify'
 
 const RangeExamples: CollectionConfig = {
   slug: 'rangeExamples',

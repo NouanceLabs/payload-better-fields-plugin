@@ -1,0 +1,89 @@
+import type { Field } from 'payload/types'
+import deepMerge from '../../utilities/deepMerge'
+import NumericComponent from './Component'
+import { TextField as TextFieldType } from 'payload/types'
+import { PartialRequired } from '../../utilities/partialRequired'
+import validate from './validate'
+
+type FieldTypes = TextFieldType
+
+/**
+ * Additional config unique to the Telephone input
+ * See https://catamphetamine.gitlab.io/react-phone-number-input/ for more information
+ */
+export interface Config {
+  /**
+   * Forces international formatting
+   * @default true
+   */
+  international?: boolean
+  /**
+   * You can provide an ISO 2-letter country code eg. 'US'
+   * If defaultCountry is specified then the phone number can be input both in "international" format and "national" format
+   */
+  defaultCountry?: string
+  /**
+   * You can provide an ISO 2-letter country code eg. 'US'
+   * If country is specified then the phone number can only be input in "national" (not "international") format
+   */
+  country?: string
+  /**
+   * If an initial value is passed, and initialValueFormat is "national", then the initial value is formatted in national format
+   */
+  initialValueFormat?: 'national'
+  /**
+   * If country is specified and international property is true then the phone number can only be input in "international" format for that country
+   */
+  withCountryCallingCode?: boolean
+  countryCallingCodeEditable?: boolean
+  /**
+   * When the user attempts to insert a digit somewhere in the middle of a phone number, the caret position is moved right before the next available digit skipping any punctuation in between
+   */
+  smartCaret?: boolean
+  /**
+   * When defaultCountry is defined and the initial value corresponds to defaultCountry, then the value will be formatted as a national phone number by default
+   */
+  useNationalFormatForDefaultCountryValue?: boolean
+  countrySelectProps?: {
+    /**
+     * 	Set to `true` to render Unicode flag icons instead of SVG images
+     */
+    unicodeFlags?: boolean
+  }
+}
+
+type Telephone = (
+  /**
+   * Field overrides
+   */
+  overrides: Omit<PartialRequired<FieldTypes, 'name'>, 'type'>,
+  config?: Config,
+) => Field[]
+
+export const TelephoneField: Telephone = (
+  overrides,
+  config = {
+    international: true,
+  },
+) => {
+  const telephoneField = deepMerge<FieldTypes, Omit<Partial<FieldTypes>, 'type'>>(
+    {
+      name: 'telephone',
+      type: 'text',
+      validate: validate(overrides.required),
+      admin: {
+        components: {
+          Field: NumericComponent,
+        },
+      },
+      custom: {
+        config: config,
+      },
+    },
+    overrides,
+  )
+
+  const fields = [telephoneField]
+
+  return fields
+}

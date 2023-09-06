@@ -1,6 +1,5 @@
 import { CollectionConfig } from 'payload/types'
 import { NumberField } from '../../../src'
-import slugify from 'slugify'
 
 const NumberExamples: CollectionConfig = {
   slug: 'numberExamples',

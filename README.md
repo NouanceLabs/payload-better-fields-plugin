@@ -21,6 +21,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Pattern field](#pattern-field)
 - [Range field](#range-field)
 - [Colour Text field](#colour-text-field)
+- [Telephone field](#telephone-field)
 
 ## Styling
 
@@ -63,7 +64,7 @@ const Examples: CollectionConfig = {
 
 The `SlugField` accepts the following parameters
 
-- `fieldToUse` - `string[]` `@default ['title']`
+- `fieldToUse` - `string[]` defaults to `['title']`
 
 - `slugifyOptions` - Options to be passed to the [slugify](https://www.npmjs.com/package/slugify) function
 
@@ -74,9 +75,9 @@ The `SlugField` accepts the following parameters
 
 - `slugOverrides` - `TextField` Slug field overrides, use this to rename the machine name or label of the field
 
-- `enableEditSlug` - `boolean` `@default true` Enable or disable the checkbox field
+- `enableEditSlug` - `boolean` defaults to `true` | Enable or disable the checkbox field
 
-- `editSlugOverrides` - `CheckboxField` `@default ['title']` Checkbox field overrides
+- `editSlugOverrides` - `CheckboxField` | Checkbox field overrides
 
 ## Combo field
 
@@ -124,7 +125,7 @@ The `ComboField` accepts the following parameters
 
 - `options`
 
-  - `separator` - `string` `@default ' '`
+  - `separator` - `string` defaults to `' '`
 
   - `initial` - `string` The starting string value before all fields are concatenated
 
@@ -336,6 +337,66 @@ export default Examples
 The `ColourTextField` accepts the following parameters
 
 - `overrides` - `TextField` **required** for name attribute
+
+## Telephone field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Telephone) | [react-phone-number-input](https://www.npmjs.com/package/react-phone-number-input)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { TelephoneField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...TelephoneField({
+      name: 'telephone',
+      admin: {
+        placeholder: '+1 2133 734 253',
+      },
+    }),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `TelephoneField` accepts the following parameters
+
+- `overrides` - `TextField` **required** for `name` attribute
+
+- `config` - `Config` optional, allows for overriding attributes in the phone field
+
+  - `international` defaults to `true` | Forces international formatting
+
+  - `defaultCountry` accepts a 2-letter country code eg. `'US'` | If defaultCountry is specified then the phone number can be input both in "international" format and "national" format
+
+  - `country` accepts a 2-letter country code eg. `'US'` | If country is specified then the phone number can only be input in "national" (not "international") format
+
+  - `initialValueFormat` If an initial value is passed, and initialValueFormat is "national", then the initial value is formatted in national format
+
+  - `withCountryCallingCode` If country is specified and international property is true then the phone number can only be input in "international" format for that country
+
+  - `countryCallingCodeEditable`
+
+  - `smartCaret` When the user attempts to insert a digit somewhere in the middle of a phone number, the caret position is moved right before the next available digit skipping any punctuation in between
+
+  - `useNationalFormatForDefaultCountryValue` When defaultCountry is defined and the initial value corresponds to defaultCountry, then the value will be formatted as a national phone number by default
+
+  - `countrySelectProps`
+
+    - `unicodeFlags` defaults to `false` | Set to `true` to render Unicode flag icons instead of SVG images
 
 ## Contributing
 

@@ -7,6 +7,7 @@ import NumberExamples from './collections/NumberExamples'
 import PatternExamples from './collections/PatternExamples'
 import ColourTextExamples from './collections/ColourTextExamples'
 import RangeExamples from './collections/RangeExamples'
+import TelephoneExamples from './collections/TelephoneExamples'
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
@@ -35,6 +36,7 @@ export default buildConfig({
     PatternExamples,
     ColourTextExamples,
     RangeExamples,
+    TelephoneExamples,
     Users,
   ],
   typescript: {

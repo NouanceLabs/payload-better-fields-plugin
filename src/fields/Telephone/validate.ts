@@ -1,5 +1,5 @@
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
 import { Validate } from 'payload/types'
-import validateColor from 'validate-color'
 
 const validate =
   (required?: boolean): Validate =>
@@ -9,9 +9,9 @@ const validate =
     } else if (Boolean(required) && (!Boolean(value) || value === '')) {
       return 'This field is required.'
     }
-    if (validateColor(value)) return true
+    if (isPossiblePhoneNumber(value)) return true
 
-    return 'This is not a valid colour value.'
+    return 'This is not a possible phone number.'
   }
 
 export default validate

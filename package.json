@@ -1,6 +1,6 @@
 {
   "name": "@nouance/payload-better-fields-plugin",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "homepage:": "https://github.com/NouanceLabs/payload-better-fields-plugin",
   "repository": "git@github.com:NouanceLabs/payload-better-fields-plugin.git",
   "description": "A Payload plugin that aims to provide improved fields for the admin panel",
@@ -46,6 +46,7 @@
   },
   "dependencies": {
     "react-number-format": "^5.3.1",
+    "react-phone-number-input": "^3.3.6",
     "slugify": "^1.6.6",
     "validate-color": "^2.2.4"
   },
