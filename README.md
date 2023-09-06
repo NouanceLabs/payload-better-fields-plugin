@@ -342,6 +342,8 @@ The `ColourTextField` accepts the following parameters
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Telephone) | [react-phone-number-input](https://www.npmjs.com/package/react-phone-number-input)
 
+![telephoneField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/843ca83b-79e4-47ba-8234-83de41400140)
+
 ### Usage
 
 ```ts
