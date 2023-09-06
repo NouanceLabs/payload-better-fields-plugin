@@ -17,3 +17,18 @@ export type SlugifyOptions = {
   locale?: string | undefined
   trim?: boolean | undefined
 }
+
+/**
+ * Marker item to map with datalist options accepting string values
+ */
+export type MarkerItem = {
+  value: string
+}
+
+/**
+ * Marker item to map with datalist options accepting number values
+ */
+export type NumberMarkerItem = {
+  value: number
+  label?: string
+}

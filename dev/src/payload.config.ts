@@ -6,6 +6,7 @@ import ComboExamples from './collections/ComboExamples'
 import NumberExamples from './collections/NumberExamples'
 import PatternExamples from './collections/PatternExamples'
 import ColourTextExamples from './collections/ColourTextExamples'
+import RangeExamples from './collections/RangeExamples'
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
@@ -33,6 +34,7 @@ export default buildConfig({
     NumberExamples,
     PatternExamples,
     ColourTextExamples,
+    RangeExamples,
     Users,
   ],
   typescript: {

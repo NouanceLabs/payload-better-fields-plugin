@@ -1,0 +1,136 @@
+$background: var(--theme-elevation-150);
+$thumb: var(--theme-elevation-700);
+
+%range-track {
+  background: $background;
+  height: 0.5rem;
+  width: 100%;
+}
+
+%range-thumb {
+  background: $thumb;
+  width: 1rem;
+  height: 2rem;
+  border-radius: 0;
+  border: none;
+}
+
+.bfRangeFieldWrapper {
+  margin-bottom: 2rem;
+  position: relative;
+
+  .container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    flex-grow: 2;
+    min-width: 16rem;
+  }
+
+  .markersList {
+    display: flex;
+    height: 1rem;
+    width: calc(100% - 1rem);
+    margin: 0 auto;
+    justify-content: space-between;
+    position: relative;
+
+    & > option {
+      padding: 0;
+      width: auto;
+      min-height: unset;
+      position: absolute;
+      top: 0;
+      text-align: center;
+      padding-top: 0.5rem;
+      color: var(--theme-elevation-600);
+
+      &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 0;
+        height: 100%;
+        width: 2px;
+        height: 0.75rem;
+        background: var(--theme-elevation-150);
+      }
+    }
+  }
+
+  .rangeInput {
+    &::-webkit-slider-runnable-track {
+      @extend %range-track;
+      appearance: none;
+
+      margin-top: -0.25rem;
+      background: $background;
+      height: 0.5rem;
+      width: 100%;
+    }
+
+    &::-webkit-slider-thumb {
+      @extend %range-thumb;
+      appearance: none;
+      margin-top: -0.75rem;
+      background: $thumb;
+      width: 1rem;
+      height: 2rem;
+
+      &:hover {
+        background: var(--theme-elevation-900);
+        cursor: pointer;
+      }
+    }
+  }
+
+  .rangeInput {
+    &::-moz-range-track {
+      @extend %range-track;
+    }
+
+    &::-moz-range-thumb {
+      @extend %range-thumb;
+      &:hover,
+      &:active {
+        background: var(--theme-elevation-900);
+        cursor: pointer;
+      }
+    }
+
+    /* Leaving this here for examples */
+    /* &::-moz-range-progress {
+    background: var(--theme-elevation-300);
+  } */
+  }
+
+  .rangeInput {
+    width: 100%;
+    -webkit-appearance: none;
+    appearance: none;
+    margin: 0;
+    background: transparent;
+  }
+
+  .resetButton {
+    padding: 0.25rem 0.5rem;
+  }
+
+  .containerWrapper {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    width: 100%;
+    gap: 1rem;
+  }
+
+  .valuePreview {
+    padding: 0.5rem;
+    border: 1px solid var(--theme-elevation-150);
+    aspect-ratio: 1/1;
+    height: auto;
+    width: 3rem;
+    text-align: center;
+  }
+}
