@@ -250,6 +250,8 @@ We recommend using a text field in Payload.
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Range)
 
+![rangeField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/f42d20dd-8d1f-47f4-b31b-eefc6b446163)
+
 ### Usage
 
 ```ts
