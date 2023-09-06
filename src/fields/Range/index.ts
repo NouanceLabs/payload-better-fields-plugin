@@ -44,7 +44,7 @@ type Range = (
 export const RangeField: Range = (config = {}, overrides) => {
   const rangeField = deepMerge<FieldTypes, Omit<Partial<FieldTypes>, 'type'>>(
     {
-      name: 'number',
+      name: 'range',
       type: 'number',
       admin: {
         components: {
