@@ -13,7 +13,7 @@ type Props = (NumberField | TextField) & {
   placeholder?: string
   className?: string
   custom: {
-    format: NumericConfig
+    config: NumericConfig
   }
 }
 
@@ -28,11 +28,11 @@ const NumericComponent: React.FC<Props> = ({
   type,
   ...others
 }) => {
-  const { format } = custom
+  const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
 
-  const { callback, ...componentProps } = format
+  const { callback, ...componentProps } = config
 
   const formatValue = useCallback(
     (value: string) => {

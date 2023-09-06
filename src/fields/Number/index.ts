@@ -17,37 +17,37 @@ type Number = (
   /**
    * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
    */
-  format: Config,
+  config: Config,
   /**
    * Field overrides
    */
   overrides: PartialRequired<FieldTypes, 'name'>,
 ) => Field[]
 
-export const NumberField: Number = (format, overrides) => {
+export const NumberField: Number = (config, overrides) => {
   const numberField = deepMerge<FieldTypes, Partial<FieldTypes>>(
     {
       name: 'number',
       type: 'number',
-      required: format.required,
-      ...(format?.min
+      required: config.required,
+      ...(config?.min
         ? {
-            min: typeof format.min === 'string' ? parseInt(format.min) : format.min,
+            min: typeof config.min === 'string' ? parseInt(config.min) : config.min,
           }
         : {}),
-      ...(format?.max
+      ...(config?.max
         ? {
-            max: typeof format.max === 'string' ? parseInt(format.max) : format.max,
+            max: typeof config.max === 'string' ? parseInt(config.max) : config.max,
           }
         : {}),
       admin: {
-        readOnly: format.readOnly,
+        readOnly: config.readOnly,
         components: {
           Field: NumericComponent,
         },
       },
       custom: {
-        format: format,
+        config: config,
       },
     },
     overrides,

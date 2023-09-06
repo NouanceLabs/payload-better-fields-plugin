@@ -1,6 +1,6 @@
 import type { Field } from 'payload/types'
 import deepMerge from '../../utilities/deepMerge'
-import NumericComponent from './RangeComponent'
+import RangeComponent from './Component'
 import { NumberField as NumberFieldType } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'
 import { NumberMarkerItem } from '../../types'
@@ -48,7 +48,7 @@ export const RangeField: Range = (config = {}, overrides) => {
       type: 'number',
       admin: {
         components: {
-          Field: NumericComponent,
+          Field: RangeComponent,
         },
       },
       ...(config?.min

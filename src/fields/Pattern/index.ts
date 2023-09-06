@@ -17,27 +17,27 @@ type Pattern = (
   /**
    * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
    */
-  format: Config,
+  config: Config,
   /**
    * Field overrides
    */
   overrides: PartialRequired<FieldTypes, 'name'>,
 ) => Field[]
 
-export const PatternField: Pattern = (format, overrides) => {
+export const PatternField: Pattern = (config, overrides) => {
   const patternField = deepMerge<FieldTypes, Partial<FieldTypes>>(
     {
       name: 'pattern',
       type: 'text',
-      required: format.required,
+      required: config.required,
       admin: {
-        readOnly: format.readOnly,
+        readOnly: config.readOnly,
         components: {
           Field: PatternComponent,
         },
       },
       custom: {
-        format: format,
+        config: config,
       },
     },
     overrides,
