@@ -50,9 +50,6 @@ const RangeComponent: React.FC<Props> = ({
     .filter(Boolean)
     .join(' ')
 
-  console.log('others', others)
-  console.log('range', config)
-
   const isRequired = required
   const isReadonly = readOnly || admin?.readOnly
 
