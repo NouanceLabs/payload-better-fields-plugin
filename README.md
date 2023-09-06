@@ -19,6 +19,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Combo field](#combo-field)
 - [Number field](#number-field)
 - [Pattern field](#pattern-field)
+- [Range field](#range-field)
 - [Colour Text field](#colour-text-field)
 
 ## Styling
@@ -152,17 +153,17 @@ const Examples: CollectionConfig = {
       type: 'text',
     },
     ...NumberField(
-          {
-            prefix: '$ ',
-            thousandSeparator: ',',
-            decimalScale: 2,
-            fixedDecimalScale: true,
-          },
-          {
-            name: 'price',
-            required: true,
-          },
-        ),
+      {
+        prefix: '$ ',
+        thousandSeparator: ',',
+        decimalScale: 2,
+        fixedDecimalScale: true,
+      },
+      {
+        name: 'price',
+        required: true,
+      },
+    ),
   ],
 }
 ```
@@ -244,6 +245,58 @@ The `PatternField` accepts the following parameters
 ### Notes
 
 We recommend using a text field in Payload.
+
+## Range field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Range)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { RangeField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...RangeField(
+      { min: 5, max: 200, step: 5 },
+      {
+        name: 'groups',
+      },
+    ),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `RangeField` accepts the following parameters
+
+- `config` - **required**
+
+  - `min` - `number` defaults to 1
+
+  - `max` - `number` defaults to 100
+
+  - `step` - `number` defaults to 1
+
+  - `showPreview` - `boolean` defaults to false, shows a preview box of the underlying selected value, `n/a` for null
+
+  - `markers` - `NumberMarker[]` array of markers to be visually set, accepts an optional label
+
+    - `{ value: number, label?: string}[]`
+
+- `overrides` - `NumberField` **required** for name attribute
 
 ## Colour Text field
 
