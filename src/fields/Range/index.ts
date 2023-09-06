@@ -34,14 +34,14 @@ export type Config = {
 }
 
 type Range = (
-  range: Config,
+  config: Config,
   /**
    * Field overrides
    */
   overrides: Omit<PartialRequired<FieldTypes, 'name'>, 'type'>,
 ) => Field[]
 
-export const RangeField: Range = (range = {}, overrides) => {
+export const RangeField: Range = (config = {}, overrides) => {
   const rangeField = deepMerge<FieldTypes, Omit<Partial<FieldTypes>, 'type'>>(
     {
       name: 'number',
@@ -51,18 +51,18 @@ export const RangeField: Range = (range = {}, overrides) => {
           Field: NumericComponent,
         },
       },
-      ...(range?.min
+      ...(config?.min
         ? {
-            min: range.min,
+            min: config.min,
           }
         : {}),
-      ...(range?.max
+      ...(config?.max
         ? {
-            max: range.max,
+            max: config.max,
           }
         : {}),
       custom: {
-        config: range,
+        config: config,
       },
     },
     overrides,
