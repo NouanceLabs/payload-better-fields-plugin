@@ -7,6 +7,11 @@ const ComboExamples: CollectionConfig = {
   admin: {
     useAsTitle: 'fullName',
   },
+  versions: {
+    drafts: {
+      autosave: true,
+    },
+  },
   fields: [
     {
       type: 'row',

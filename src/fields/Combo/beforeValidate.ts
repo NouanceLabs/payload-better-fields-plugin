@@ -4,7 +4,10 @@ import { Config } from '.'
 
 const beforeValidate =
   (watchFields: string[], options: Config): FieldHook =>
-  ({ siblingData, value, originalDoc, data, req }) => {
+  ({ siblingData, value, originalDoc, data, req, operation }) => {
+    if (operation === 'create') {
+      return value
+    }
     let missingFields: string[] = []
 
     const fields = watchFields.map(field => {
@@ -19,7 +22,7 @@ const beforeValidate =
     })
 
     /* Repeat the same but in the original doc to make sure we get all the data we can */
-    if (missingFields.length > 0) {
+    if (missingFields.length > 0 && Boolean(originalDoc)) {
       missingFields.forEach(field => {
         const nestedItem = getItemInNestObject(field, originalDoc) as string
 

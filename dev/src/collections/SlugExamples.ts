@@ -3,6 +3,11 @@ import { SlugField } from '../../../src'
 
 const SlugExamples: CollectionConfig = {
   slug: 'slugExamples',
+  versions: {
+    drafts: {
+      autosave: true,
+    },
+  },
   admin: {
     useAsTitle: 'title',
   },

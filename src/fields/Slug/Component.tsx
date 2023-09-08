@@ -34,7 +34,6 @@ const SlugComponent: React.FC<Props> = ({
   ...others
 }) => {
   const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } = custom
-  const [storedValue, setStoredValue] = React.useState('')
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
 
   const checkboxPath = path.includes('.')

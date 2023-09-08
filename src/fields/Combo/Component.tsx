@@ -27,7 +27,6 @@ const ComboComponent: React.FC<Props> = ({
   ...others
 }) => {
   const { watchFields, options } = custom
-  const [storedValue, setStoredValue] = React.useState('')
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
 
   const classes = [
