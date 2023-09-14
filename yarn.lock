@@ -6688,10 +6688,10 @@ pause@0.0.1:
   resolved "https://registry.yarnpkg.com/pause/-/pause-0.0.1.tgz#1d408b3fdb76923b9543d96fb4c9dfd535d9cb5d"
   integrity sha512-KG8UEiEVkR3wGEb4m5yZkVCzigAD+cVEJck2CzYZO37ZGJfctvVptVO192MwrtPhzONn6go8ylnOdMhKqi4nfg==
 
-payload@^1.15.4:
-  version "1.15.4"
-  resolved "https://registry.yarnpkg.com/payload/-/payload-1.15.4.tgz#448bbb8ece3378e41abb0e60931e7637109467a1"
-  integrity sha512-VN+ERihzzFfM+ZUgqy7fjlfUffW6qIHQ1zO+N/aoqNsyZ1DIH4sS50gRfXuDfKXWe9Se5HlTQvMTDfT5a4YMpw==
+payload@^1.15.6:
+  version "1.15.6"
+  resolved "https://registry.yarnpkg.com/payload/-/payload-1.15.6.tgz#8e85a1445d8a9405a05a5223ef7619dff9a30127"
+  integrity sha512-rK73rUbEcvnSr6q69vD/U5MiH0uXcEL9KIsTnSjX4hGaG3VLXyp/xJ9oq8FF+M15XG4LEGzNyHbqqG2R8yBLtQ==
   dependencies:
     "@date-io/date-fns" "^2.16.0"
     "@dnd-kit/core" "^6.0.7"
