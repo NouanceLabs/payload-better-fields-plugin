@@ -72,11 +72,14 @@ const SlugComponent: React.FC<Props> = ({
           slugify(String(currentValue.value), slugifyOptions)
         )
       }, '')
-  }, [fields, custom, slugify])
+  }, [fields])
 
   React.useEffect(() => {
     if (isReadonly) {
-      setValue(processedValue)
+      /* @ts-expect-error */
+      if (processedValue !== value) {
+        setValue(processedValue)
+      }
     }
   }, [isReadonly, processedValue])
 
@@ -96,6 +99,7 @@ const SlugComponent: React.FC<Props> = ({
           required={isRequired}
           readOnly={isReadonly}
           onChange={e => {
+            console.log('trigger set value')
             setValue(e.target.value)
           }}
           className={'slugInput'}

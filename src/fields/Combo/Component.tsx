@@ -62,8 +62,11 @@ const ComboComponent: React.FC<Props> = ({
   }, [fields, custom])
 
   React.useEffect(() => {
-    setValue(processedValue)
-  }, [isReadonly, processedValue])
+    /* @ts-expect-error */
+    if (processedValue !== value) {
+      setValue(processedValue)
+    }
+  }, [processedValue])
 
   return (
     <div className={`bfComboFieldWrapper`}>
