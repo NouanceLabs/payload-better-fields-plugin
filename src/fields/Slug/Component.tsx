@@ -99,7 +99,6 @@ const SlugComponent: React.FC<Props> = ({
           required={isRequired}
           readOnly={isReadonly}
           onChange={e => {
-            console.log('trigger set value')
             setValue(e.target.value)
           }}
           className={'slugInput'}
