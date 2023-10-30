@@ -13,14 +13,14 @@ export type Config = {
 
 type Combo = (
   /**
+   * Field overrides
+   */
+  overrides: PartialRequired<TextField, 'name'>,
+  /**
    * An array of string mapping the field path names, nested fields are supported here
    * @default {string[]} ['title']
    */
   fieldToUse: string[],
-  /**
-   * Field overrides
-   */
-  overrides: PartialRequired<TextField, 'name'>,
   /**
    * Additional configuration for processing the value
    * @default { separator: ' ' }
@@ -29,8 +29,8 @@ type Combo = (
 ) => Field[]
 
 export const ComboField: Combo = (
-  fieldToUse: string[],
   overrides,
+  fieldToUse: string[],
   options: Config = { separator: ' ', initial: '' },
 ) => {
   const comboField = deepMerge<TextField, Partial<TextField>>(

@@ -127,9 +127,9 @@ const Examples: CollectionConfig = {
 
 The `ComboField` accepts the following parameters
 
-- `fieldToUse` - `string[]` **required**
-
 - `overrides` - `TextField` **required** for name attribute
+
+- `fieldToUse` - `string[]` **required**
 
 - `options`
 
@@ -181,6 +181,8 @@ const Examples: CollectionConfig = {
 
 The `NumberField` accepts the following parameters
 
+- `overrides` - `NumberField` **required** for name attribute
+
 - `format` - `NumericFormatProps` **required**, accepts props for [NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
 
   - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
@@ -189,8 +191,6 @@ The `NumberField` accepts the following parameters
   // example
   callback: (value) => parseFloat(value) + 20,
   ```
-
-- `overrides` - `NumberField` **required** for name attribute
 
 ## Pattern field
 
@@ -238,6 +238,8 @@ const Examples: CollectionConfig = {
 
 The `PatternField` accepts the following parameters
 
+- `overrides` - `TextField` **required** for name attribute
+
 - `format` - `PatternFormatProps` **required**, accepts props for [PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
 
   - `format` **required**, input for the pattern to be applied
@@ -248,8 +250,6 @@ The `PatternField` accepts the following parameters
   // example
   callback: (value) => value + 'ID',
   ```
-
-- `overrides` - `TextField` **required** for name attribute
 
 ### Notes
 
@@ -293,6 +293,8 @@ export default Examples
 
 The `RangeField` accepts the following parameters
 
+- `overrides` - `NumberField` **required** for name attribute
+
 - `config` - **required**
 
   - `min` - `number` defaults to 1
@@ -306,8 +308,6 @@ The `RangeField` accepts the following parameters
   - `markers` - `NumberMarker[]` array of markers to be visually set, accepts an optional label
 
     - `{ value: number, label?: string}[]`
-
-- `overrides` - `NumberField` **required** for name attribute
 
 ## Colour Text field
 

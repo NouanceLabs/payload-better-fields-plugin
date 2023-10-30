@@ -15,16 +15,16 @@ export type Config = PatternConfig & {}
 
 type Pattern = (
   /**
-   * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
-   */
-  config: Config,
-  /**
    * Field overrides
    */
   overrides: PartialRequired<FieldTypes, 'name'>,
+  /**
+   * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
+   */
+  config: Config,
 ) => Field[]
 
-export const PatternField: Pattern = (config, overrides) => {
+export const PatternField: Pattern = (overrides, config) => {
   const patternField = deepMerge<FieldTypes, Partial<FieldTypes>>(
     {
       name: 'pattern',

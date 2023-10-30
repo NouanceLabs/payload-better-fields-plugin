@@ -15,16 +15,16 @@ export type Config = NumericConfig & {}
 
 type Number = (
   /**
-   * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
-   */
-  config: Config,
-  /**
    * Field overrides
    */
   overrides: PartialRequired<FieldTypes, 'name'>,
+  /**
+   * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
+   */
+  config: Config,
 ) => Field[]
 
-export const NumberField: Number = (config, overrides) => {
+export const NumberField: Number = (overrides, config) => {
   const numberField = deepMerge<FieldTypes, Partial<FieldTypes>>(
     {
       name: 'number',
