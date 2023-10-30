@@ -412,6 +412,8 @@ The `TelephoneField` accepts the following parameters
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/AlertBox)
 
+![alertBoxField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/f6fabbda-00cc-40bc-8a0b-3c0024951188)
+
 ### Usage
 
 ```ts
