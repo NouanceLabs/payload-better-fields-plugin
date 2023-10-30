@@ -1,4 +1,7 @@
 import { buildConfig } from 'payload/config'
+import { mongooseAdapter } from '@payloadcms/db-mongodb'
+import { slateEditor } from '@payloadcms/richtext-slate'
+import { webpackBundler } from '@payloadcms/bundler-webpack'
 import path from 'path'
 import Users from './collections/Users'
 import SlugExamples from './collections/SlugExamples'
@@ -12,7 +15,12 @@ import AlertBoxExamples from './collections/AlertBoxExamples'
 
 export default buildConfig({
   serverURL: 'http://localhost:3000',
+  editor: slateEditor({}),
+  db: mongooseAdapter({
+    url: process.env.MONGODB_URI,
+  }),
   admin: {
+    bundler: webpackBundler(),
     user: Users.slug,
     webpack: config => {
       const newConfig = {
