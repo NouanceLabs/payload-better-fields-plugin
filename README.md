@@ -1,9 +1,16 @@
-# Better fields plugin (beta)
+# Better fields plugin
 
 This plugin aims to provide you with very specific and improved fields for the admin panel.  
 We've tried to keep styling as consistent as possible with the existing admin UI, however if there are any issues please report them!
 
 Every field will come with its own usage instructions and structure. These are subject to change!
+
+## Payload compatibility
+
+| Payload | Better fields |
+| ------- | ------------- |
+| 1.x     | < 1.0         |
+| 2.x     | > 1.0         |
 
 ## Installation
 
@@ -453,6 +460,8 @@ The `AlertBoxField` accepts the following parameters
     - `enable` boolean, turn off the icon
 
     - `Element` a React component to override the provided icon
+
+If you want to make this field appear conditionally, you should use the field's [admin conditional config](https://payloadcms.com/docs/fields/overview#conditional-logic) as provided by Payload.
 
 ## Contributing
 
