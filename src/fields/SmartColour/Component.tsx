@@ -89,8 +89,7 @@ const SmartColourComponent: React.FC<Props> = props => {
           <Picker
             onChange={handleAddColorViaPicker}
             color={value}
-            onBlur={e => {
-              console.log('e', e)
+            onBlur={() => {
               setIsAdding(false)
             }}
           />
@@ -104,6 +103,7 @@ const SmartColourComponent: React.FC<Props> = props => {
             /* onBlur={e => {
               setIsAdding(false)
             }} */
+            // @ts-expect-error
             defaultValue={value}
             className={`manual-field-input`}
             /* onChange={setColorToAdd} */
@@ -115,6 +115,7 @@ const SmartColourComponent: React.FC<Props> = props => {
           <button
             type="button"
             className={`chip chip--clickable`}
+            // @ts-expect-error
             style={{ backgroundColor: value }}
             aria-label={color}
             onClick={() => {
