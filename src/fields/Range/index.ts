@@ -34,14 +34,14 @@ export type Config = {
 }
 
 type Range = (
-  config: Config,
   /**
    * Field overrides
    */
   overrides: Omit<PartialRequired<FieldTypes, 'name'>, 'type'>,
+  config: Config,
 ) => Field[]
 
-export const RangeField: Range = (config = {}, overrides) => {
+export const RangeField: Range = (overrides, config = {}) => {
   const rangeField = deepMerge<FieldTypes, Omit<Partial<FieldTypes>, 'type'>>(
     {
       name: 'range',

@@ -13,18 +13,18 @@ const PatternExamples: CollectionConfig = {
     },
     ...PatternField(
       {
-        format: '+1 (###) #### ###',
-        prefix: '% ',
-        allowEmptyFormatting: true,
-        mask: '_',
-      },
-      {
         name: 'telephone',
         type: 'text',
         required: false,
         admin: {
           placeholder: '% 20',
         },
+      },
+      {
+        format: '+1 (###) #### ###',
+        prefix: '% ',
+        allowEmptyFormatting: true,
+        mask: '_',
       },
     ),
   ],

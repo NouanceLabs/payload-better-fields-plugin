@@ -26,12 +26,12 @@ const ComboExamples: CollectionConfig = {
         },
       ],
     },
-    ...ComboField(['firstName', 'lastName'], { name: 'fullName', admin: { readOnly: true } }),
-    ...ComboField(
-      ['lastName'],
-      { name: 'identifier', admin: { readOnly: true } },
-      { initial: 'ID-', separator: '-', callback: value => slugify(value).toUpperCase() },
-    ),
+    ...ComboField({ name: 'fullName', admin: { readOnly: true } }, ['firstName', 'lastName']),
+    ...ComboField({ name: 'identifier', admin: { readOnly: true } }, ['lastName'], {
+      initial: 'ID-',
+      separator: '-',
+      callback: value => slugify(value).toUpperCase(),
+    }),
   ],
 }
 

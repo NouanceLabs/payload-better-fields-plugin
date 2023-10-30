@@ -1,9 +1,16 @@
-# Better fields plugin (beta)
+# Better fields plugin
 
 This plugin aims to provide you with very specific and improved fields for the admin panel.  
 We've tried to keep styling as consistent as possible with the existing admin UI, however if there are any issues please report them!
 
 Every field will come with its own usage instructions and structure. These are subject to change!
+
+## Payload compatibility
+
+| Payload | Better fields |
+| ------- | ------------- |
+| 1.x     | < 1.0         |
+| 2.x     | > 1.0         |
 
 ## Installation
 
@@ -22,6 +29,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Range field](#range-field)
 - [Colour Text field](#colour-text-field)
 - [Telephone field](#telephone-field)
+- [Alert Box field](#alert-box-field)
 
 ## Styling
 
@@ -119,9 +127,9 @@ const Examples: CollectionConfig = {
 
 The `ComboField` accepts the following parameters
 
-- `fieldToUse` - `string[]` **required**
-
 - `overrides` - `TextField` **required** for name attribute
+
+- `fieldToUse` - `string[]` **required**
 
 - `options`
 
@@ -173,6 +181,8 @@ const Examples: CollectionConfig = {
 
 The `NumberField` accepts the following parameters
 
+- `overrides` - `NumberField` **required** for name attribute
+
 - `format` - `NumericFormatProps` **required**, accepts props for [NumericFormat](https://s-yadav.github.io/react-number-format/docs/numeric_format)
 
   - `callback` - you can override the internal callback on the value, the `value` will be a string so you need to handle the conversion to an int or float yourself via parseFloat
@@ -181,8 +191,6 @@ The `NumberField` accepts the following parameters
   // example
   callback: (value) => parseFloat(value) + 20,
   ```
-
-- `overrides` - `NumberField` **required** for name attribute
 
 ## Pattern field
 
@@ -230,6 +238,8 @@ const Examples: CollectionConfig = {
 
 The `PatternField` accepts the following parameters
 
+- `overrides` - `TextField` **required** for name attribute
+
 - `format` - `PatternFormatProps` **required**, accepts props for [PatternFormat](https://s-yadav.github.io/react-number-format/docs/pattern_format)
 
   - `format` **required**, input for the pattern to be applied
@@ -240,8 +250,6 @@ The `PatternField` accepts the following parameters
   // example
   callback: (value) => value + 'ID',
   ```
-
-- `overrides` - `TextField` **required** for name attribute
 
 ### Notes
 
@@ -285,6 +293,8 @@ export default Examples
 
 The `RangeField` accepts the following parameters
 
+- `overrides` - `NumberField` **required** for name attribute
+
 - `config` - **required**
 
   - `min` - `number` defaults to 1
@@ -298,8 +308,6 @@ The `RangeField` accepts the following parameters
   - `markers` - `NumberMarker[]` array of markers to be visually set, accepts an optional label
 
     - `{ value: number, label?: string}[]`
-
-- `overrides` - `NumberField` **required** for name attribute
 
 ## Colour Text field
 
@@ -399,6 +407,61 @@ The `TelephoneField` accepts the following parameters
   - `countrySelectProps`
 
     - `unicodeFlags` defaults to `false` | Set to `true` to render Unicode flag icons instead of SVG images
+
+## Alert Box field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/AlertBox)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { AlertBoxField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...AlertBoxField({
+      name: 'alert',
+      {
+        type: 'info',
+        message: 'Please be aware that the title is required for the mobile app.',
+      }
+    }),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `AlertBoxField` accepts the following parameters
+
+- `overrides` - `UIField` **required** for `name` attribute
+
+- `config` - `Config` required
+
+  - `type` a selection of `info` | `alert` | `error` which come with different styles
+
+  - `message` a required string
+
+  - `className` optional string to help you style individual alerts better
+
+  - `icon` optional, default is enabled
+
+    - `enable` boolean, turn off the icon
+
+    - `Element` a React component to override the provided icon
+
+If you want to make this field appear conditionally, you should use the field's [admin conditional config](https://payloadcms.com/docs/fields/overview#conditional-logic) as provided by Payload.
 
 ## Contributing
 

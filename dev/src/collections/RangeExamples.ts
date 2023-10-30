@@ -12,13 +12,16 @@ const RangeExamples: CollectionConfig = {
       type: 'text',
     },
     ...RangeField(
-      { min: 5, max: 200, step: 5, showPreview: true },
       {
         name: 'groups',
         required: true,
       },
+      { min: 5, max: 200, step: 5, showPreview: true },
     ),
     ...RangeField(
+      {
+        name: 'quantity',
+      },
       {
         min: 5,
         max: 45,
@@ -31,9 +34,6 @@ const RangeExamples: CollectionConfig = {
           { value: 40, label: 'High' },
           { value: 45 },
         ],
-      },
-      {
-        name: 'quantity',
       },
     ),
     {
