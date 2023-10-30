@@ -22,6 +22,7 @@ Every field will come with its own usage instructions and structure. These are s
 - [Range field](#range-field)
 - [Colour Text field](#colour-text-field)
 - [Telephone field](#telephone-field)
+- [Alert Box field](#alert-box-field)
 
 ## Styling
 
@@ -399,6 +400,59 @@ The `TelephoneField` accepts the following parameters
   - `countrySelectProps`
 
     - `unicodeFlags` defaults to `false` | Set to `true` to render Unicode flag icons instead of SVG images
+
+## Alert Box field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/AlertBox)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { AlertBoxField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...AlertBoxField({
+      name: 'alert',
+      {
+        type: 'info',
+        message: 'Please be aware that the title is required for the mobile app.',
+      }
+    }),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `AlertBoxField` accepts the following parameters
+
+- `overrides` - `UIField` **required** for `name` attribute
+
+- `config` - `Config` required
+
+  - `type` a selection of `info` | `alert` | `error` which come with different styles
+
+  - `message` a required string
+
+  - `className` optional string to help you style individual alerts better
+
+  - `icon` optional, default is enabled
+
+    - `enable` boolean, turn off the icon
+
+    - `Element` a React component to override the provided icon
 
 ## Contributing
 
