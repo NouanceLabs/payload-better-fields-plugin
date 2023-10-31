@@ -6,7 +6,7 @@ import InfoIcon from './icons/InfoIcon'
 import ErrorIcon from './icons/ErrorIcon'
 import AlertIcon from './icons/AlertIcon'
 
-import './style.scss'
+import '../../styles/alertBox.scss'
 
 type Props = UIField & {
   placeholder?: string
