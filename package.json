@@ -1,6 +1,6 @@
 {
   "name": "@nouance/payload-better-fields-plugin",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "homepage:": "https://github.com/NouanceLabs/payload-better-fields-plugin",
   "repository": "git@github.com:NouanceLabs/payload-better-fields-plugin.git",
   "description": "A Payload plugin that aims to provide improved fields for the admin panel",
