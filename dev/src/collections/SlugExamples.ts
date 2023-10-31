@@ -31,27 +31,36 @@ const SlugExamples: CollectionConfig = {
         },
       ],
     },
-    ...SlugField(['title', 'subtitle'], undefined, {
-      admin: {
-        position: 'sidebar',
+    ...SlugField(
+      {
+        name: 'slug',
+        admin: {
+          position: 'sidebar',
+        },
       },
-    }),
+      {
+        useFields: ['title', 'subtitle'],
+      },
+    ),
     {
       name: 'another',
       type: 'group',
       fields: [
         ...SlugField(
-          ['nested.heading'],
-          undefined,
           {
             name: 'secondSlug',
             admin: {
               position: 'sidebar',
             },
           },
-          true,
           {
-            name: 'secondEdit',
+            useFields: ['nested.heading'],
+          },
+          {
+            enable: true,
+            overrides: {
+              name: 'secondEdit',
+            },
           },
         ),
       ],

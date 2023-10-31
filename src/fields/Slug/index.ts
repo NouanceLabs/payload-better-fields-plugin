@@ -4,68 +4,100 @@ import Component from './Component'
 import type { SlugifyOptions } from '../../types'
 import { TextField, CheckboxField } from 'payload/types'
 import beforeValidate from './beforeValidate'
+import { PartialRequired } from '../../utilities/partialRequired'
 
-type Slug = (
+/**
+ * Additional config unique to the Slug field
+ */
+export type Config = {
   /**
    * An array of string mapping the field path names, nested fields are supported here
    * @default {string[]} ['title']
    */
-  fieldToUse?: string[],
+  useFields: string[]
   /**
    * Options passed to the slugify function
    * @default { lower: true }
    */
-  slugifyOptions?: SlugifyOptions,
-  /**
-   * Slug field overrides
-   */
-  slugOverrides?: Partial<TextField>,
+  slugify?: SlugifyOptions
+}
+
+/**
+ * Additional config unique to the checkbox field
+ */
+export type CheckboxConfig = {
   /**
    * Disable or enable the checkbox for edit slug field
    * @default true
    */
-  enableEditSlug?: boolean,
+  enable?: boolean
   /**
-   * Edit slug field overrides, this maps to the checkbox allowing the slug to be editable
+   * Edit checkbox field overrides, which allows the slug to be editable
    *
    * @default {
       name: 'editSlug',
       label: 'Edit slug',
     }
    */
-  editSlugOverrides?: Partial<CheckboxField>,
+  overrides?: Partial<CheckboxField>
+}
+
+type Slug = (
+  /**
+   * Slug field overrides
+   */
+  slugOverrides: PartialRequired<TextField, 'name'>,
+  /**
+   * Slug field config
+   */
+  config: Config,
+  /**
+   * Checkbox field config
+   */
+  checkbox?: CheckboxConfig,
 ) => Field[]
 
 export const SlugField: Slug = (
-  fieldToUse: string[] = ['title'],
-  slugifyOptions = { lower: true, remove: /[*+~.()'"!?#\.,:@]/g },
-  slugOverrides = {},
-  enableEditSlug = true,
-  editSlugOverrides = {
-    name: 'editSlug',
-    label: 'Edit slug',
+  slugOverrides = { name: 'slug' },
+  config = {
+    useFields: ['title'],
+    slugify: { lower: true, remove: /[*+~.()'"!?#\.,:@]/g },
+  },
+  checkbox = {
+    enable: true,
+    overrides: {
+      name: 'editSlug',
+    },
   },
 ) => {
-  const editFieldName = deepMerge(
+  const slugifyOptions: SlugifyOptions = deepMerge(
+    {
+      lower: true,
+      remove: /[*+~.()'"!?#\.,:@]/g,
+    },
+    config.slugify,
+  )
+
+  const checkboxField = deepMerge(
     {
       name: 'editSlug',
       label: 'Edit slug',
     },
-    editSlugOverrides,
+    checkbox.overrides,
   )
 
   const editField = deepMerge<CheckboxField, Partial<CheckboxField>>(
     {
-      name: editFieldName.name,
-      label: editFieldName.label,
+      name: checkboxField.name,
+      label: checkboxField.label,
       type: 'checkbox',
       required: false,
       admin: {
-        disabled: !enableEditSlug,
+        disabled: !checkbox.enable,
         hidden: true,
       },
     },
-    editSlugOverrides,
+    checkboxField,
   )
 
   const slugField = deepMerge<TextField, Partial<TextField>>(
@@ -77,7 +109,12 @@ export const SlugField: Slug = (
       required: false,
       hooks: {
         beforeValidate: [
-          beforeValidate(fieldToUse, enableEditSlug, editField.name, slugifyOptions),
+          beforeValidate(
+            config.useFields,
+            Boolean(checkbox.enable),
+            editField.name,
+            slugifyOptions,
+          ),
         ],
       },
       unique: true,
@@ -88,10 +125,10 @@ export const SlugField: Slug = (
         },
       },
       custom: {
-        watchFields: fieldToUse,
+        watchFields: config.useFields,
         slugifyOptions: slugifyOptions,
         editFieldConfig: editField,
-        enableEditSlug: enableEditSlug,
+        enableEditSlug: Boolean(checkbox.enable),
       },
     },
     slugOverrides,

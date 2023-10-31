@@ -17,7 +17,6 @@ type Props = UIField & {
 const AlertBoxComponent: React.FC<Props> = ({ placeholder, label, admin, custom, ...others }) => {
   const width = admin?.width
   const { type, message, Content, className, icon } = custom
-  console.log('custom', custom)
 
   const iconMap: Record<BaseConfig['type'], ReactElement> = {
     info: <InfoIcon />,

@@ -5,6 +5,10 @@ We've tried to keep styling as consistent as possible with the existing admin UI
 
 Every field will come with its own usage instructions and structure. These are subject to change!
 
+## ⚠️ Breaking changes 1.0 release ⚠️
+
+All fields have had changes to standardise how the field parameters are structured. Field overrides will now be mandatory and come first across fields.
+
 ## Payload compatibility
 
 | Payload | Better fields |
@@ -59,11 +63,17 @@ const Examples: CollectionConfig = {
       name: 'title',
       type: 'text',
     },
-    ...SlugField(['title'], undefined, {
-      admin: {
-        position: 'sidebar',
+    ...SlugField(
+      {
+        name: 'slug',
+        admin: {
+          position: 'sidebar',
+        },
       },
-    }),
+      {
+        useFields: ['title', 'subtitle'],
+      },
+    ),
   ],
 }
 ```
@@ -72,20 +82,46 @@ const Examples: CollectionConfig = {
 
 The `SlugField` accepts the following parameters
 
-- `fieldToUse` - `string[]` defaults to `['title']`
+- `overrides` - `TextField` required Textfield overrides
 
-- `slugifyOptions` - Options to be passed to the [slugify](https://www.npmjs.com/package/slugify) function
+- `config`
+
+  - `useFields` - `string[]` defaults to `['title']`
+
+  - `slugify` - Options to be passed to the [slugify](https://www.npmjs.com/package/slugify) function
+
+  ```ts
+  @default
+  { lower: true, remove: /[*+~.()'"!?#\.,:@]/g }
+  ```
+
+- `checkbox`
+
+  - `enable` - `boolean` defaults to `true` | Enable or disable the checkbox field
+
+  - `overrides` - `CheckboxField` | Checkbox field overrides
+
+Here is a more full example:
 
 ```ts
-@default
-{ lower: true, remove: /[*+~.()'"!?#\.,:@]/g }
+...SlugField(
+  {
+    name: 'secondSlug',
+    admin: {
+      position: 'sidebar',
+    },
+  },
+  {
+    useFields: ['nested.heading'],
+  },
+  {
+    enable: true,
+    overrides: {
+      name: 'secondEdit',
+    },
+  },
+)
 ```
-
-- `slugOverrides` - `TextField` Slug field overrides, use this to rename the machine name or label of the field
-
-- `enableEditSlug` - `boolean` defaults to `true` | Enable or disable the checkbox field
-
-- `editSlugOverrides` - `CheckboxField` | Checkbox field overrides
 
 ## Combo field
 
@@ -451,17 +487,17 @@ The `AlertBoxField` accepts the following parameters
 
 - `config` - `Config` required
 
-  - `type` a selection of `info` | `alert` | `error` which come with different styles
+  - `type` - a selection of `info` | `alert` | `error` which come with different styles
 
-  - `message` a required string
+  - `message` - required string
 
-  - `className` optional string to help you style individual alerts better
+  - `className` - optional string to help you style individual alerts better
 
-  - `icon` optional, default is enabled
+  - `icon` - optional, default is enabled
 
-    - `enable` boolean, turn off the icon
+    - `enable` - boolean, turn off the icon
 
-    - `Element` a React component to override the provided icon
+    - `Element` - React component to override the provided icon
 
 If you want to make this field appear conditionally, you should use the field's [admin conditional config](https://payloadcms.com/docs/fields/overview#conditional-logic) as provided by Payload.
 
