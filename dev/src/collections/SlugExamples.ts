@@ -40,6 +40,7 @@ const SlugExamples: CollectionConfig = {
       },
       {
         useFields: ['title', 'subtitle'],
+        appendOnDuplication: true,
       },
     ),
     {
@@ -49,6 +50,8 @@ const SlugExamples: CollectionConfig = {
         ...SlugField(
           {
             name: 'secondSlug',
+            index: false,
+            unique: false,
             admin: {
               position: 'sidebar',
             },

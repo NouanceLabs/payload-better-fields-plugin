@@ -5,6 +5,7 @@ import type { SlugifyOptions } from '../../types'
 import { TextField, CheckboxField } from 'payload/types'
 import beforeValidate from './beforeValidate'
 import { PartialRequired } from '../../utilities/partialRequired'
+import { FieldHook } from 'payload/types'
 
 /**
  * Additional config unique to the Slug field
@@ -15,6 +16,10 @@ export type Config = {
    * @default {string[]} ['title']
    */
   useFields: string[]
+  /**
+   * Append a '-1' on duplication of collection in the case that the slug needs to be unique
+   */
+  appendOnDuplication?: boolean
   /**
    * Options passed to the slugify function
    * @default { lower: true }
@@ -62,6 +67,7 @@ export const SlugField: Slug = (
   config = {
     useFields: ['title'],
     slugify: { lower: true, remove: /[*+~.()'"!?#\.,:@]/g },
+    appendOnDuplication: false,
   },
   checkbox = {
     enable: true,
@@ -86,9 +92,36 @@ export const SlugField: Slug = (
     checkbox.overrides,
   )
 
+  const checkboxName = checkboxField.name
+  const slugName = slugOverrides.name ?? 'slug'
+
+  const checkboxDedupe: FieldHook[] = [
+    ({ operation, siblingData }) => {
+      if (operation === 'create') {
+        const slugValue = siblingData[slugName]
+
+        if (slugValue && slugValue !== '') {
+          return true
+        }
+      }
+    },
+  ]
+
+  const slugDedupe: FieldHook[] = [
+    ({ operation, value }) => {
+      if (operation === 'create') {
+        if (value && value !== '') {
+          const incrementedValue = value + '-1'
+
+          return incrementedValue
+        }
+      }
+    },
+  ]
+
   const editField = deepMerge<CheckboxField, Partial<CheckboxField>>(
     {
-      name: checkboxField.name,
+      name: checkboxName,
       label: checkboxField.label,
       type: 'checkbox',
       required: false,
@@ -96,25 +129,24 @@ export const SlugField: Slug = (
         disabled: !checkbox.enable,
         hidden: true,
       },
+      hooks: {
+        beforeValidate: [...(config.appendOnDuplication ? checkboxDedupe : [])],
+      },
     },
     checkboxField,
   )
 
   const slugField = deepMerge<TextField, Partial<TextField>>(
     {
-      name: 'slug',
+      name: slugName,
       label: 'Slug',
       type: 'text',
       index: true,
       required: false,
       hooks: {
         beforeValidate: [
-          beforeValidate(
-            config.useFields,
-            Boolean(checkbox.enable),
-            editField.name,
-            slugifyOptions,
-          ),
+          beforeValidate(config.useFields, Boolean(checkbox.enable), checkboxName, slugifyOptions),
+          ...(config.appendOnDuplication ? slugDedupe : []),
         ],
       },
       unique: true,

@@ -88,6 +88,8 @@ The `SlugField` accepts the following parameters
 
   - `useFields` - `string[]` defaults to `['title']`
 
+  - `appendOnDuplication` - `boolean` defaults to `false` | Adds a validation hook that appends `-1` to your slug to avoid conflicts (experimental)
+
   - `slugify` - Options to be passed to the [slugify](https://www.npmjs.com/package/slugify) function
 
   ```ts
@@ -122,6 +124,10 @@ Here is a more full example:
   },
 )
 ```
+
+### Notes
+
+`index` and `unique` are set to true by default
 
 ## Combo field
 
