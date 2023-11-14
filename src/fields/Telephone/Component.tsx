@@ -5,6 +5,7 @@ import { NumberField } from 'payload/types'
 import { Config } from '.'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 
 type Props = NumberField & {
   path: string
@@ -25,13 +26,17 @@ const TelephoneComponent: React.FC<Props> = ({
   admin,
   custom,
   type,
+
   ...others
 }) => {
   const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
+  const BeforeInput = admin?.components?.BeforeInput
+  const AfterInput = admin?.components?.AfterInput
   const style = admin?.style
   const width = admin?.width
+
   const classes = [
     'field-type',
     'text',
@@ -52,6 +57,7 @@ const TelephoneComponent: React.FC<Props> = ({
       <Error showError={showError} message={errorMessage ?? ''} />
       <div className="containerWrapper">
         <div className={classes}>
+          {BeforeInput}
           <PhoneInput
             onChange={value => {
               if (!Boolean(value)) setValue(undefined)
@@ -71,8 +77,14 @@ const TelephoneComponent: React.FC<Props> = ({
             placeholder={typeof placeholder === 'string' ? placeholder : ''}
             {...config}
           />
+          {AfterInput}
         </div>
       </div>
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
     </div>
   )
 }

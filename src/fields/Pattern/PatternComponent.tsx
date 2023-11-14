@@ -4,6 +4,7 @@ import Error from 'payload/dist/admin/components/forms/Error'
 import { PatternFormat } from 'react-number-format'
 import { TextField, NumberField } from 'payload/types'
 import { PatternConfig } from '.'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 
 import '../../styles/slug.scss'
 
@@ -31,7 +32,8 @@ const PatternComponent: React.FC<Props> = ({
   const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
-
+  const BeforeInput = admin?.components?.BeforeInput
+  const AfterInput = admin?.components?.AfterInput
   const { callback, ...componentProps } = config
 
   const formatValue = useCallback(
@@ -76,6 +78,7 @@ const PatternComponent: React.FC<Props> = ({
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
         <Error showError={showError} message={errorMessage ?? ''} />
+        {BeforeInput}
         <PatternFormat
           onChange={e => {
             setValue(formatValue(e.target.value))
@@ -90,7 +93,13 @@ const PatternComponent: React.FC<Props> = ({
           placeholder={typeof placeholder === 'string' ? placeholder : ''}
           {...componentProps}
         />
+        {AfterInput}
       </div>
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
     </div>
   )
 }

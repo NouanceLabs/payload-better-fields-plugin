@@ -14,7 +14,7 @@ import TelephoneExamples from './collections/TelephoneExamples'
 import AlertBoxExamples from './collections/AlertBoxExamples'
 
 export default buildConfig({
-  serverURL: 'http://localhost:3000',
+  serverURL: process.env.SERVER_URL,
   editor: slateEditor({}),
   db: mongooseAdapter({
     url: process.env.MONGODB_URI,

@@ -6,6 +6,7 @@ import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/C
 import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
 import type { SlugifyOptions } from '../../types'
 import type { CheckboxField } from 'payload/types'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 
 import '../../styles/slug.scss'
 
@@ -35,7 +36,8 @@ const SlugComponent: React.FC<Props> = ({
 }) => {
   const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
-
+  const BeforeInput = admin?.components?.BeforeInput
+  const AfterInput = admin?.components?.AfterInput
   const checkboxPath = path.includes('.')
     ? path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
     : editFieldConfig.name
@@ -91,12 +93,14 @@ const SlugComponent: React.FC<Props> = ({
   return (
     <div className={`bfSlugFieldWrapper`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
+      {BeforeInput}
       <div className={classes}>
         <TextInputField
           path={path}
           name={others.name}
           label={false}
           required={isRequired}
+          description={admin?.description}
           readOnly={isReadonly}
           onChange={e => {
             setValue(e.target.value)
@@ -128,6 +132,12 @@ const SlugComponent: React.FC<Props> = ({
           />
         </div>
       </div>
+      {AfterInput}
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
     </div>
   )
 }

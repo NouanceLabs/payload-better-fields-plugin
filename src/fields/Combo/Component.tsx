@@ -1,8 +1,9 @@
 import React, { useMemo } from 'react'
 import { Label, useField, useFormFields } from 'payload/components/forms'
 import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
-import { Config } from '.'
+import type { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
+import type { Config } from '.'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 
 type Props = TextFieldType & {
   path: string
@@ -28,6 +29,8 @@ const ComboComponent: React.FC<Props> = ({
 }) => {
   const { watchFields, options } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
+  const BeforeInput = admin?.components?.BeforeInput
+  const AfterInput = admin?.components?.AfterInput
 
   const classes = [
     'field-type',
@@ -72,6 +75,7 @@ const ComboComponent: React.FC<Props> = ({
     <div className={`bfComboFieldWrapper`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
+        {BeforeInput}
         <TextInputField
           path={path}
           name={others.name}
@@ -90,7 +94,13 @@ const ComboComponent: React.FC<Props> = ({
             marginBottom: 0,
           }}
         />
+        {AfterInput}
       </div>
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
     </div>
   )
 }

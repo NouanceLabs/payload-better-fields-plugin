@@ -1,8 +1,9 @@
 import React, { MouseEventHandler, useCallback } from 'react'
 import { Label, useField } from 'payload/components/forms'
 import Error from 'payload/dist/admin/components/forms/Error'
-import { NumberField } from 'payload/types'
-import { Config } from '.'
+import type { NumberField } from 'payload/types'
+import type { Config } from '.'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 import '../../styles/range.scss'
 
 type Props = NumberField & {
@@ -31,6 +32,9 @@ const RangeComponent: React.FC<Props> = ({
   const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
+
+  const BeforeInput = admin?.components?.BeforeInput
+  const AfterInput = admin?.components?.AfterInput
 
   const step = config?.step ?? 1
   const usedMin = min ?? 1
@@ -81,6 +85,7 @@ const RangeComponent: React.FC<Props> = ({
           </>
         )}
         <div className={classes}>
+          {BeforeInput}
           <input
             type="range"
             onChange={e => {
@@ -119,6 +124,7 @@ const RangeComponent: React.FC<Props> = ({
               })}
             </datalist>
           )}
+          {AfterInput}
         </div>
       </div>
       {!isRequired && Boolean(value) && (
@@ -129,6 +135,11 @@ const RangeComponent: React.FC<Props> = ({
           Reset
         </button>
       )}
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
     </div>
   )
 }

@@ -26,6 +26,7 @@ const TelephoneExamples: CollectionConfig = {
         admin: {
           position: 'sidebar',
           placeholder: '+12133734253',
+          description: 'Hello world!',
         },
       },
       {

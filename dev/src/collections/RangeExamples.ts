@@ -15,6 +15,9 @@ const RangeExamples: CollectionConfig = {
       {
         name: 'groups',
         required: true,
+        admin: {
+          description: 'Hello world',
+        },
       },
       { min: 5, max: 200, step: 5, showPreview: true },
     ),

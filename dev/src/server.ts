@@ -18,7 +18,6 @@ export const start = async (args: { local: boolean } = { local: false }): Promis
   await payload.init({
     local,
     secret: process.env.PAYLOAD_SECRET || 'here-is-a-secret',
-    mongoURL: process.env.MONGODB_URI || 'mongodb://127.0.0.1/plugin-development',
     express: app,
     onInit: async () => {
       payload.logger.info(`Payload Admin URL: ${payload.getAdminURL()}`)
@@ -29,7 +28,7 @@ export const start = async (args: { local: boolean } = { local: false }): Promis
     await seed(payload)
   }
 
-  return app.listen(3000)
+  return app.listen(process.env.PORT)
 }
 
 // when build.js is launched directly
