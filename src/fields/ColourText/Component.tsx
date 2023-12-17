@@ -40,8 +40,8 @@ const ComboComponent: React.FC<Props> = ({
   const isReadonly = admin?.readOnly
   const style = admin?.style
   const width = admin?.width
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
 
   const gradient =
     'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'
@@ -49,10 +49,10 @@ const ComboComponent: React.FC<Props> = ({
   const colour = validateColor(value) ? value : gradient
 
   return (
-    <div className={`bfColourTextFieldWrapper`}>
+    <div className={`bfColourTextFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
-        {BeforeInput}
+        {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <TextInputField
           path={path}
           name={others.name}
@@ -77,7 +77,7 @@ const ComboComponent: React.FC<Props> = ({
 
         {/* @ts-expect-error */}
         <div aria-hidden={true} className="colourBox" style={{ background: colour }} />
-        {AfterInput}
+        {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}

@@ -36,8 +36,8 @@ const SlugComponent: React.FC<Props> = ({
 }) => {
   const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
   const checkboxPath = path.includes('.')
     ? path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
     : editFieldConfig.name
@@ -91,9 +91,9 @@ const SlugComponent: React.FC<Props> = ({
   }
 
   return (
-    <div className={`bfSlugFieldWrapper`}>
+    <div className={`bfSlugFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
-      {BeforeInput}
+      {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
       <div className={classes}>
         <TextInputField
           path={path}
@@ -132,7 +132,7 @@ const SlugComponent: React.FC<Props> = ({
           />
         </div>
       </div>
-      {AfterInput}
+      {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
         description={admin?.description}

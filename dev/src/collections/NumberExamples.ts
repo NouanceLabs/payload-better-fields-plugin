@@ -38,7 +38,7 @@ const NumberExamples: CollectionConfig = {
             },
           },
           {
-            prefix: '% ',
+            suffix: '% ',
             min: 5,
             max: 20,
             decimalScale: 0,

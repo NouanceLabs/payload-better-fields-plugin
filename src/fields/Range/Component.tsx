@@ -33,8 +33,8 @@ const RangeComponent: React.FC<Props> = ({
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
 
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
 
   const step = config?.step ?? 1
   const usedMin = min ?? 1
@@ -74,7 +74,7 @@ const RangeComponent: React.FC<Props> = ({
   }
 
   return (
-    <div className={`bfRangeFieldWrapper`}>
+    <div className={`bfRangeFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <Error showError={showError} message={errorMessage ?? ''} />
       <div className="containerWrapper">
@@ -85,7 +85,7 @@ const RangeComponent: React.FC<Props> = ({
           </>
         )}
         <div className={classes}>
-          {BeforeInput}
+          {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
           <input
             type="range"
             onChange={e => {
@@ -124,7 +124,7 @@ const RangeComponent: React.FC<Props> = ({
               })}
             </datalist>
           )}
-          {AfterInput}
+          {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
         </div>
       </div>
       {!isRequired && Boolean(value) && (

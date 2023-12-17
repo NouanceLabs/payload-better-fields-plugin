@@ -32,8 +32,8 @@ const TelephoneComponent: React.FC<Props> = ({
   const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
   const style = admin?.style
   const width = admin?.width
 
@@ -52,12 +52,12 @@ const TelephoneComponent: React.FC<Props> = ({
   const isReadonly = readOnly || admin?.readOnly
 
   return (
-    <div className={`bfTelephoneFieldWrapper`}>
+    <div className={`bfTelephoneFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <Error showError={showError} message={errorMessage ?? ''} />
       <div className="containerWrapper">
         <div className={classes}>
-          {BeforeInput}
+          {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
           <PhoneInput
             onChange={value => {
               if (!Boolean(value)) setValue(undefined)
@@ -77,7 +77,7 @@ const TelephoneComponent: React.FC<Props> = ({
             placeholder={typeof placeholder === 'string' ? placeholder : ''}
             {...config}
           />
-          {AfterInput}
+          {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
         </div>
       </div>
       <FieldDescription

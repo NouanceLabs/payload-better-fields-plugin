@@ -32,8 +32,8 @@ const NumericComponent: React.FC<Props> = ({
   const { config } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
   const { callback, ...componentProps } = config
 
   const formatValue = useCallback(
@@ -77,11 +77,11 @@ const NumericComponent: React.FC<Props> = ({
   const isReadonly = readOnly || admin?.readOnly
 
   return (
-    <div className={`bfNumericFieldWrapper`}>
+    <div className={`bfNumericFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
         <Error showError={showError} message={errorMessage ?? ''} />
-        {BeforeInput}
+        {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <NumericFormat
           onChange={e => {
             setValue(formatValue(e.target.value))
@@ -96,7 +96,7 @@ const NumericComponent: React.FC<Props> = ({
           placeholder={typeof placeholder === 'string' ? placeholder : ''}
           {...componentProps}
         />
-        {AfterInput}
+        {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}

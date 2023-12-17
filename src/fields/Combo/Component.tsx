@@ -29,8 +29,8 @@ const ComboComponent: React.FC<Props> = ({
 }) => {
   const { watchFields, options } = custom
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
-  const BeforeInput = admin?.components?.BeforeInput
-  const AfterInput = admin?.components?.AfterInput
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
 
   const classes = [
     'field-type',
@@ -72,10 +72,10 @@ const ComboComponent: React.FC<Props> = ({
   }, [processedValue])
 
   return (
-    <div className={`bfComboFieldWrapper`}>
+    <div className={`bfComboFieldWrapper field-type`}>
       <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
       <div className={classes}>
-        {BeforeInput}
+        {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <TextInputField
           path={path}
           name={others.name}
@@ -94,7 +94,7 @@ const ComboComponent: React.FC<Props> = ({
             marginBottom: 0,
           }}
         />
-        {AfterInput}
+        {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}

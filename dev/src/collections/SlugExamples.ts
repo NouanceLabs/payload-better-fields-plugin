@@ -66,6 +66,10 @@ const SlugExamples: CollectionConfig = {
             },
           },
         ),
+        {
+          name: 'randomField',
+          type: 'text',
+        },
       ],
     },
   ],
