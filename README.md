@@ -205,14 +205,15 @@ const Examples: CollectionConfig = {
     },
     ...NumberField(
       {
+        name: 'price',
+        required: true,
+      },
+      {
         prefix: '$ ',
+        suffix: ' %',
         thousandSeparator: ',',
         decimalScale: 2,
         fixedDecimalScale: true,
-      },
-      {
-        name: 'price',
-        required: true,
       },
     ),
   ],
