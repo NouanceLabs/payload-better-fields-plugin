@@ -27,7 +27,7 @@
     "payload": "^2.0.0"
   },
   "devDependencies": {
-    "@payloadcms/eslint-config": "^0.0.2",
+    "@payloadcms/eslint-config": "^1.1.1",
     "@swc/jest": "^0.2.29",
     "@typescript-eslint/eslint-plugin": "5.62.0",
     "@typescript-eslint/parser": "5.62.0",
