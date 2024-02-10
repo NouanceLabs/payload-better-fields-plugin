@@ -515,6 +515,8 @@ If you want to make this field appear conditionally, you should use the field's 
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/ColourPicker)
 
+![colourPickerField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/bb8f4dc1-de96-4705-9955-fe73786ee613)
+
 ### Usage
 
 ```ts
@@ -572,3 +574,8 @@ git clone git@github.com:NouanceLabs/payload-better-fields-plugin.git \
   vim .env \ # add your payload details
   yarn dev
 ```
+
+## Contributors
+Thanks to the following people for contributing code to this plugin
+
+[MarkAtOmniux](https://github.com/MarkAtOmniux)
