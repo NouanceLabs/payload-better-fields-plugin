@@ -36,8 +36,6 @@ const NumericComponent: React.FC<Props> = ({
   const afterInput = admin?.components?.afterInput
   const { callback, ...componentProps } = config
 
-  console.log('componentProps', componentProps)
-
   const formatValue = useCallback(
     (value: string) => {
       const prefix = componentProps.prefix
