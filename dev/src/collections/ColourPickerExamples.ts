@@ -37,7 +37,8 @@ const ColourPickerExamples: CollectionConfig = {
           {
             name: 'hsla',
             admin: {
-              description: 'HSLA with presets',
+              description: 'HSLA readonly',
+              readOnly: true,
             },
           },
           {

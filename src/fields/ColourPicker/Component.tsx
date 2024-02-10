@@ -39,7 +39,7 @@ const ColourPickerComponent: React.FC<Props> = props => {
   const { path, label, required, defaultValue, custom, admin } = props
   const beforeInput = admin?.components?.beforeInput
   const afterInput = admin?.components?.afterInput
-  const isReadonly = admin?.readOnly
+  const isReadonly = Boolean(admin?.readOnly)
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -58,23 +58,23 @@ const ColourPickerComponent: React.FC<Props> = props => {
 
   const handleAddColorViaPicker = useCallback(
     (val?: string) => {
-      if (val !== value) {
+      if (val !== value && !isReadonly) {
         setValue(val)
         if (inputRef.current) {
           inputRef.current.value = val ?? ''
         }
       }
     },
-    [setIsAdding, setValue, inputRef],
+    [setIsAdding, setValue, inputRef, isReadonly],
   )
 
   const handleAddColor = useCallback(
     (val?: string) => {
-      if (val !== value) {
+      if (val !== value && !isReadonly) {
         setValue(val)
       }
     },
-    [setIsAdding, setValue],
+    [setIsAdding, setValue, isReadonly],
   )
 
   return (
@@ -87,18 +87,24 @@ const ColourPickerComponent: React.FC<Props> = props => {
       />
       {(isExpanded || isAdding) && (
         <div>
-          <Picker
-            onChange={handleAddColorViaPicker}
-            color={value}
-            onBlur={(e: FocusEvent) => {
-              if (e.relatedTarget === null) {
-                setIsAdding(false)
+          <div
+            className={['colourPickerWrapper', isReadonly && 'readOnly'].filter(Boolean).join(' ')}
+            // @ts-expect-error
+            inert={isReadonly ? '' : null}
+          >
+            <Picker
+              onChange={handleAddColorViaPicker}
+              color={value}
+              onBlur={(e: FocusEvent) => {
+                if (e.relatedTarget === null) {
+                  setIsAdding(false)
+                }
+              }}
+              onKeyDown={(e: KeyboardEvent) =>
+                (e.key === 'Enter' || e.key === 'Escape') && setIsAdding(false)
               }
-            }}
-            onKeyDown={(e: KeyboardEvent) =>
-              (e.key === 'Enter' || e.key === 'Escape') && setIsAdding(false)
-            }
-          />
+            />
+          </div>
 
           <input
             id={`bfColourPickerField-${path.replace(/\./gi, '__')}`}
@@ -108,6 +114,7 @@ const ColourPickerComponent: React.FC<Props> = props => {
             }}
             // @ts-expect-error
             defaultValue={value}
+            readOnly={isReadonly}
             className={`manual-field-input`}
           />
         </div>

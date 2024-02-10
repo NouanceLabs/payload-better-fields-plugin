@@ -18,6 +18,16 @@
     border-radius: 0;
   }
 
+  .colourPickerWrapper {
+    &.readOnly {
+      &.react-colorful__pointer {
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
   &__btn.btn {
     margin: base(0.5);
 
