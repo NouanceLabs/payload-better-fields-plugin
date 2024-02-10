@@ -89,9 +89,14 @@ const SmartColourComponent: React.FC<Props> = props => {
           <Picker
             onChange={handleAddColorViaPicker}
             color={value}
-            onBlur={() => {
-              setIsAdding(false)
+            onBlur={(e) => {
+							if (e.relatedTarget === null) {
+                setIsAdding(false)
+              }
             }}
+            onKeyDown={(e) =>
+							(e.key === 'Enter' || e.key === 'Escape') && setIsAdding(false)
+						}
           />
 
           <input
