@@ -259,18 +259,18 @@ const Examples: CollectionConfig = {
     },
     ...PatternField(
       {
-        format: '+1 (###) #### ###',
-        prefix: '% ',
-        allowEmptyFormatting: true,
-        mask: '_',
-      },
-      {
         name: 'telephone',
         type: 'text',
         required: false,
         admin: {
           placeholder: '% 20',
         },
+      },
+      {
+        format: '+1 (###) #### ###',
+        prefix: '% ',
+        allowEmptyFormatting: true,
+        mask: '_',
       },
     ),
   ],
@@ -321,10 +321,10 @@ const Examples: CollectionConfig = {
       type: 'text',
     },
     ...RangeField(
-      { min: 5, max: 200, step: 5 },
       {
         name: 'groups',
       },
+      { min: 5, max: 200, step: 5 },
     ),
   ],
 }
@@ -473,13 +473,15 @@ const Examples: CollectionConfig = {
       name: 'title',
       type: 'text',
     },
-    ...AlertBoxField({
-      name: 'alert',
+    ...AlertBoxField(
+      {
+        name: 'alert',
+      },
       {
         type: 'info',
         message: 'Please be aware that the title is required for the mobile app.',
-      }
-    }),
+      },
+    ),
   ],
 }
 
