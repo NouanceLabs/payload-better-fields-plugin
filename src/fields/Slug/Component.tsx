@@ -114,23 +114,25 @@ const SlugComponent: React.FC<Props> = ({
             marginBottom: 0,
           }}
         />
-        <div className={'checkbox'}>
-          <div className={'srOnly'}>
-            <Label
-              htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
-              label={editFieldConfig?.label ?? ''}
+        {custom.enableEditSlug && (
+          <div className={'checkbox'}>
+            <div className={'srOnly'}>
+              <Label
+                htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
+                label={editFieldConfig?.label ?? ''}
+              />
+            </div>
+            <CheckboxInput
+              id={`field-${checkboxPath.replaceAll('.', '-')}`}
+              onToggle={handleCheckbox}
+              defaultChecked={editSlugField.value}
+              /* @ts-expect-error */
+              checked={editSlugField.value ?? false}
+              label={''}
+              name={checkboxPath}
             />
           </div>
-          <CheckboxInput
-            id={`field-${checkboxPath.replaceAll('.', '-')}`}
-            onToggle={handleCheckbox}
-            defaultChecked={editSlugField.value}
-            /* @ts-expect-error */
-            checked={editSlugField.value ?? false}
-            label={''}
-            name={checkboxPath}
-          />
-        </div>
+        )}
       </div>
       {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       <FieldDescription

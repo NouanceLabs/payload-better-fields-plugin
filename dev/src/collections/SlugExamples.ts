@@ -43,6 +43,22 @@ const SlugExamples: CollectionConfig = {
         appendOnDuplication: true,
       },
     ),
+    ...SlugField(
+      {
+        name: 'disabledCheckbox',
+        label: 'Disabled checkbox',
+      },
+      {
+        useFields: ['title', 'subtitle'],
+        appendOnDuplication: true,
+      },
+      {
+        enable: false,
+        overrides: {
+          name: 'disabledEditSlug',
+        },
+      },
+    ),
     {
       name: 'another',
       type: 'group',
