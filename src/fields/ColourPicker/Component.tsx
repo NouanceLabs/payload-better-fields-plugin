@@ -13,7 +13,7 @@ import {
   RgbaStringColorPicker,
   RgbStringColorPicker,
 } from 'react-colorful'
-import { Config } from './'
+import { Config } from '.'
 import './styles.scss'
 
 extend([namesPlugin])
@@ -35,10 +35,11 @@ const ColourComponents: Record<Config['type'], any> = {
   rgbA: RgbaStringColorPicker,
 }
 
-const SmartColourComponent: React.FC<Props> = props => {
+const ColourPickerComponent: React.FC<Props> = props => {
   const { path, label, required, defaultValue, custom, admin } = props
   const beforeInput = admin?.components?.beforeInput
   const afterInput = admin?.components?.afterInput
+  const isReadonly = admin?.readOnly
 
   const inputRef = useRef<HTMLInputElement>(null)
 
@@ -77,10 +78,10 @@ const SmartColourComponent: React.FC<Props> = props => {
   )
 
   return (
-    <div className={`bfSmartColourFieldWrapper`}>
+    <div className={`bfColourPickerFieldWrapper`}>
       {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
       <Label
-        htmlFor={`bfSmartColourField-${path.replace(/\./gi, '__')}`}
+        htmlFor={`bfColourPickerField-${path.replace(/\./gi, '__')}`}
         label={label}
         required={required}
       />
@@ -100,7 +101,7 @@ const SmartColourComponent: React.FC<Props> = props => {
           />
 
           <input
-            id={`bfSmartColourField-${path.replace(/\./gi, '__')}`}
+            id={`bfColourPickerField-${path.replace(/\./gi, '__')}`}
             ref={inputRef}
             onChange={({ currentTarget }) => {
               handleAddColor(currentTarget.value)
@@ -126,13 +127,13 @@ const SmartColourComponent: React.FC<Props> = props => {
           {custom.showPreview && (
             <>
               <label
-                htmlFor={`bfSmartColourField-previewField-${path.replace(/\./gi, '__')}`}
+                htmlFor={`bfColourPickerField-previewField-${path.replace(/\./gi, '__')}`}
                 className="srOnly"
               >
                 Preview
               </label>
               <input
-                id={`bfSmartColourField-previewField-${path.replace(/\./gi, '__')}`}
+                id={`bfColourPickerField-previewField-${path.replace(/\./gi, '__')}`}
                 className="previewField"
                 disabled
                 /* @ts-expect-error */
@@ -151,4 +152,4 @@ const SmartColourComponent: React.FC<Props> = props => {
     </div>
   )
 }
-export default SmartColourComponent
+export default ColourPickerComponent

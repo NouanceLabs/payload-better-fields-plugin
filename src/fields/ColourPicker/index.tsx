@@ -10,7 +10,7 @@ export type Config = {
   showPreview?: boolean
 }
 
-type SmartColour = (
+type ColourPicker = (
   /**
    * Slug field overrides
    */
@@ -18,7 +18,7 @@ type SmartColour = (
   config?: Config,
 ) => Field[]
 
-export const SmartColourField: SmartColour = (overrides, config = { type: 'hex' }) => {
+export const ColourPickerField: ColourPicker = (overrides, config = { type: 'hex' }) => {
   const configWithDefaults = deepMerge<Config, Partial<Config>>(
     {
       type: 'hex',
@@ -30,7 +30,7 @@ export const SmartColourField: SmartColour = (overrides, config = { type: 'hex' 
 
   const alertBoxField = deepMerge<TextField, Partial<TextField>>(
     {
-      name: 'SmartColourField',
+      name: 'ColourPickerField',
       type: 'text',
       admin: {
         components: {

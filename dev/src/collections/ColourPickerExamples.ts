@@ -1,8 +1,8 @@
 import { CollectionConfig } from 'payload/types'
-import { SmartColourField } from '../../../src'
+import { ColourPickerField } from '../../../src'
 
-const SmartColourExamples: CollectionConfig = {
-  slug: 'smartColourExamples',
+const ColourPickerExamples: CollectionConfig = {
+  slug: 'colourPickerExamples',
   admin: {
     useAsTitle: 'title',
   },
@@ -14,14 +14,14 @@ const SmartColourExamples: CollectionConfig = {
     {
       type: 'row',
       fields: [
-        ...SmartColourField({
+        ...ColourPickerField({
           name: 'colour',
           required: true,
           admin: {
             description: 'Default Hex',
           },
         }),
-        ...SmartColourField(
+        ...ColourPickerField(
           {
             name: 'optional',
             admin: {
@@ -33,7 +33,7 @@ const SmartColourExamples: CollectionConfig = {
             expanded: true,
           },
         ),
-        ...SmartColourField(
+        ...ColourPickerField(
           {
             name: 'hsla',
             admin: {
@@ -49,4 +49,4 @@ const SmartColourExamples: CollectionConfig = {
   ],
 }
 
-export default SmartColourExamples
+export default ColourPickerExamples
