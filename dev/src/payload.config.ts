@@ -12,6 +12,7 @@ import ColourTextExamples from './collections/ColourTextExamples'
 import RangeExamples from './collections/RangeExamples'
 import TelephoneExamples from './collections/TelephoneExamples'
 import AlertBoxExamples from './collections/AlertBoxExamples'
+import SmartColourExamples from './collections/SmartColourExamples'
 
 export default buildConfig({
   serverURL: process.env.SERVER_URL,
@@ -47,6 +48,7 @@ export default buildConfig({
     ColourTextExamples,
     RangeExamples,
     TelephoneExamples,
+    SmartColourExamples,
     Users,
   ],
   typescript: {

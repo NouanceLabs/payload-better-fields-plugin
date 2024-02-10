@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useCallback, useMemo, useRef } from 'react'
-import { colord, extend } from 'colord'
+import React, { useState, useCallback, useMemo, useRef } from 'react'
+import { extend } from 'colord'
 import namesPlugin from 'colord/plugins/names'
 import { useField } from 'payload/components/forms'
-import { usePreferences } from 'payload/components/preferences'
 import { Label } from 'payload/components/forms'
+import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
 import {
   HexColorPicker,
@@ -13,7 +13,6 @@ import {
   RgbaStringColorPicker,
   RgbStringColorPicker,
 } from 'react-colorful'
-import { Modal, useModal } from '@faceless-ui/modal'
 import { Config } from './'
 import './styles.scss'
 
@@ -37,15 +36,17 @@ const ColourComponents: Record<Config['type'], any> = {
 }
 
 const SmartColourComponent: React.FC<Props> = props => {
-  const { path, label, required, defaultValue, custom } = props
-  const { getPreference, setPreference } = usePreferences()
+  const { path, label, required, defaultValue, custom, admin } = props
+  const beforeInput = admin?.components?.beforeInput
+  const afterInput = admin?.components?.afterInput
+
   const inputRef = useRef<HTMLInputElement>(null)
 
   const { value = '', setValue } = useField({
     path,
   })
 
-  const isExpanded = custom.mode === 'expanded'
+  const isExpanded = Boolean(custom.expanded)
 
   const [color, setColor] = useState(value ?? defaultValue ?? defaultColor)
   const [isAdding, setIsAdding] = useState(isExpanded)
@@ -62,7 +63,6 @@ const SmartColourComponent: React.FC<Props> = props => {
           inputRef.current.value = val ?? ''
         }
       }
-      /* if (!isExpanded) setIsAdding(false) */
     },
     [setIsAdding, setValue, inputRef],
   )
@@ -72,31 +72,31 @@ const SmartColourComponent: React.FC<Props> = props => {
       if (val !== value) {
         setValue(val)
       }
-      /* if (!isExpanded) setIsAdding(false) */
     },
     [setIsAdding, setValue],
   )
 
   return (
     <div className={`bfSmartColourFieldWrapper`}>
+      {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
       <Label
         htmlFor={`bfSmartColourField-${path.replace(/\./gi, '__')}`}
         label={label}
         required={required}
       />
       {(isExpanded || isAdding) && (
-        <div /* className={[!isExpanded && 'floatingPicker'].filter(Boolean).join(' ')} */>
+        <div>
           <Picker
             onChange={handleAddColorViaPicker}
             color={value}
-            onBlur={(e) => {
-							if (e.relatedTarget === null) {
+            onBlur={(e: FocusEvent) => {
+              if (e.relatedTarget === null) {
                 setIsAdding(false)
               }
             }}
-            onKeyDown={(e) =>
-							(e.key === 'Enter' || e.key === 'Escape') && setIsAdding(false)
-						}
+            onKeyDown={(e: KeyboardEvent) =>
+              (e.key === 'Enter' || e.key === 'Escape') && setIsAdding(false)
+            }
           />
 
           <input
@@ -105,13 +105,9 @@ const SmartColourComponent: React.FC<Props> = props => {
             onChange={({ currentTarget }) => {
               handleAddColor(currentTarget.value)
             }}
-            /* onBlur={e => {
-              setIsAdding(false)
-            }} */
             // @ts-expect-error
             defaultValue={value}
             className={`manual-field-input`}
-            /* onChange={setColorToAdd} */
           />
         </div>
       )}
@@ -124,7 +120,6 @@ const SmartColourComponent: React.FC<Props> = props => {
             style={{ backgroundColor: value }}
             aria-label={color}
             onClick={() => {
-              /* setValue(color) */
               setIsAdding(!isAdding)
             }}
           />
@@ -140,7 +135,6 @@ const SmartColourComponent: React.FC<Props> = props => {
                 id={`bfSmartColourField-previewField-${path.replace(/\./gi, '__')}`}
                 className="previewField"
                 disabled
-                /* defaultValue={value} */
                 /* @ts-expect-error */
                 value={value}
               />
@@ -148,6 +142,12 @@ const SmartColourComponent: React.FC<Props> = props => {
           )}
         </div>
       )}
+      <FieldDescription
+        className={`field-description-${path.replace(/\./g, '__')}`}
+        description={admin?.description}
+        value={value}
+      />
+      {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
     </div>
   )
 }
