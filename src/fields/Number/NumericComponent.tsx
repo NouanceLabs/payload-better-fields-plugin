@@ -36,10 +36,13 @@ const NumericComponent: React.FC<Props> = ({
   const afterInput = admin?.components?.afterInput
   const { callback, ...componentProps } = config
 
+  console.log('componentProps', componentProps)
+
   const formatValue = useCallback(
     (value: string) => {
       const prefix = componentProps.prefix
       const suffix = componentProps.suffix
+      const thousandSeparator = componentProps.thousandSeparator
 
       if (callback) {
         return callback(value)
@@ -51,7 +54,12 @@ const NumericComponent: React.FC<Props> = ({
 
           if (suffix) cleanValue = cleanValue.replaceAll(suffix, '')
 
-          cleanValue = parseFloat(cleanValue)
+          if (thousandSeparator) {
+            cleanValue =
+              typeof thousandSeparator === 'string'
+                ? cleanValue.replaceAll(thousandSeparator, '')
+                : cleanValue.replaceAll(',', '')
+          }
 
           return cleanValue
         } else {
