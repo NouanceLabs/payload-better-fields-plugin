@@ -37,12 +37,12 @@ const ColourPickerExamples: CollectionConfig = {
           {
             name: 'hsla',
             admin: {
-              description: 'HSLA readonly',
-              readOnly: true,
+              description: 'HSLA preview',
             },
           },
           {
             type: 'hslA',
+            showPreview: true,
           },
         ),
       ],

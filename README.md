@@ -34,6 +34,7 @@ All fields have had changes to standardise how the field parameters are structur
 - [Colour Text field](#colour-text-field)
 - [Telephone field](#telephone-field)
 - [Alert Box field](#alert-box-field)
+- [Colour Picker field](#colour-picker-field)
 
 ## Styling
 
@@ -509,6 +510,55 @@ The `AlertBoxField` accepts the following parameters
     - `Element` - React component to override the provided icon
 
 If you want to make this field appear conditionally, you should use the field's [admin conditional config](https://payloadcms.com/docs/fields/overview#conditional-logic) as provided by Payload.
+
+## Colour Picker field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/ColourPicker)
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { ColourPickerField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...ColourPickerField(
+      {
+        name: 'backgroundColour',
+        required: true,
+      },
+      {
+        type: 'hslA',
+      },
+    ),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `ColourPickerField` accepts the following parameters
+
+- `overrides` - `TextField` **required** for `name` attribute
+
+- `config` - `Config` required
+
+  - `type` - defaults to `hex`, a selection of `hex` | `hexA` | `rgb` | `rgbA` | `hsl` | `hslA`
+
+  - `expanded` - optional boolean, controls if the selector is visible by default
+
+  - `showPreview` - optional boolean
 
 ## Contributing
 
