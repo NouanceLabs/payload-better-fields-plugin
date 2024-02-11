@@ -14,7 +14,7 @@ import {
   RgbStringColorPicker,
 } from 'react-colorful'
 import { Config } from '.'
-import './styles.scss'
+import '../../styles/colourPicker.scss'
 
 extend([namesPlugin])
 const defaultColor = '#9A9A9A'
