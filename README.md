@@ -95,7 +95,7 @@ The `SlugField` accepts the following parameters
 
   ```ts
   @default
-  { lower: true, remove: /[*+~.()'"!?#\.,:@]/g }
+  { lower: true, remove: /[*+~\/\\.()'"!?#\.,:@]/g }
   ```
 
 - `checkbox`
