@@ -76,13 +76,11 @@ export const SlugField: Slug = (
     },
   },
 ) => {
-  const slugifyOptions: SlugifyOptions = deepMerge(
-    {
-      lower: true,
-      remove: /[*+~.()'"!?#\.,:@]/g,
-    },
-    config.slugify,
-  )
+  const slugifyOptions: SlugifyOptions = {
+    lower: true,
+    remove: /[*+~\/\\.()'"!?#\.,:@]/g,
+    ...config.slugify,
+  }
 
   const checkboxField = deepMerge(
     {

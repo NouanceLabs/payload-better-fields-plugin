@@ -41,6 +41,9 @@ const SlugExamples: CollectionConfig = {
       {
         useFields: ['title', 'subtitle'],
         appendOnDuplication: true,
+        slugify: {
+          remove: /[*+~.()'"!?#\.,:@]/g,
+        },
       },
     ),
     ...SlugField(
