@@ -26,7 +26,14 @@ const ComboExamples: CollectionConfig = {
         },
       ],
     },
-    ...ComboField({ name: 'fullName', admin: { readOnly: true } }, ['firstName', 'lastName']),
+    ...ComboField(
+      {
+        name: 'fullName',
+        label: { en: 'Full name', de: 'Full name in german' },
+        admin: { readOnly: true },
+      },
+      ['firstName', 'lastName'],
+    ),
     ...ComboField({ name: 'identifier', admin: { readOnly: true } }, ['lastName'], {
       initial: 'ID-',
       separator: '-',

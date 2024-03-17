@@ -137,7 +137,6 @@ export const SlugField: Slug = (
   const slugField = deepMerge<TextField, Partial<TextField>>(
     {
       name: slugName,
-      label: 'Slug',
       type: 'text',
       index: true,
       required: false,

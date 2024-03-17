@@ -34,6 +34,7 @@ const SlugExamples: CollectionConfig = {
     ...SlugField(
       {
         name: 'slug',
+        label: { en: 'Slug eng', de: 'Slug in german' },
         admin: {
           position: 'sidebar',
         },
