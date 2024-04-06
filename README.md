@@ -35,6 +35,7 @@ All fields have had changes to standardise how the field parameters are structur
 - [Telephone field](#telephone-field)
 - [Alert Box field](#alert-box-field)
 - [Colour Picker field](#colour-picker-field)
+- [Date field](#date-field)
 
 ## Styling
 
@@ -562,6 +563,56 @@ The `ColourPickerField` accepts the following parameters
 
   - `showPreview` - optional boolean
 
+## Date field
+
+[source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Date)
+
+The goal of this field is to help with management of timezones.
+
+### Usage
+
+```ts
+import { CollectionConfig } from 'payload/types'
+import { DateField } from '@nouance/payload-better-fields-plugin'
+
+const Examples: CollectionConfig = {
+  slug: 'examples',
+  admin: {
+    useAsTitle: 'title',
+  },
+  fields: [
+    {
+      name: 'title',
+      type: 'text',
+    },
+    ...DateField({
+      name: 'date',
+      admin: {
+        date: {
+          pickerAppearance: 'dayAndTime',
+        },
+      },
+    }),
+  ],
+}
+
+export default Examples
+```
+
+### Options
+
+The `DateField` accepts the following parameters
+
+- `overrides` - `DateField` **required** for `name` attribute
+
+- `timezone` - `Timezone` optional
+
+  - `enabled` - defaults to `true`
+
+  - `timezones` - optional list of timezones to customise available options
+
+  - `overrides` - `SelectField` **required** for `name` attribute
+
 ## Contributing
 
 For development purposes, there is a full working example of how this plugin might be used in the [dev](./dev) directory of this repo.
@@ -576,6 +627,7 @@ git clone git@github.com:NouanceLabs/payload-better-fields-plugin.git \
 ```
 
 ## Contributors
+
 Thanks to the following people for contributing code to this plugin
 
 [MarkAtOmniux](https://github.com/MarkAtOmniux), [Kalon Robson](https://github.com/kalon-robson)
