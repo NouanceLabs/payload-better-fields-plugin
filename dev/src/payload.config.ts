@@ -13,6 +13,7 @@ import RangeExamples from './collections/RangeExamples'
 import TelephoneExamples from './collections/TelephoneExamples'
 import AlertBoxExamples from './collections/AlertBoxExamples'
 import ColourPickerExamples from './collections/ColourPickerExamples'
+import DateExamples from './collections/DateExample'
 
 export default buildConfig({
   serverURL: process.env.SERVER_URL,
@@ -50,6 +51,7 @@ export default buildConfig({
     TelephoneExamples,
     ColourPickerExamples,
     Users,
+    DateExamples,
   ],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
