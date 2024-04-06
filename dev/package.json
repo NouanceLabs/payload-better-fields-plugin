@@ -4,8 +4,9 @@
   "version": "1.0.0",
   "main": "dist/server.js",
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "dev": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts nodemon",
+    "dev": "cross-env NODE_OPTIONS=--no-deprecation next dev -p 3049",
     "test": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts PAYLOAD_SEED=true jest --detectOpenHandles --forceExit",
     "build:payload": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload build",
     "build:server": "tsc",
@@ -16,13 +17,15 @@
     "generate:graphQLSchema": "cross-env PAYLOAD_CONFIG_PATH=src/payload.config.ts payload generate:graphQLSchema"
   },
   "dependencies": {
-    "@payloadcms/bundler-webpack": "^1.0.6",
-    "@payloadcms/db-mongodb": "^1.4.3",
-    "@payloadcms/richtext-slate": "^1.4.0",
+    "@payloadcms/eslint-config": "^0.0.2",
+    "@payloadcms/db-mongodb": "3.0.0-alpha.54",
+    "@payloadcms/next": "3.0.0-alpha.54",
+    "@payloadcms/richtext-lexical": "3.0.0-alpha.54",
+    "@payloadcms/ui": "3.0.0-alpha.54",
     "cross-env": "^7.0.3",
     "dotenv": "^8.6.0",
-    "express": "^4.18.2",
-    "payload": "^2.11.2"
+    "next": "14.2.0-canary.23",
+    "payload": "3.0.0-alpha.54"
   },
   "devDependencies": {
     "@swc/jest": "^0.2.29",

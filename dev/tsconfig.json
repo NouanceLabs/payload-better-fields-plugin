@@ -11,15 +11,40 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "rootDir": "../",
-    "jsx": "react",
+    "jsx": "preserve",
     "sourceMap": true,
     "paths": {
       "payload/generated-types": [
         "./src/payload-types.ts"
+      ],
+      "@payload-config": [
+        "./payload.config.ts"
       ]
-    }
+    },
+    "allowJs": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "incremental": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ]
   },
   "ts-node": {
     "transpileOnly": true
-  }
+  },
+  "include": [
+    "next-env.d.ts",
+    ".next/types/**/*.ts",
+    "**/*.ts",
+    "**/*.tsx"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }
