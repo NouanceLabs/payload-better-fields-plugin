@@ -567,6 +567,8 @@ The `ColourPickerField` accepts the following parameters
 
 [source](https://github.com/NouanceLabs/payload-better-fields-plugin/tree/master/src/fields/Date)
 
+![dateField](https://github.com/NouanceLabs/payload-better-fields-plugin/assets/35137243/6089bd5b-57bb-436e-9804-6d4a04d1aca0)
+
 The goal of this field is to help with management of timezones.
 
 ### Usage
