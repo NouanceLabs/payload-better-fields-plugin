@@ -1,6 +1,6 @@
 module.exports = {
   root: true,
-  extends: ['./eslint-config'],
+  extends: ['next/core-web-vitals'],
   overrides: [
     // Temporary overrides
     {
@@ -11,7 +11,5 @@ module.exports = {
       },
     },
   ],
-  excludes: [
-    'dev/plugin.spec.ts',
-  ]
+  excludes: ['dev/plugin.spec.ts'],
 }
