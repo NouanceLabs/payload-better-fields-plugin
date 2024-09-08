@@ -100,7 +100,6 @@ const SlugComponent: React.FC<Props> = ({
           name={others.name}
           label={false}
           required={isRequired}
-          description={admin?.description}
           readOnly={isReadonly}
           onChange={e => {
             setValue(e.target.value)
