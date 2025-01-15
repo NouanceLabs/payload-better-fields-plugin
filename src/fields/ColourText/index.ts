@@ -1,5 +1,5 @@
 import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
+import {deepMerge} from '../../utilities/deepMerge'
 import Component from './Component'
 import { TextField } from 'payload/types'
 import validate from './validate'

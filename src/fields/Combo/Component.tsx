@@ -1,9 +1,16 @@
-import React, { useMemo } from 'react'
-import { Label, useField, useFormFields } from 'payload/components/forms'
-import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import type { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
-import type { Config } from '.'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+'use client'
+import React, { useMemo, useEffect, useState, useRef } from 'react'
+import { TextInput as TextInputField } from '@payloadcms/ui/fields/Text'
+import { TextField as TextFieldType } from 'payload'
+import type { SanitisedConfig } from '.'
+import { useFormFields } from '@payloadcms/ui/forms/Form'
+import { useField } from '@payloadcms/ui/forms/useField'
+import { useFieldProps } from '@payloadcms/ui/forms/FieldPropsProvider'
+import { useTranslation } from '@payloadcms/ui/providers/Translation'
+import { useLocale } from '@payloadcms/ui/providers/Locale'
+
+import { FieldLabel as Label } from '@payloadcms/ui/forms/FieldLabel'
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription'
 
 type Props = TextFieldType & {
   path: string
@@ -12,34 +19,24 @@ type Props = TextFieldType & {
   className?: string
   custom: {
     watchFields: string[]
-    options: Config
+    options: SanitisedConfig
   }
 }
 
-const ComboComponent: React.FC<Props> = ({
-  readOnly,
-  className,
-  required,
-  path,
-  placeholder,
-  label,
-  admin,
-  custom,
-  ...others
-}) => {
-  const { watchFields, options } = custom
-  const { value, setValue, showError, errorMessage } = useField<Props>({ path })
+const ComboComponent: React.FC<Props> = ({ readOnly, className, required, placeholder, label, admin, ...others }) => {
+  const { path, custom: customFromProps, schemaPath } = useFieldProps()
+  const { watchFields, options } = customFromProps as unknown as { watchFields: string[]; options: SanitisedConfig }
+  const { value, setValue, showError, errorMessage } = useField<string>({ path })
+  const [processedValue, setProcessedValue] = useState(options.initial)
+
+  let testValue = useRef(options.initial)
   const beforeInput = admin?.components?.beforeInput
   const afterInput = admin?.components?.afterInput
 
-  const classes = [
-    'field-type',
-    'text',
-    className,
-    showError && 'error',
-    readOnly && 'read-only',
-    'container',
-  ]
+  const { code } = useLocale()
+  const { t } = useTranslation()
+
+  const classes = ['field-type', 'text', className, showError && 'error', readOnly && 'read-only', 'container']
     .filter(Boolean)
     .join(' ')
 
@@ -47,49 +44,90 @@ const ComboComponent: React.FC<Props> = ({
     return watchFields.map(watch => fields[watch])
   })
 
+  useEffect(() => {
+    console.log({ fields })
+  }, [fields])
+
   const isRequired = required
   const isReadonly = readOnly || admin?.readOnly
+  const hasCallback = true
+  const separator = options?.separator ?? ' '
 
-  const processedValue = useMemo(() => {
+  useEffect(() => {
+    async function getFields() {
+      const reducedFields = await fields
+        .filter(item => Boolean(item.value))
+        .reduce(async (accumulator, currentValue, currentIndex) => {
+          console.log({ value: currentValue.value, accumulator })
+          const accumulatorValue = await accumulator
+          const value = String(currentValue.value)
+
+          return String(accumulatorValue) + (currentIndex > 0 ? separator : '') + value
+        }, Promise.resolve(options.initial))
+
+      return reducedFields
+    }
+
+    getFields().then(data => {
+      console.log('data', data)
+      //setProcessedValue(data)
+
+      testValue.current = data
+    })
+  }, [fields, customFromProps])
+
+  /* const processedValue = useMemo(() => {
     const separator = options?.separator ?? ' '
 
-    return fields
-      .filter(item => Boolean(item.value))
-      .reduce((accumulator, currentValue, currentIndex) => {
-        const value = options.callback
-          ? options.callback(String(currentValue.value))
-          : String(currentValue.value)
+    async function getFields() {
+      const reducedFields = await fields
+        .filter(item => Boolean(item.value))
+        .reduce(async (accumulator, currentValue, currentIndex) => {
+          console.log({ value: currentValue.value })
+          const value = hasCallback ? await getCallbackValue(String(currentValue.value)) : String(currentValue.value)
 
-        return String(accumulator) + (currentIndex > 0 ? separator : '') + value
-      }, options.initial)
-  }, [fields, custom])
+          return String(accumulator) + (currentIndex > 0 ? separator : '') + value
+        }, Promise.resolve(options.initial))
 
-  React.useEffect(() => {
-    /* @ts-expect-error */
-    if (processedValue !== value) {
-      setValue(processedValue)
+      return reducedFields
     }
-  }, [processedValue])
+
+    return getFields()
+  }, [fields, customFromProps]) */
+
+  const labelToUse = label
+    ? typeof label === 'function'
+      ? // @ts-expect-error
+        label({ t })
+      : typeof label === 'string'
+        ? label
+        : label[code]
+    : ''
+
+  useEffect(() => {
+    if (testValue.current !== value) {
+      setValue(testValue.current)
+    }
+  }, [testValue.current])
 
   return (
     <div className={`bfComboFieldWrapper field-type`}>
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
+      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={labelToUse} required={isRequired} />
       <div className={classes}>
         {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <TextInputField
           path={path}
           name={others.name}
-          label={false}
+          label={undefined}
           required={isRequired}
           readOnly={isReadonly}
           onChange={e => {
             setValue(e.target.value)
           }}
           className={'comboInput'}
-          /* @ts-expect-error */
           value={value}
           showError={showError}
-          errorMessage={errorMessage}
+          errorProps={{ message: errorMessage }}
           style={{
             marginBottom: 0,
           }}
@@ -98,8 +136,7 @@ const ComboComponent: React.FC<Props> = ({
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
       />
     </div>
   )

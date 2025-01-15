@@ -1,11 +1,13 @@
+'use client'
 import React, { MouseEventHandler, useCallback } from 'react'
-import { Label, useField } from 'payload/components/forms'
-import Error from 'payload/dist/admin/components/forms/Error'
+import { useField } from '@payloadcms/ui/forms/useField'
+import { FieldLabel as Label } from '@payloadcms/ui/forms/FieldLabel'
+import { FieldError as Error } from '@payloadcms/ui/forms/FieldError'
 import { NumberField } from 'payload/types'
 import { Config } from '.'
 import 'react-phone-number-input/style.css'
 import PhoneInput from 'react-phone-number-input'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription'
 
 type Props = NumberField & {
   path: string
@@ -82,8 +84,8 @@ const TelephoneComponent: React.FC<Props> = ({
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
+        /* value={value} */
       />
     </div>
   )

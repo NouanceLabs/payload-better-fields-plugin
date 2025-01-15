@@ -1,38 +1,22 @@
+'use client'
+import type { TextFieldClientProps, TextField as TextFieldType } from 'payload'
+
+import { FieldDescription, FieldLabel, useField } from '@payloadcms/ui'
+import { TextInput as TextInputField } from '@payloadcms/ui/fields/Text'
+import { useLocale } from '@payloadcms/ui/providers/Locale'
+import { useTranslation } from '@payloadcms/ui/providers/Translation'
 import React, { useMemo } from 'react'
-import { Label, useField, useFormFields } from 'payload/components/forms'
-import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
 import validateColor from 'validate-color'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
 
-import '../../styles/colourText.scss'
+import './colourText.scss'
 
-type Props = TextFieldType & {
-  path: string
-  placeholder?: string
-  className?: string
-}
+type Props = {} & TextFieldClientProps
 
-const ComboComponent: React.FC<Props> = ({
-  className,
-  required,
-  path,
-  placeholder,
-  label,
-  admin,
-  custom,
-  ...others
-}) => {
-  const { value, setValue, showError, errorMessage } = useField<Props>({ path })
+export const ColourTextComponent: React.FC<Props> = (props) => {
+  const {  className,  label, path,field: {admin, required} } = props
+  const { errorMessage, setValue, showError, value } = useField<string>({ path })
 
-  const classes = [
-    'field-type',
-    'text',
-    className,
-    showError && 'error',
-    admin?.readOnly && 'read-only',
-    'container',
-  ]
+  const classes = ['field-type', 'text', className, showError && 'error', admin?.readOnly && 'read-only', 'container']
     .filter(Boolean)
     .join(' ')
 
@@ -43,46 +27,51 @@ const ComboComponent: React.FC<Props> = ({
   const beforeInput = admin?.components?.beforeInput
   const afterInput = admin?.components?.afterInput
 
+  const { code } = useLocale()
+  const { t } = useTranslation()
+
+  // @ts-expect-error
+  const labelToUse = label
+    ? typeof label === 'function'
+      ? label({ t })
+      : typeof label === 'string'
+        ? label
+        : label[code]
+    : ''
+
   const gradient =
     'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'
-  // @ts-expect-error
   const colour = validateColor(value) ? value : gradient
 
   return (
     <div className={`bfColourTextFieldWrapper field-type`}>
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
+      <Label htmlFor={`field-${path.replace(/\./g, '__')}`} label={labelToUse} required={isRequired} />
       <div className={classes}>
         {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <TextInputField
-          path={path}
+          className={'colourTextInput'}
+          errorProps={{
+            message: errorMessage,
+          }}
+          label={undefined}
           name={others.name}
-          label={false}
-          required={isRequired}
-          readOnly={isReadonly}
-          onChange={e => {
+          onChange={(e) => {
             setValue(e.target.value)
           }}
-          className={'colourTextInput'}
-          /* @ts-expect-error */
-          value={value}
+          path={path}
+          readOnly={isReadonly}
+          required={isRequired}
           showError={showError}
-          errorMessage={errorMessage}
-          width={width}
-          /* style={{
-            marginBottom: 0,
-            ...style,
-          }} */
           style={style}
+          value={value}
+          width={width}
         />
-
-        {/* @ts-expect-error */}
         <div aria-hidden={true} className="colourBox" style={{ background: colour }} />
         {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
       />
     </div>
   )

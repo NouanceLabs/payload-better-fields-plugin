@@ -1,13 +1,21 @@
 import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
+import { deepMerge } from '../../utilities/deepMerge'
 import Component from './Component'
+import ComponentServer from './Component.server'
 import { TextField } from 'payload/types'
 import beforeValidate from './beforeValidate'
 import { PartialRequired } from '../../utilities/partialRequired'
+import { withMergedProps } from '@payloadcms/ui/elements/withMergedProps'
 
 export type Config = {
   separator?: string
   callback?: (field: string) => string
+  initial?: string
+}
+
+export type SanitisedConfig = {
+  separator?: string
+  callback?: undefined
   initial?: string
 }
 
@@ -33,20 +41,31 @@ export const ComboField: Combo = (
   fieldToUse: string[],
   options: Config = { separator: ' ', initial: '' },
 ) => {
+  const validate = beforeValidate(fieldToUse, options)
+
+  const sanitisedOptions: SanitisedConfig = {
+    ...options,
+    callback: undefined,
+  }
+
   const comboField = deepMerge<TextField, Partial<TextField>>(
     {
       name: 'combo',
       type: 'text',
       hooks: {
-        beforeValidate: [beforeValidate(fieldToUse, options)],
+        beforeValidate: [validate],
+        beforeChange: [() => 'test'],
       },
       admin: {
         components: {
-          Field: Component,
+          Cell: ComponentServer,
+        },
+        custom: {
+          watchFields: fieldToUse,
+          options: sanitisedOptions,
         },
       },
       custom: {
-        watchFields: fieldToUse,
         options: options,
       },
     },

@@ -1,45 +1,44 @@
-import { buildConfig } from 'payload/config'
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
-
 import path from 'path'
-import Users from './src/collections/Users'
-import SlugExamples from './src/collections/SlugExamples'
-import ComboExamples from './src/collections/ComboExamples'
-import NumberExamples from './src/collections/NumberExamples'
-import PatternExamples from './src/collections/PatternExamples'
-import ColourTextExamples from './src/collections/ColourTextExamples'
-import RangeExamples from './src/collections/RangeExamples'
-import TelephoneExamples from './src/collections/TelephoneExamples'
-import AlertBoxExamples from './src/collections/AlertBoxExamples'
-import ColourPickerExamples from './src/collections/ColourPickerExamples'
-import DateExamples from './src/collections/DateExample'
+import { buildConfig } from 'payload'
+import sharp from 'sharp'
+import { fileURLToPath } from 'url'
 
+import { AlertBoxExamples } from './collections/AlertBoxExamples.js'
+import { ColourPickerExamples } from './collections/ColourPickerExamples.js'
+import { Users } from './collections/Users.js'
+import { seed } from './seed.js'
+
+const filename = fileURLToPath(import.meta.url)
+const dirname = path.dirname(filename)
+
+if (!process.env.ROOT_DIR) {
+  process.env.ROOT_DIR = dirname
+}
+
+// eslint-disable-next-line no-restricted-exports
 export default buildConfig({
-  serverURL: process.env.SERVER_URL,
-  editor: lexicalEditor({}),
-  db: mongooseAdapter({
-    url: process.env.MONGODB_URI,
-  }),
   admin: {
-    user: Users.slug,
+    autoLogin: process.env.AUTO_LOGIN_EMAIL
+      ? { email: process.env.AUTO_LOGIN_EMAIL, password: process.env.AUTO_LOGIN_PASSWORD }
+      : undefined,
+    importMap: {
+      baseDir: path.resolve(dirname),
+    },
   },
-  collections: [
-    /* SlugExamples,
-    AlertBoxExamples,
-    ComboExamples,
-    NumberExamples,
-    PatternExamples,
-    ColourTextExamples,
-    RangeExamples,
-    TelephoneExamples,
-    ColourPickerExamples, */
-    Users,
-    /* DateExamples, */
-  ],
-  typescript: {
-    outputFile: path.resolve(__dirname, 'payload-types.ts'),
+  collections: [AlertBoxExamples, ColourPickerExamples, Users],
+  db: mongooseAdapter({
+    url: process.env.DATABASE_URI || '',
+  }),
+  editor: lexicalEditor(),
+  onInit: async (payload) => {
+    await seed(payload)
   },
-  secret: process.env.PAYLOAD_SECRET,
   plugins: [],
+  secret: process.env.PAYLOAD_SECRET || 'test-secret_key',
+  sharp,
+  typescript: {
+    outputFile: path.resolve(dirname, 'payload-types.ts'),
+  },
 })

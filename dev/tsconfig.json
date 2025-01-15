@@ -1,50 +1,14 @@
 {
+  "extends": "../tsconfig.json",
+  "exclude": [],
+  "include": ["**/*.ts", "**/*.tsx", "../src/**/*.ts", "../src/**/*.tsx", "next.config.mjs", ".next/types/**/*.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "strict": false,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": "../",
-    "jsx": "preserve",
-    "sourceMap": true,
+    "baseUrl": "./",
     "paths": {
-      "payload/generated-types": [
-        "./src/payload-types.ts"
-      ],
-      "@payload-config": [
-        "./payload.config.ts"
-      ]
+      "@payload-config": ["./payload.config.ts"],
+      "@nouance/payload-better-fields-plugin/AlertBox": ["../src/exports/AlertBox.ts"],
+      "@nouance/payload-better-fields-plugin/ColourPicker": ["../src/exports/ColourPicker.ts"]
     },
-    "allowJs": true,
-    "forceConsistentCasingInFileNames": true,
-    "noEmit": true,
-    "incremental": true,
-    "module": "esnext",
-    "moduleResolution": "node",
-    "resolveJsonModule": true,
-    "isolatedModules": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ]
-  },
-  "ts-node": {
-    "transpileOnly": true
-  },
-  "include": [
-    "next-env.d.ts",
-    ".next/types/**/*.ts",
-    "**/*.ts",
-    "**/*.tsx"
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+    "noEmit": true
+  }
 }

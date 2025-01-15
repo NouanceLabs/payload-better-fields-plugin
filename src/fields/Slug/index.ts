@@ -1,5 +1,5 @@
 import type { Field } from 'payload/types'
-import deepMerge, { isObject } from '../../utilities/deepMerge'
+import {deepMerge, isObject} from '../../utilities/deepMerge'
 import Component from './Component'
 import type { SlugifyOptions } from '../../types'
 import { TextField, CheckboxField } from 'payload/types'

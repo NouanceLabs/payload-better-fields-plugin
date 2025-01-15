@@ -1,5 +1,5 @@
 import type { Field, Option } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
+import {deepMerge} from '../../utilities/deepMerge'
 import DateComponent from './Component'
 import { DateField as DateFieldType, SelectField } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'
@@ -64,11 +64,14 @@ export const DateField: Date = (
       admin: {
         components: {
           Field: DateComponent,
+        
         },
       },
       custom: {
         config: { ...timezone, timezones: timezoneField.options },
-        timezoneField,
+        timezoneField: {
+          name: timezoneField.name,
+        },
       },
     },
     dateOverrides,

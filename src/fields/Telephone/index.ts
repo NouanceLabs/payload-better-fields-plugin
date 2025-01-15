@@ -1,6 +1,6 @@
 import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
-import NumericComponent from './Component'
+import {deepMerge} from '../../utilities/deepMerge'
+//import NumericComponent from './Component.js'
 import { TextField as TextFieldType } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'
 import validate from './validate'
@@ -73,7 +73,7 @@ export const TelephoneField: Telephone = (
       validate: validate(overrides.required),
       admin: {
         components: {
-          Field: NumericComponent,
+          //Field: NumericComponent,
         },
       },
       custom: {

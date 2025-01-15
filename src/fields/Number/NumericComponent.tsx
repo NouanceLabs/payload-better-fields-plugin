@@ -1,10 +1,12 @@
+'use client'
 import React, { useCallback, useMemo } from 'react'
-import { Label, useField, useFormFields } from 'payload/components/forms'
-import Error from 'payload/dist/admin/components/forms/Error'
+import { useField } from '@payloadcms/ui/forms/useField'
+import { FieldLabel as Label } from '@payloadcms/ui/forms/FieldLabel'
+import { FieldError as Error } from '@payloadcms/ui/forms/FieldError'
 import { NumericFormat } from 'react-number-format'
 import { TextField, NumberField } from 'payload/types'
 import { NumericConfig } from '.'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription'
 
 import '../../styles/slug.scss'
 
@@ -106,8 +108,8 @@ const NumericComponent: React.FC<Props> = ({
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
+        /* value={value} */
       />
     </div>
   )

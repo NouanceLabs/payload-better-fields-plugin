@@ -1,25 +1,25 @@
-import { Field } from 'payload/types'
-import Component from './Component'
-import { TextField } from 'payload/dist/fields/config/types'
-import { PartialRequired } from '../../utilities/partialRequired'
-import deepMerge from '../../utilities/deepMerge'
+import type { Field, TextField } from 'payload'
+
+import { deepMerge, deepMergeSimple } from 'payload'
+
+export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 export type Config = {
-  type: 'hex' | 'hexA' | 'rgb' | 'rgbA' | 'hsl' | 'hslA'
   expanded?: boolean
   showPreview?: boolean
+  type: 'hex' | 'hexA' | 'hsl' | 'hslA' | 'rgb' | 'rgbA'
 }
 
 type ColourPicker = (
   /**
-   * Slug field overrides
+   * Overrides for the underlying Text field from Payload
    */
   overrides: PartialRequired<TextField, 'name'>,
   config?: Config,
 ) => Field[]
 
 export const ColourPickerField: ColourPicker = (overrides, config = { type: 'hex' }) => {
-  const configWithDefaults = deepMerge<Config, Partial<Config>>(
+  const configWithDefaults = deepMergeSimple<Config>(
     {
       type: 'hex',
       expanded: false,
@@ -28,21 +28,23 @@ export const ColourPickerField: ColourPicker = (overrides, config = { type: 'hex
     config,
   )
 
-  const alertBoxField = deepMerge<TextField, Partial<TextField>>(
+  const colourPickerField = deepMerge<TextField, Partial<TextField>>(
     {
       name: 'ColourPickerField',
       type: 'text',
       admin: {
         components: {
-          Field: Component,
+          Field: {
+            clientProps: configWithDefaults,
+            path: '@nouance/payload-better-fields-plugin/ColourPicker#ColourPickerComponent',
+          },
         },
       },
-      custom: configWithDefaults,
     },
     overrides,
   )
 
-  const fields = [alertBoxField]
+  const fields = [colourPickerField]
 
   return fields
 }

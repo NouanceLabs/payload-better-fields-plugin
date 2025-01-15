@@ -1,12 +1,15 @@
+'use client'
 import React, { useMemo } from 'react'
-import { Label, useField, useFormFields } from 'payload/components/forms'
+import { useField } from '@payloadcms/ui/forms/useField'
+import { useFormFields } from '@payloadcms/ui/forms/Form'
+import { FieldLabel as Label } from '@payloadcms/ui/forms/FieldLabel'
 import slugify from 'slugify'
-import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/Checkbox/Input'
-import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
+import { TextInput as TextInputField } from '@payloadcms/ui/fields/Text'
+import { CheckboxInput } from '@payloadcms/ui/fields/Checkbox'
+import { TextField as TextFieldType } from 'payload/types'
 import type { SlugifyOptions } from '../../types'
 import type { CheckboxField } from 'payload/types'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription'
 
 import '../../styles/slug.scss'
 
@@ -137,8 +140,8 @@ const SlugComponent: React.FC<Props> = ({
       {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
+        /* value={value} */
       />
     </div>
   )

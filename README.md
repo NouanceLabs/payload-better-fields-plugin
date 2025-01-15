@@ -5,9 +5,9 @@ We've tried to keep styling as consistent as possible with the existing admin UI
 
 Every field will come with its own usage instructions and structure. These are subject to change!
 
-## ⚠️ Breaking changes 1.0 release ⚠️
+## ⚠️ Breaking changes 2.0 release ⚠️
 
-All fields have had changes to standardise how the field parameters are structured. Field overrides will now be mandatory and come first across fields.
+All fields have been changed for how they are imported. You will also need to install dependencies directly yourself. This should streamline the bundle size a lot especially for unused fields.
 
 ## Payload compatibility
 
@@ -15,6 +15,7 @@ All fields have had changes to standardise how the field parameters are structur
 | ------- | ------------- |
 | 1.x     | < 1.0         |
 | 2.x     | > 1.0         |
+| 3.x     | > 2.0         |
 
 ## Installation
 

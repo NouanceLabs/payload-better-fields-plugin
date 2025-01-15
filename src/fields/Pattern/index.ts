@@ -1,5 +1,5 @@
 import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
+import {deepMerge} from '../../utilities/deepMerge'
 import PatternComponent from './PatternComponent'
 import { TextField as TextFieldType } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'

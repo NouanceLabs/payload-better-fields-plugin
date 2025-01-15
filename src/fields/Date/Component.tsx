@@ -1,12 +1,17 @@
+'use client'
 import React, { MouseEventHandler, useCallback, useMemo } from 'react'
-import { Label, useField } from 'payload/components/forms'
-import Error from 'payload/dist/admin/components/forms/Error'
+import { useField } from '@payloadcms/ui/forms/useField'
+import { useFieldProps } from '@payloadcms/ui/forms/FieldPropsProvider'
+import { FieldLabel as Label } from '@payloadcms/ui/forms/FieldLabel'
+import { FieldError as Error } from '@payloadcms/ui/forms/FieldError'
+import { useTranslation } from '@payloadcms/ui/providers/Translation'
+import { useLocale } from '@payloadcms/ui/providers/Locale'
 import type { DateField, Option, OptionObject, SelectField } from 'payload/types'
 import type { Timezone } from '.'
-import DatePicker from 'payload/dist/admin/components/elements/DatePicker'
-import ReactSelect from 'payload/dist/admin/components/elements/ReactSelect'
+import { DatePickerField as DatePicker } from '@payloadcms/ui/elements/DatePicker'
+import { ReactSelect } from '@payloadcms/ui/elements/ReactSelect'
 import { utcToZonedTime, zonedTimeToUtc } from 'date-fns-tz'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+import { FieldDescription } from '@payloadcms/ui/forms/FieldDescription'
 import '../../styles/date.scss'
 
 type Props = DateField & {
@@ -20,20 +25,13 @@ type Props = DateField & {
   }
 }
 
-const DateComponent: React.FC<Props> = ({
-  readOnly,
-  className,
-  required,
-  path,
-  label,
-  admin,
-  custom,
-  type,
-  ...others
-}) => {
-  const { timezone, timezoneField: timezoneFieldProps } = custom
+const DateComponent: React.FC<Props> = ({ readOnly, className, required, label, admin, type, ...others }) => {
+  const { path, custom: customFromProps } = useFieldProps()
+  const { timezone, timezoneField: timezoneFieldProps } = customFromProps as unknown as any
   const { value, setValue, showError, errorMessage } = useField<Props>({ path })
   const placeholder = admin?.placeholder ?? ''
+  const { code } = useLocale()
+  const { t } = useTranslation()
 
   const beforeInput = admin?.components?.beforeInput
   const afterInput = admin?.components?.afterInput
@@ -49,6 +47,15 @@ const DateComponent: React.FC<Props> = ({
   const timezoneField = useField<Props>({ path: timezonePath })
 
   const timezoneValue = timezoneField.value
+
+  // @ts-expect-error
+  const labelToUse = label
+    ? typeof label === 'function'
+      ? label({ t })
+      : typeof label === 'string'
+        ? label
+        : label[code]
+    : ''
 
   const renderedValue = useMemo(() => {
     // @ts-expect-error
@@ -91,14 +98,7 @@ const DateComponent: React.FC<Props> = ({
     [timezoneValue],
   )
 
-  const classes = [
-    '',
-    'text',
-    className,
-    showError && 'error',
-    readOnly && 'read-only',
-    'container',
-  ]
+  const classes = ['', 'text', className, showError && 'error', readOnly && 'read-only', 'container']
     .filter(Boolean)
     .join(' ')
 
@@ -111,13 +111,9 @@ const DateComponent: React.FC<Props> = ({
       <div>
         <div className={classes}>
           {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
-          <div className="fieldsWrapper">
-            <div className="dateField">
-              <Label
-                htmlFor={`field-${path.replace(/\./gi, '__')}`}
-                label={label}
-                required={isRequired}
-              />
+          <div className='fieldsWrapper'>
+            <div className='dateField'>
+              <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={labelToUse} required={isRequired} />
 
               <DatePicker
                 {...datePickerProps}
@@ -127,12 +123,9 @@ const DateComponent: React.FC<Props> = ({
                 overrides={{ id: `field-${path.replace(/\./g, '__')}`, locale: undefined }}
               />
             </div>
-            <div className="timezoneField">
+            <div className='timezoneField'>
               <div>
-                <Label
-                  htmlFor={`field-${timezonePath.replaceAll('.', '-')}`}
-                  label={timezoneFieldProps?.label ?? ''}
-                />
+                <Label htmlFor={`field-${timezonePath.replaceAll('.', '-')}`} label={timezoneFieldProps?.label ?? ''} />
               </div>
               <ReactSelect
                 inputId={`field-${timezonePath.replaceAll('.', '-')}`}
@@ -143,7 +136,6 @@ const DateComponent: React.FC<Props> = ({
                   timezoneField.setValue(selected.value)
                 }}
                 disabled={isReadonly}
-                // @ts-expect-error
                 options={timezoneFieldProps.options}
               />
             </div>
@@ -153,8 +145,8 @@ const DateComponent: React.FC<Props> = ({
       </div>
       <FieldDescription
         className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+        description={typeof admin?.description === 'string' ? admin?.description : ''}
+        /* value={value} */
       />
     </div>
   )

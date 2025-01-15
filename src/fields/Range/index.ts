@@ -1,5 +1,5 @@
 import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
+import {deepMerge} from '../../utilities/deepMerge'
 import RangeComponent from './Component'
 import { NumberField as NumberFieldType } from 'payload/types'
 import { PartialRequired } from '../../utilities/partialRequired'
