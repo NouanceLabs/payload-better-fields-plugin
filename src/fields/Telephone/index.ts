@@ -1,11 +1,13 @@
-import type { Field } from 'payload/types'
-import {deepMerge} from '../../utilities/deepMerge'
-//import NumericComponent from './Component.js'
-import { TextField as TextFieldType } from 'payload/types'
-import { PartialRequired } from '../../utilities/partialRequired'
-import validate from './validate'
+import type { Field, TextField as TextFieldType } from 'payload'
+import type { Country } from 'react-phone-number-input'
+
+import { deepMerge } from 'payload'
+
+// import { validate } from './validate.js'
 
 type FieldTypes = TextFieldType
+
+export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 /**
  * Additional config unique to the Telephone input
@@ -13,29 +15,31 @@ type FieldTypes = TextFieldType
  */
 export interface Config {
   /**
-   * Forces international formatting
-   * @default true
-   */
-  international?: boolean
-  /**
-   * You can provide an ISO 2-letter country code eg. 'US'
-   * If defaultCountry is specified then the phone number can be input both in "international" format and "national" format
-   */
-  defaultCountry?: string
-  /**
    * You can provide an ISO 2-letter country code eg. 'US'
    * If country is specified then the phone number can only be input in "national" (not "international") format
    */
   country?: string
+  countryCallingCodeEditable?: boolean
+  countrySelectProps?: {
+    /**
+     * 	Set to `true` to render Unicode flag icons instead of SVG images
+     */
+    unicodeFlags?: boolean
+  }
+  /**
+   * You can provide an ISO 2-letter country code eg. 'US'
+   * If defaultCountry is specified then the phone number can be input both in "international" format and "national" format
+   */
+  defaultCountry?: Country
   /**
    * If an initial value is passed, and initialValueFormat is "national", then the initial value is formatted in national format
    */
   initialValueFormat?: 'national'
   /**
-   * If country is specified and international property is true then the phone number can only be input in "international" format for that country
+   * Forces international formatting
+   * @default true
    */
-  withCountryCallingCode?: boolean
-  countryCallingCodeEditable?: boolean
+  international?: boolean
   /**
    * When the user attempts to insert a digit somewhere in the middle of a phone number, the caret position is moved right before the next available digit skipping any punctuation in between
    */
@@ -44,12 +48,10 @@ export interface Config {
    * When defaultCountry is defined and the initial value corresponds to defaultCountry, then the value will be formatted as a national phone number by default
    */
   useNationalFormatForDefaultCountryValue?: boolean
-  countrySelectProps?: {
-    /**
-     * 	Set to `true` to render Unicode flag icons instead of SVG images
-     */
-    unicodeFlags?: boolean
-  }
+  /**
+   * If country is specified and international property is true then the phone number can only be input in "international" format for that country
+   */
+  withCountryCallingCode?: boolean
 }
 
 type Telephone = (
@@ -70,15 +72,17 @@ export const TelephoneField: Telephone = (
     {
       name: 'telephone',
       type: 'text',
-      validate: validate(overrides.required),
       admin: {
         components: {
-          //Field: NumericComponent,
+          Field: {
+            clientProps: {
+              config,
+            },
+            path: '@nouance/payload-better-fields-plugin/Telephone#TelephoneComponent',
+          },
         },
       },
-      custom: {
-        config: config,
-      },
+      // validate: validate(overrides.required),
     },
     overrides,
   )

@@ -1,17 +1,19 @@
-import { isPossiblePhoneNumber } from 'react-phone-number-input'
-import { Validate } from 'payload/types'
+import type { Validate } from 'payload'
 
-const validate =
+// import { isPossiblePhoneNumber } from 'libphonenumber-js'
+import { isPossiblePhoneNumber } from 'react-phone-number-input'
+
+export const validate =
   (required?: boolean): Validate =>
-  value => {
-    if (!Boolean(required) && (!Boolean(value) || value === '')) {
+  (value) => {
+    if (!required && (!value || value === '')) {
       return true
-    } else if (Boolean(required) && (!Boolean(value) || value === '')) {
+    } else if (Boolean(required) && (!value || value === '')) {
       return 'This field is required.'
     }
-    if (isPossiblePhoneNumber(value)) return true
+    if (isPossiblePhoneNumber(value)) {
+      return true
+    }
 
     return 'This is not a possible phone number.'
   }
-
-export default validate

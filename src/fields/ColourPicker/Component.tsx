@@ -97,12 +97,12 @@ export const ColourPickerComponent: React.FC<Props> = (props) => {
 
   return (
     <div className={`bfColourPickerFieldWrapper`}>
-      {BeforeInput}
-
       <RenderCustomComponent
         CustomComponent={Label}
         Fallback={<FieldLabel label={labelToUse} path={path} required={required} />}
       />
+
+      {BeforeInput}
 
       {(expanded || isAdding) && (
         <div className="expandedContainer">

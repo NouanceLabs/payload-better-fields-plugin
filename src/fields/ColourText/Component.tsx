@@ -1,80 +1,100 @@
 'use client'
-import type { TextFieldClientProps, TextField as TextFieldType } from 'payload'
 
-import { FieldDescription, FieldLabel, useField } from '@payloadcms/ui'
-import { TextInput as TextInputField } from '@payloadcms/ui/fields/Text'
-import { useLocale } from '@payloadcms/ui/providers/Locale'
-import { useTranslation } from '@payloadcms/ui/providers/Translation'
-import React, { useMemo } from 'react'
-import validateColor from 'validate-color'
+import type { TextFieldClientProps } from 'payload'
+
+import {
+  FieldDescription,
+  FieldError,
+  FieldLabel,
+  RenderCustomComponent,
+  TextInput as TextInputField,
+  useField,
+} from '@payloadcms/ui'
+import React, { useCallback } from 'react'
+import { validateHTMLColor } from 'validate-color'
+
+import type { Config } from './index.js'
 
 import './colourText.scss'
 
-type Props = {} & TextFieldClientProps
+type Props = Config & TextFieldClientProps
 
 export const ColourTextComponent: React.FC<Props> = (props) => {
-  const {  className,  label, path,field: {admin, required} } = props
-  const { errorMessage, setValue, showError, value } = useField<string>({ path })
+  const { field, path, readOnly, validate } = props
 
-  const classes = ['field-type', 'text', className, showError && 'error', admin?.readOnly && 'read-only', 'container']
+  const { admin: { className, description, style } = {}, label, required } = field
+
+  const memoizedValidate = useCallback(
+    (value: string, options: any) => {
+      if (typeof validate === 'function') {
+        return validate(value, { ...options, required })
+      }
+    },
+    [validate, required],
+  )
+
+  const isReadonly = Boolean(readOnly)
+
+  const {
+    customComponents: { AfterInput, BeforeInput, Description, Label } = {},
+    errorMessage,
+    setValue,
+    showError,
+    value,
+  } = useField<string>({
+    path,
+    // @ts-expect-error - memoizedValidate is not typed
+    validate: memoizedValidate,
+  })
+
+  const classes = ['field-type', 'text', className, showError && 'error', isReadonly && 'read-only', 'container']
     .filter(Boolean)
     .join(' ')
 
-  const isRequired = required
-  const isReadonly = admin?.readOnly
-  const style = admin?.style
-  const width = admin?.width
-  const beforeInput = admin?.components?.beforeInput
-  const afterInput = admin?.components?.afterInput
-
-  const { code } = useLocale()
-  const { t } = useTranslation()
-
-  // @ts-expect-error
-  const labelToUse = label
-    ? typeof label === 'function'
-      ? label({ t })
-      : typeof label === 'string'
-        ? label
-        : label[code]
-    : ''
-
   const gradient =
     'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'
-  const colour = validateColor(value) ? value : gradient
+  const colour = validateHTMLColor(value) ? value : gradient
 
   return (
     <div className={`bfColourTextFieldWrapper field-type`}>
-      <Label htmlFor={`field-${path.replace(/\./g, '__')}`} label={labelToUse} required={isRequired} />
+      <RenderCustomComponent
+        CustomComponent={Label}
+        Fallback={<FieldLabel label={label} path={path} required={required} />}
+      />
+
+      {BeforeInput}
+
       <div className={classes}>
-        {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
         <TextInputField
           className={'colourTextInput'}
-          errorProps={{
-            message: errorMessage,
-          }}
+          Error={<FieldError message={errorMessage} />}
           label={undefined}
-          name={others.name}
-          onChange={(e) => {
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
             setValue(e.target.value)
           }}
           path={path}
           readOnly={isReadonly}
-          required={isRequired}
+          required={required}
           showError={showError}
           style={style}
           value={value}
-          width={width}
         />
+
         <div aria-hidden={true} className="colourBox" style={{ background: colour }} />
-        {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
       </div>
-      <FieldDescription
-        className={`field-description-${path.replace(/\./g, '__')}`}
-        description={typeof admin?.description === 'string' ? admin?.description : ''}
+
+      <RenderCustomComponent
+        CustomComponent={Description}
+        Fallback={
+          <FieldDescription
+            className={`field-description-${path.replace(/\./g, '__')}`}
+            description={description ?? ''}
+            path={path}
+          />
+        }
       />
+
+      {AfterInput}
     </div>
   )
 }
-
-export default ComboComponent

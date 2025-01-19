@@ -1,9 +1,10 @@
-import type { Field } from 'payload/types'
-import {deepMerge} from '../../utilities/deepMerge'
-import Component from './Component'
-import { TextField } from 'payload/types'
-import validate from './validate'
-import { PartialRequired } from '../../utilities/partialRequired'
+import type { Field, TextField } from 'payload'
+
+import { deepMerge } from 'payload'
+
+import { validate } from './validate.js'
+
+export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 export type Config = {}
 
@@ -14,17 +15,19 @@ type ColourText = (
   overrides: PartialRequired<TextField, 'name'>,
 ) => Field[]
 
-export const ColourTextField: ColourText = overrides => {
+export const ColourTextField: ColourText = (overrides) => {
   const colourTextField = deepMerge<TextField, Partial<TextField>>(
     {
-      name: 'colourText',
+      name: 'ColourText',
       type: 'text',
-      validate: validate(overrides.required),
       admin: {
         components: {
-          Field: Component,
+          Field: {
+            path: '@nouance/payload-better-fields-plugin/ColourText#ColourTextComponent',
+          },
         },
       },
+      validate: validate(overrides.required),
     },
     overrides,
   )

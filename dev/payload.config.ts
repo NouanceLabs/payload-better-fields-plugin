@@ -1,5 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { TelephoneExamples } from 'collections/TelephoneExamples.js'
 import path from 'path'
 import { buildConfig } from 'payload'
 import sharp from 'sharp'
@@ -7,6 +8,8 @@ import { fileURLToPath } from 'url'
 
 import { AlertBoxExamples } from './collections/AlertBoxExamples.js'
 import { ColourPickerExamples } from './collections/ColourPickerExamples.js'
+import { ColourTextExamples } from './collections/ColourTextExamples.js'
+import { NumberExamples } from './collections/NumberExamples.js'
 import { Users } from './collections/Users.js'
 import { seed } from './seed.js'
 
@@ -27,7 +30,7 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [AlertBoxExamples, ColourPickerExamples, Users],
+  collections: [AlertBoxExamples, ColourPickerExamples, ColourTextExamples, NumberExamples, TelephoneExamples, Users],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),

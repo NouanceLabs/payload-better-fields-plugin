@@ -105,8 +105,8 @@ importers:
         specifier: ^5.3.1
         version: 5.4.3(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       react-phone-number-input:
-        specifier: ^3.3.7
-        version: 3.4.10(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: ^3.4.11
+        version: 3.4.11(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       rimraf:
         specifier: 3.0.2
         version: 3.0.2
@@ -3849,8 +3849,8 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  libphonenumber-js@1.11.17:
-    resolution: {integrity: sha512-Jr6v8thd5qRlOlc6CslSTzGzzQW03uiscab7KHQZX1Dfo4R6n6FDhZ0Hri6/X7edLIDv9gl4VMZXhxTjLnl0VQ==}
+  libphonenumber-js@1.11.18:
+    resolution: {integrity: sha512-okMm/MCoFrm1vByeVFLBdkFIXLSHy/AIK2AEGgY3eoicfWZeOZqv3GfhtQgICkzs/tqorAMm3a4GBg5qNCrqzg==}
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
@@ -4596,8 +4596,8 @@ packages:
       react: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
       react-dom: ^0.14 || ^15.0.0 || ^16.0.0 || ^17.0.0 || ^18.0.0 || ^19.0.0
 
-  react-phone-number-input@3.4.10:
-    resolution: {integrity: sha512-9kwr6R1PwvW9YGant3VqEY+CMBjqSr8v3wjEIXSPxDw7KLvHMDDFDglEpCjDy20/54PFY6RTKgN73WCvvFByCA==}
+  react-phone-number-input@3.4.11:
+    resolution: {integrity: sha512-ypN9hXwUModpngho9brCHLLD40xzb1DKAZFacbF0J+fFaMVLEJo+zul9sZfSRlKehSjpttT4b1pLMcOWXI228g==}
     peerDependencies:
       react: '>=16.8'
       react-dom: '>=16.8'
@@ -9907,7 +9907,7 @@ snapshots:
     dependencies:
       isomorphic.js: 0.2.5
 
-  libphonenumber-js@1.11.17: {}
+  libphonenumber-js@1.11.18: {}
 
   libsql@0.4.7:
     dependencies:
@@ -10836,12 +10836,12 @@ snapshots:
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)
 
-  react-phone-number-input@3.4.10(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
+  react-phone-number-input@3.4.11(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
     dependencies:
       classnames: 2.5.1
       country-flag-icons: 1.5.13
       input-format: 0.3.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      libphonenumber-js: 1.11.17
+      libphonenumber-js: 1.11.18
       prop-types: 15.8.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)

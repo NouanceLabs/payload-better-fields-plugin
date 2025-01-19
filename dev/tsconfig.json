@@ -7,7 +7,10 @@
     "paths": {
       "@payload-config": ["./payload.config.ts"],
       "@nouance/payload-better-fields-plugin/AlertBox": ["../src/exports/AlertBox.ts"],
-      "@nouance/payload-better-fields-plugin/ColourPicker": ["../src/exports/ColourPicker.ts"]
+      "@nouance/payload-better-fields-plugin/ColourPicker": ["../src/exports/ColourPicker.ts"],
+      "@nouance/payload-better-fields-plugin/ColourText": ["../src/exports/ColourText.ts"],
+      "@nouance/payload-better-fields-plugin/Number": ["../src/exports/Number.ts"],
+      "@nouance/payload-better-fields-plugin/Telephone": ["../src/exports/Telephone.ts"]
     },
     "noEmit": true
   }
