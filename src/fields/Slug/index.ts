@@ -1,21 +1,16 @@
-import type { Field } from 'payload/types'
-import {deepMerge, isObject} from '../../utilities/deepMerge'
-import Component from './Component'
-import type { SlugifyOptions } from '../../types'
-import { TextField, CheckboxField } from 'payload/types'
-import beforeValidate from './beforeValidate'
-import { PartialRequired } from '../../utilities/partialRequired'
-import { FieldHook } from 'payload/types'
+import type { CheckboxField, Field, FieldHook, TextField } from 'payload'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge } from 'payload'
+
+import type { SlugOptions } from './types.js'
+
+import { beforeValidate } from './beforeValidate.js'
 
 /**
  * Additional config unique to the Slug field
  */
 export type Config = {
-  /**
-   * An array of string mapping the field path names, nested fields are supported here
-   * @default {string[]} ['title']
-   */
-  useFields: string[]
   /**
    * Append a '-1' on duplication of collection in the case that the slug needs to be unique
    */
@@ -24,7 +19,12 @@ export type Config = {
    * Options passed to the slugify function
    * @default { lower: true }
    */
-  slugify?: SlugifyOptions
+  slug?: SlugOptions
+  /**
+   * An array of string mapping the field path names, nested fields are supported here
+   * @default {string[]} ['title']
+   */
+  useFields: string[]
 }
 
 /**
@@ -65,9 +65,12 @@ type Slug = (
 export const SlugField: Slug = (
   slugOverrides = { name: 'slug' },
   config = {
-    useFields: ['title'],
-    slugify: { lower: true, remove: /[*+~.()'"!?#\.,:@]/g },
+    slug: {
+      lower: true,
+      remove: `/[*+~.()'"!?#,:@]/g`,
+    },
     appendOnDuplication: false,
+    useFields: ['title'],
   },
   checkbox = {
     enable: true,
@@ -76,10 +79,10 @@ export const SlugField: Slug = (
     },
   },
 ) => {
-  const slugifyOptions: SlugifyOptions = {
+  const slugOptions: SlugOptions = {
     lower: true,
-    remove: /[*+~\/\\.()'"!?#\.,:@]/g,
-    ...config.slugify,
+    remove: `/[*+~/\\.()'"!?#,:@]/g`,
+    ...config.slug,
   }
 
   const checkboxField = deepMerge(
@@ -87,7 +90,7 @@ export const SlugField: Slug = (
       name: 'editSlug',
       label: 'Edit slug',
     },
-    checkbox.overrides,
+    checkbox.overrides ?? {},
   )
 
   const checkboxName = checkboxField.name
@@ -120,16 +123,16 @@ export const SlugField: Slug = (
   const editField = deepMerge<CheckboxField, Partial<CheckboxField>>(
     {
       name: checkboxName,
-      label: checkboxField.label,
       type: 'checkbox',
-      required: false,
       admin: {
         disabled: !checkbox.enable,
         hidden: true,
       },
       hooks: {
-        beforeValidate: [...(config.appendOnDuplication ? checkboxDedupe : [])],
+        // beforeValidate: [...(config.appendOnDuplication ? checkboxDedupe : [])],
       },
+      label: checkboxField.label,
+      required: false,
     },
     checkboxField,
   )
@@ -138,27 +141,31 @@ export const SlugField: Slug = (
     {
       name: slugName,
       type: 'text',
-      index: true,
-      required: false,
+      admin: {
+        components: {
+          Field: {
+            clientProps: {
+              config: {
+                editFieldConfig: editField,
+                enableEditSlug: Boolean(checkbox.enable),
+                slugOptions,
+                watchFields: config.useFields,
+              },
+            },
+            path: '@nouance/payload-better-fields-plugin/Slug#SlugComponent',
+          },
+        },
+        readOnly: false,
+      },
       hooks: {
         beforeValidate: [
-          beforeValidate(config.useFields, Boolean(checkbox.enable), checkboxName, slugifyOptions),
+          beforeValidate(config.useFields, Boolean(checkbox.enable), checkboxName, slugOptions),
           ...(config.appendOnDuplication ? slugDedupe : []),
         ],
       },
+      index: true,
+      required: false,
       unique: true,
-      admin: {
-        readOnly: false,
-        components: {
-          Field: Component,
-        },
-      },
-      custom: {
-        watchFields: config.useFields,
-        slugifyOptions: slugifyOptions,
-        editFieldConfig: editField,
-        enableEditSlug: Boolean(checkbox.enable),
-      },
     },
     slugOverrides,
   )

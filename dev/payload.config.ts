@@ -1,5 +1,8 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { PatternExamples } from 'collections/PatternExamples.js'
+import { RangeExamples } from 'collections/RangeExamples.js'
+import { SlugExamples } from 'collections/SlugExamples.js'
 import { TelephoneExamples } from 'collections/TelephoneExamples.js'
 import path from 'path'
 import { buildConfig } from 'payload'
@@ -30,7 +33,17 @@ export default buildConfig({
       baseDir: path.resolve(dirname),
     },
   },
-  collections: [AlertBoxExamples, ColourPickerExamples, ColourTextExamples, NumberExamples, TelephoneExamples, Users],
+  collections: [
+    AlertBoxExamples,
+    ColourPickerExamples,
+    ColourTextExamples,
+    NumberExamples,
+    TelephoneExamples,
+    SlugExamples,
+    RangeExamples,
+    PatternExamples,
+    Users,
+  ],
   db: mongooseAdapter({
     url: process.env.DATABASE_URI || '',
   }),

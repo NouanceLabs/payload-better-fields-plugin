@@ -1,9 +1,9 @@
-import type { Field } from 'payload/types'
-import {deepMerge} from '../../utilities/deepMerge'
-import RangeComponent from './Component'
-import { NumberField as NumberFieldType } from 'payload/types'
-import { PartialRequired } from '../../utilities/partialRequired'
-import { NumberMarkerItem } from '../../types'
+import type { Field, NumberField as NumberFieldType } from 'payload'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge } from 'payload'
+
+import type { NumberMarkerItem } from './types.js'
 
 type FieldTypes = NumberFieldType
 
@@ -12,9 +12,9 @@ type FieldTypes = NumberFieldType
  */
 export type Config = {
   /**
-   * @default 1
+   * You can provide an array of markers https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#adding_tick_marks
    */
-  min?: number
+  markers?: NumberMarkerItem[]
   /**
    * @default 100
    */
@@ -22,15 +22,15 @@ export type Config = {
   /**
    * @default 1
    */
-  step?: number | 'any'
+  min?: number
   /**
    * Shows the value previewed next to the field
    */
   showPreview?: boolean
   /**
-   * You can provide an array of markers https://developer.mozilla.org/en-US/docs/Web/HTML/Element/input/range#adding_tick_marks
+   * @default 1
    */
-  markers?: NumberMarkerItem[]
+  step?: 'any' | number
 }
 
 type Range = (
@@ -48,7 +48,12 @@ export const RangeField: Range = (overrides, config = {}) => {
       type: 'number',
       admin: {
         components: {
-          Field: RangeComponent,
+          Field: {
+            clientProps: {
+              config,
+            },
+            path: '@nouance/payload-better-fields-plugin/Range#RangeComponent',
+          },
         },
       },
       ...(config?.min
@@ -61,9 +66,6 @@ export const RangeField: Range = (overrides, config = {}) => {
             max: config.max,
           }
         : {}),
-      custom: {
-        config: config,
-      },
     },
     overrides,
   )

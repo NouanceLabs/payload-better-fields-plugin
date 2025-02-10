@@ -1,13 +1,7 @@
 import type { Field, UIField } from 'payload'
+import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
-
-export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
-
-type CustomAlertBox = {
-  message: never
-  type: 'custom'
-}
 
 export type BaseConfig = {
   message: string

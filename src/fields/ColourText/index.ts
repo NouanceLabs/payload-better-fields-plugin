@@ -1,10 +1,9 @@
 import type { Field, TextField } from 'payload'
+import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
 
 import { validate } from './validate.js'
-
-export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 export type Config = {}
 

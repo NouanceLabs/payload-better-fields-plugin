@@ -1,5 +1,6 @@
 import type { Field, NumberField as NumberFieldType } from 'payload'
 import type { NumericFormatProps } from 'react-number-format'
+import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
 
@@ -8,7 +9,6 @@ type FieldTypes = NumberFieldType
 interface NumericConfig extends NumericFormatProps {
   callback?: (value: string) => number
 }
-export type PartialRequired<T, K extends keyof T> = Partial<T> & Pick<T, K>
 
 export type Config = {} & NumericConfig
 

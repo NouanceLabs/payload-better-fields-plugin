@@ -40,6 +40,21 @@
       "import": "./dist/exports/Telephone.js",
       "types": "./dist/exports/Telephone.d.ts",
       "default": "./dist/exports/Telephone.js"
+    },
+    "./Slug": {
+      "import": "./dist/exports/Slug.js",
+      "types": "./dist/exports/Slug.d.ts",
+      "default": "./dist/exports/Slug.js"
+    },
+    "./Range": {
+      "import": "./dist/exports/Range.js",
+      "types": "./dist/exports/Range.d.ts",
+      "default": "./dist/exports/Range.js"
+    },
+    "./Pattern": {
+      "import": "./dist/exports/Pattern.js",
+      "types": "./dist/exports/Pattern.d.ts",
+      "default": "./dist/exports/Pattern.js"
     }
   },
   "publishConfig": {
@@ -67,6 +82,21 @@
       "import": "./dist/exports/Telephone.js",
       "types": "./dist/exports/Telephone.d.ts",
       "default": "./dist/exports/Telephone.js"
+    },
+    "./Slug": {
+      "import": "./dist/exports/Slug.js",
+      "types": "./dist/exports/Slug.d.ts",
+      "default": "./dist/exports/Slug.js"
+    },
+    "./Range": {
+      "import": "./dist/exports/Range.js",
+      "types": "./dist/exports/Range.d.ts",
+      "default": "./dist/exports/Range.js"
+    },
+    "./Pattern": {
+      "import": "./dist/exports/Pattern.js",
+      "types": "./dist/exports/Pattern.d.ts",
+      "default": "./dist/exports/Pattern.js"
     }
   },
   "main": "./dist/index.js",
@@ -105,6 +135,8 @@
     "@types/node": "^22.5.4",
     "@types/react": "19.0.1",
     "@types/react-dom": "19.0.1",
+    "@types/slug": "^5.0.9",
+    "slug": "^10.0.0",
     "colord": "^2.9.3",
     "copyfiles": "2.4.1",
     "date-fns-tz": "^2.0.1",
@@ -125,7 +157,6 @@
     "react-phone-number-input": "^3.4.11",
     "rimraf": "3.0.2",
     "sharp": "0.32.6",
-    "slugify": "^1.6.6",
     "sort-package-json": "^2.10.0",
     "typescript": "5.7.2",
     "validate-color": "^2.2.4"
@@ -137,8 +168,8 @@
     "react-colorful": "^5.6.1",
     "react-number-format": "^5.3.1",
     "react-phone-number-input": "^3.3.7",
-    "slugify": "^1.6.6",
-    "validate-color": "^2.2.4"
+    "validate-color": "^2.2.4",
+    "slug": "^10.0.0"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"

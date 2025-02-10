@@ -10,7 +10,10 @@
       "@nouance/payload-better-fields-plugin/ColourPicker": ["../src/exports/ColourPicker.ts"],
       "@nouance/payload-better-fields-plugin/ColourText": ["../src/exports/ColourText.ts"],
       "@nouance/payload-better-fields-plugin/Number": ["../src/exports/Number.ts"],
-      "@nouance/payload-better-fields-plugin/Telephone": ["../src/exports/Telephone.ts"]
+      "@nouance/payload-better-fields-plugin/Telephone": ["../src/exports/Telephone.ts"],
+      "@nouance/payload-better-fields-plugin/Slug": ["../src/exports/Slug.ts"],
+      "@nouance/payload-better-fields-plugin/Range": ["../src/exports/Range.ts"],
+      "@nouance/payload-better-fields-plugin/Pattern": ["../src/exports/Pattern.ts"]
     },
     "noEmit": true
   }

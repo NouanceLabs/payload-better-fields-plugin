@@ -1,33 +1,19 @@
-.bfDateFieldWrapper {
+.bfSlugFieldWrapper {
   position: relative;
 
   .container {
     display: flex;
   }
 
-  .fieldsWrapper {
-    display: flex;
-  }
-
-  .dateField {
-    min-width: 18rem;
-  }
-
-  .timezoneField {
-    min-width: 18rem;
-  }
-
-  // Hacky fix
-  .react-select .rs__control {
-    padding-top: 0.45rem;
-    padding-bottom: 0.38rem;
+  .slugInput {
+    flex-grow: 2;
   }
 
   .srOnly {
     border: 0 !important;
     clip: rect(1px, 1px, 1px, 1px) !important;
     -webkit-clip-path: inset(50%) !important;
-    clip-path: inset(50%) !important;
+      clip-path: inset(50%) !important;
     height: 1px !important;
     margin: -1px !important;
     overflow: hidden !important;
@@ -36,4 +22,13 @@
     width: 1px !important;
     white-space: nowrap !important;
   }
+
+  .checkbox {
+    position: absolute;
+    top: calc(50% - 1rem);
+    right: 1rem;
+    display: flex;
+    align-items: center;
+  }
 }
+
