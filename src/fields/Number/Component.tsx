@@ -44,7 +44,7 @@ export const NumberComponent: React.FC<Props> = (props) => {
     validate: memoizedValidate,
   })
 
-  const { callback, ...componentProps } = config
+  const { ...componentProps } = config
 
   const formatValue = useCallback(
     (value: string) => {
@@ -52,34 +52,30 @@ export const NumberComponent: React.FC<Props> = (props) => {
       const suffix = componentProps.suffix
       const thousandSeparator = componentProps.thousandSeparator
 
-      if (callback) {
-        return callback(value)
-      } else {
-        if (type === 'number') {
-          let cleanValue: number | string = value
+      if (type === 'number') {
+        let cleanValue: number | string = value
 
-          if (prefix) {
-            cleanValue = cleanValue.replaceAll(prefix, '')
-          }
-
-          if (suffix) {
-            cleanValue = cleanValue.replaceAll(suffix, '')
-          }
-
-          if (thousandSeparator) {
-            cleanValue =
-              typeof thousandSeparator === 'string'
-                ? cleanValue.replaceAll(thousandSeparator, '')
-                : cleanValue.replaceAll(',', '')
-          }
-
-          return cleanValue
-        } else {
-          return value
+        if (prefix) {
+          cleanValue = cleanValue.replaceAll(prefix, '')
         }
+
+        if (suffix) {
+          cleanValue = cleanValue.replaceAll(suffix, '')
+        }
+
+        if (thousandSeparator) {
+          cleanValue =
+            typeof thousandSeparator === 'string'
+              ? cleanValue.replaceAll(thousandSeparator, '')
+              : cleanValue.replaceAll(',', '')
+        }
+
+        return cleanValue
+      } else {
+        return value
       }
     },
-    [type, componentProps, callback],
+    [type, componentProps],
   )
 
   const classes = ['field-type', 'text', className, showError && 'error', readOnly && 'read-only', 'container']

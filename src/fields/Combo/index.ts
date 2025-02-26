@@ -1,22 +1,13 @@
-import type { Field } from 'payload/types'
-import { deepMerge } from '../../utilities/deepMerge'
-import Component from './Component'
-import ComponentServer from './Component.server'
-import { TextField } from 'payload/types'
-import beforeValidate from './beforeValidate'
-import { PartialRequired } from '../../utilities/partialRequired'
-import { withMergedProps } from '@payloadcms/ui/elements/withMergedProps'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge, type Field, type TextField } from 'payload'
+
+import { beforeValidate } from './beforeValidate.js'
 
 export type Config = {
-  separator?: string
-  callback?: (field: string) => string
+  callback?: (value: string) => Promise<string> | string
   initial?: string
-}
-
-export type SanitisedConfig = {
   separator?: string
-  callback?: undefined
-  initial?: string
 }
 
 type Combo = (
@@ -39,34 +30,30 @@ type Combo = (
 export const ComboField: Combo = (
   overrides,
   fieldToUse: string[],
-  options: Config = { separator: ' ', initial: '' },
+  options: Config = { initial: '', separator: ' ' },
 ) => {
-  const validate = beforeValidate(fieldToUse, options)
-
-  const sanitisedOptions: SanitisedConfig = {
-    ...options,
-    callback: undefined,
-  }
-
   const comboField = deepMerge<TextField, Partial<TextField>>(
     {
       name: 'combo',
       type: 'text',
-      hooks: {
-        beforeValidate: [validate],
-        beforeChange: [() => 'test'],
-      },
       admin: {
         components: {
-          Cell: ComponentServer,
-        },
-        custom: {
-          watchFields: fieldToUse,
-          options: sanitisedOptions,
+          Field: {
+            clientProps: {
+              config: {
+                options: {
+                  initial: options.initial,
+                  separator: options.separator,
+                },
+                watchFields: fieldToUse,
+              },
+            },
+            path: '@nouance/payload-better-fields-plugin/Combo#ComboComponent',
+          },
         },
       },
-      custom: {
-        options: options,
+      hooks: {
+        beforeValidate: [beforeValidate(fieldToUse, options)],
       },
     },
     overrides,

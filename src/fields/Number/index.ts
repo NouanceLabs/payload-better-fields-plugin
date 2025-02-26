@@ -6,9 +6,7 @@ import { deepMerge } from 'payload'
 
 type FieldTypes = NumberFieldType
 
-interface NumericConfig extends NumericFormatProps {
-  callback?: (value: string) => number
-}
+interface NumericConfig extends NumericFormatProps {}
 
 export type Config = {} & NumericConfig
 

@@ -13,6 +13,7 @@
       "@nouance/payload-better-fields-plugin/Telephone": ["../src/exports/Telephone.ts"],
       "@nouance/payload-better-fields-plugin/Slug": ["../src/exports/Slug.ts"],
       "@nouance/payload-better-fields-plugin/Range": ["../src/exports/Range.ts"],
+      "@nouance/payload-better-fields-plugin/Combo": ["../src/exports/Combo.ts"],
       "@nouance/payload-better-fields-plugin/Pattern": ["../src/exports/Pattern.ts"]
     },
     "noEmit": true

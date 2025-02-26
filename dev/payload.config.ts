@@ -1,5 +1,6 @@
 import { mongooseAdapter } from '@payloadcms/db-mongodb'
 import { lexicalEditor } from '@payloadcms/richtext-lexical'
+import { ComboExamples } from 'collections/ComboExamples.js'
 import { PatternExamples } from 'collections/PatternExamples.js'
 import { RangeExamples } from 'collections/RangeExamples.js'
 import { SlugExamples } from 'collections/SlugExamples.js'
@@ -42,6 +43,7 @@ export default buildConfig({
     SlugExamples,
     RangeExamples,
     PatternExamples,
+    ComboExamples,
     Users,
   ],
   db: mongooseAdapter({

@@ -6,6 +6,7 @@ import { TelephoneComponent as TelephoneComponent_2e7223b45ed0c39b4e3cc8bd154d05
 import { SlugComponent as SlugComponent_ba31611ff75fdae7a44f4e6da1ae2582 } from '@nouance/payload-better-fields-plugin/Slug'
 import { RangeComponent as RangeComponent_f5a742a42e7a75e4417fce864b7e7278 } from '@nouance/payload-better-fields-plugin/Range'
 import { PatternComponent as PatternComponent_67e8d0874082614282778716788aed73 } from '@nouance/payload-better-fields-plugin/Pattern'
+import { ComboComponent as ComboComponent_d4216c7dc5879a11fd43d3b84dfbf300 } from '@nouance/payload-better-fields-plugin/Combo'
 
 export const importMap = {
   "@nouance/payload-better-fields-plugin/AlertBox#AlertBoxComponent": AlertBoxComponent_4e35350bf4e19cee69839c24bc93d4b2,
@@ -15,5 +16,6 @@ export const importMap = {
   "@nouance/payload-better-fields-plugin/Telephone#TelephoneComponent": TelephoneComponent_2e7223b45ed0c39b4e3cc8bd154d0505,
   "@nouance/payload-better-fields-plugin/Slug#SlugComponent": SlugComponent_ba31611ff75fdae7a44f4e6da1ae2582,
   "@nouance/payload-better-fields-plugin/Range#RangeComponent": RangeComponent_f5a742a42e7a75e4417fce864b7e7278,
-  "@nouance/payload-better-fields-plugin/Pattern#PatternComponent": PatternComponent_67e8d0874082614282778716788aed73
+  "@nouance/payload-better-fields-plugin/Pattern#PatternComponent": PatternComponent_67e8d0874082614282778716788aed73,
+  "@nouance/payload-better-fields-plugin/Combo#ComboComponent": ComboComponent_d4216c7dc5879a11fd43d3b84dfbf300
 }
