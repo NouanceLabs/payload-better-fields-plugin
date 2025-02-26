@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      libphonenumber-js:
+        specifier: ^1.11.20
+        version: 1.11.20
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -28,7 +32,7 @@ importers:
         version: 3.22.0(@types/react@19.0.1)(graphql@16.10.0)(monaco-editor@0.52.2)(next@15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.22.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       '@payloadcms/richtext-lexical':
         specifier: 3.22.0
-        version: 3.22.0(f42af5150f93c6ce04891539a35a559e)
+        version: 3.22.0(np4tyq7iw4ec3whu6hvhbfpzc4)
       '@payloadcms/ui':
         specifier: 3.22.0
         version: 3.22.0(@types/react@19.0.1)(monaco-editor@0.52.2)(next@15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.22.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
@@ -3862,12 +3866,11 @@ packages:
     engines: {node: '>=16'}
     hasBin: true
 
-  libphonenumber-js@1.11.18:
-    resolution: {integrity: sha512-okMm/MCoFrm1vByeVFLBdkFIXLSHy/AIK2AEGgY3eoicfWZeOZqv3GfhtQgICkzs/tqorAMm3a4GBg5qNCrqzg==}
+  libphonenumber-js@1.11.20:
+    resolution: {integrity: sha512-/ipwAMvtSZRdiQBHqW1qxqeYiBMzncOQLVA+62MWYr7N4m7Q2jqpJ0WgT7zlOEOpyLRSqrMXidbJpC0J77AaKA==}
 
   libsql@0.4.7:
     resolution: {integrity: sha512-T9eIRCs6b0J1SHKYIvD8+KCJMcWZ900iZyxdnSCdqxN12Z1ijzT+jY5nrk72Jw4B0HGzms2NgpryArlJqvc3Lw==}
-    cpu: [x64, arm64, wasm32]
     os: [darwin, linux, win32]
 
   lines-and-columns@1.2.4:
@@ -7026,7 +7029,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/richtext-lexical@3.22.0(f42af5150f93c6ce04891539a35a559e)':
+  '@payloadcms/richtext-lexical@3.22.0(np4tyq7iw4ec3whu6hvhbfpzc4)':
     dependencies:
       '@faceless-ui/modal': 3.0.0-beta.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@faceless-ui/scroll-info': 2.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
@@ -9906,7 +9909,7 @@ snapshots:
     dependencies:
       isomorphic.js: 0.2.5
 
-  libphonenumber-js@1.11.18: {}
+  libphonenumber-js@1.11.20: {}
 
   libsql@0.4.7:
     dependencies:
@@ -10837,7 +10840,7 @@ snapshots:
       classnames: 2.5.1
       country-flag-icons: 1.5.13
       input-format: 0.3.12(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      libphonenumber-js: 1.11.18
+      libphonenumber-js: 1.11.20
       prop-types: 15.8.1
       react: 19.0.0
       react-dom: 19.0.0(react@19.0.0)

@@ -3,7 +3,7 @@ import type { Country } from 'react-phone-number-input'
 
 import { deepMerge } from 'payload'
 
-// import { validate } from './validate.js'
+import { validate } from './validate.js'
 
 type FieldTypes = TextFieldType
 
@@ -82,7 +82,7 @@ export const TelephoneField: Telephone = (
           },
         },
       },
-      // validate: validate(overrides.required),
+      validate: validate(overrides.required),
     },
     overrides,
   )

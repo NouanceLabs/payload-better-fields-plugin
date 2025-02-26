@@ -1,7 +1,6 @@
 import type { Validate } from 'payload'
 
-// import { isPossiblePhoneNumber } from 'libphonenumber-js'
-import { isPossiblePhoneNumber } from 'react-phone-number-input'
+import { isPossiblePhoneNumber } from 'libphonenumber-js'
 
 export const validate =
   (required?: boolean): Validate =>
