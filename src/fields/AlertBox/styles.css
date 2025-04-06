@@ -1,0 +1,42 @@
+.bfAlertBoxFieldWrapper {
+  --border-colour: var(--theme-elevation-350);
+  --icon-colour: var(--theme-elevation-800);
+
+  border: 1px solid var(--border-colour);
+  border-radius: var(--style-radius-s);
+  margin-top: 2.5rem;
+  margin-bottom: 2.5rem;
+  padding: 0.75rem 1rem;
+  display: flex;
+  gap: 1rem;
+
+  &.alertAlertType {
+    --border-colour: var(--theme-warning-350);
+    --icon-colour: var(--theme-warning-350);
+  }
+
+  &.errorAlertType {
+    --border-colour: var(--theme-error-350);
+    --icon-colour: var(--theme-error-350);
+  }
+}
+
+.iconContainer {
+  color: var(--icon-colour);
+}
+
+/* .iconContainer {
+  .errorAlertType & {
+    --icon-colour: var(--theme-error-350);
+  }
+}
+
+.iconContainer {
+  .alertAlertType & {
+    --icon-colour: var(--theme-warning-350);
+  }
+} */
+
+.contentContainer {
+  font-size: 1.25rem;
+}

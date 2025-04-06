@@ -1,0 +1,21 @@
+.bfColourTextFieldWrapper {
+  .container {
+    position: relative;
+
+    .field-type input {
+      padding-left: 4rem;
+    }
+  }
+
+  .colourBox {
+    position: absolute;
+    left: 0.75rem;
+    top: calc(50% - 1.25rem);
+    display: flex;
+    width: 2.5rem;
+    border-radius: 5px;
+    height: 2.5rem;
+    pointer-events: none;
+    border: 1px solid var(--theme-elevation-150);
+  }
+}

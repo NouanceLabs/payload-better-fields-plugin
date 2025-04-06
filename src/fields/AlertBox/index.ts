@@ -1,55 +1,56 @@
-import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
-import Component from './Component'
-import type { UIField } from 'payload/types'
-import type { PartialRequired } from '../../utilities/partialRequired'
-import type { ComponentType } from 'react'
+import type { Field, UIField } from 'payload'
+import type { PartialRequired } from 'src/types.js'
 
-type CustomAlertBox = {
-  type: 'custom'
-  Content: ComponentType
-}
+import { deepMerge } from 'payload'
 
 export type BaseConfig = {
-  type: 'info' | 'alert' | 'error'
   message: string
+  type: 'alert' | 'error' | 'info'
 }
 
-export type Config = (BaseConfig | CustomAlertBox) & {
+export type Config = {
   className?: string
   icon?: {
     enable?: boolean
-    Element?: ComponentType
   }
-}
+} & BaseConfig
 
-type AlertBox = (
-  /**
-   * Field overrides
-   */
-  overrides: PartialRequired<UIField, 'name'>,
+type AlertBox = (overrides: {
   /**
    * Config for the alert box.
    * Type defaults to 'info'
    */
-  config: Config,
-) => Field[]
+  config: Config
+  /**
+   * Field overrides
+   */
+  overrides: PartialRequired<UIField, 'name'>
+}) => Field[]
 
-export const AlertBoxField: AlertBox = (overrides, config) => {
+export const AlertBoxField: AlertBox = ({ config, overrides }) => {
   const alertBoxField = deepMerge<UIField, Partial<UIField>>(
     {
       name: 'AlertBox',
       type: 'ui',
       admin: {
         components: {
-          Field: Component,
+          Field: {
+            clientProps: {
+              ...config,
+              icon: {
+                enable: true,
+                ...config.icon,
+              },
+            },
+            path: '@nouance/payload-better-fields-plugin/AlertBox#AlertBoxComponent',
+          },
         },
-      },
-      custom: {
-        ...config,
-        icon: {
-          enable: true,
-          ...config.icon,
+        custom: {
+          ...config,
+          icon: {
+            enable: true,
+            ...config.icon,
+          },
         },
       },
     },

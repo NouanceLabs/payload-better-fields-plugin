@@ -1,17 +1,14 @@
-import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
-import PatternComponent from './PatternComponent'
-import { TextField as TextFieldType } from 'payload/types'
-import { PartialRequired } from '../../utilities/partialRequired'
-import { PatternFormatProps } from 'react-number-format'
+import type { Field, TextField as TextFieldType } from 'payload'
+import type { PatternFormatProps } from 'react-number-format'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge } from 'payload'
 
 type FieldTypes = TextFieldType
 
-export interface PatternConfig extends PatternFormatProps {
-  callback?: (value: string) => string
-}
+export interface PatternConfig extends PatternFormatProps {}
 
-export type Config = PatternConfig & {}
+export type Config = {} & PatternConfig
 
 type Pattern = (
   /**
@@ -29,16 +26,20 @@ export const PatternField: Pattern = (overrides, config) => {
     {
       name: 'pattern',
       type: 'text',
-      required: config.required,
       admin: {
-        readOnly: config.readOnly,
         components: {
-          Field: PatternComponent,
+          // Field: PatternComponent,
+          Field: {
+            clientProps: {
+              config,
+            },
+            path: '@nouance/payload-better-fields-plugin/Pattern#PatternComponent',
+          },
         },
+        readOnly: config.readOnly,
       },
-      custom: {
-        config: config,
-      },
+
+      required: config.required,
     },
     overrides,
   )

@@ -1,43 +1,37 @@
-import React, { ReactElement, useMemo } from 'react'
-import { useField, useFormFields } from 'payload/components/forms'
-import type { UIField } from 'payload/types'
-import type { Config, BaseConfig } from '.'
-import InfoIcon from './icons/InfoIcon'
-import ErrorIcon from './icons/ErrorIcon'
-import AlertIcon from './icons/AlertIcon'
+import type { UIFieldServerProps } from 'payload'
 
-import '../../styles/alertBox.scss'
+import React, { type ReactElement } from 'react'
 
-type Props = UIField & {
-  placeholder?: string
-  className?: string
-  custom: Config
-}
+import type { BaseConfig, Config } from './index.js'
 
-const AlertBoxComponent: React.FC<Props> = ({ placeholder, label, admin, custom, ...others }) => {
-  const width = admin?.width
-  const { type, message, Content, className, icon } = custom
+import { AlertIcon } from './icons/AlertIcon.js'
+import { ErrorIcon } from './icons/ErrorIcon.js'
+import { InfoIcon } from './icons/InfoIcon.js'
+import './styles.css'
+
+type Props = {
+  field: {
+    admin: {
+      custom: Config
+    } & UIFieldServerProps['field']['admin']
+  } & UIFieldServerProps['field']
+} & UIFieldServerProps
+
+export const AlertBoxComponent: React.FC<Props> = (props) => {
+  const { field } = props
+
+  const { type, className, icon, message } = field.admin.custom
 
   const iconMap: Record<BaseConfig['type'], ReactElement> = {
-    info: <InfoIcon />,
     alert: <AlertIcon />,
     error: <ErrorIcon />,
+    info: <InfoIcon />,
   }
 
   return (
-    <div
-      role="status"
-      className={`bfAlertBoxFieldWrapper ${type === 'custom' ? className : type + 'AlertType'}`}
-      style={{
-        width,
-      }}
-    >
-      {icon?.enable && type !== 'custom' && (
-        <div className="iconContainer">{icon.Element ? <icon.Element /> : iconMap[type]}</div>
-      )}
-      <div className="contentContainer">{type === 'custom' ? <Content /> : message}</div>
+    <div className={`bfAlertBoxFieldWrapper ${String(type) + 'AlertType'} ${className ?? ''} `} role="status">
+      {icon?.enable && <div className="iconContainer">{iconMap[type]}</div>}
+      <div className="contentContainer">{message ?? ''}</div>
     </div>
   )
 }
-
-export default AlertBoxComponent

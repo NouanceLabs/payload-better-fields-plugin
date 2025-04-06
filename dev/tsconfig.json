@@ -1,25 +1,21 @@
 {
+  "extends": "../tsconfig.json",
+  "exclude": [],
+  "include": ["**/*.ts", "**/*.tsx", "../src/**/*.ts", "../src/**/*.tsx", "next.config.mjs", ".next/types/**/*.ts"],
   "compilerOptions": {
-    "target": "es5",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
-    "strict": false,
-    "esModuleInterop": true,
-    "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": "../",
-    "jsx": "react",
-    "sourceMap": true,
+    "baseUrl": "./",
     "paths": {
-      "payload/generated-types": [
-        "./src/payload-types.ts"
-      ]
-    }
-  },
-  "ts-node": {
-    "transpileOnly": true
+      "@payload-config": ["./payload.config.ts"],
+      "@nouance/payload-better-fields-plugin/AlertBox": ["../src/exports/AlertBox.ts"],
+      "@nouance/payload-better-fields-plugin/ColourPicker": ["../src/exports/ColourPicker.ts"],
+      "@nouance/payload-better-fields-plugin/ColourText": ["../src/exports/ColourText.ts"],
+      "@nouance/payload-better-fields-plugin/Number": ["../src/exports/Number.ts"],
+      "@nouance/payload-better-fields-plugin/Telephone": ["../src/exports/Telephone.ts"],
+      "@nouance/payload-better-fields-plugin/Slug": ["../src/exports/Slug.ts"],
+      "@nouance/payload-better-fields-plugin/Range": ["../src/exports/Range.ts"],
+      "@nouance/payload-better-fields-plugin/Combo": ["../src/exports/Combo.ts"],
+      "@nouance/payload-better-fields-plugin/Pattern": ["../src/exports/Pattern.ts"]
+    },
+    "noEmit": true
   }
 }

@@ -1,14 +1,14 @@
-import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
-import Component from './Component'
-import { TextField } from 'payload/types'
-import beforeValidate from './beforeValidate'
-import { PartialRequired } from '../../utilities/partialRequired'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge, type Field, type TextField } from 'payload'
+
+import { beforeValidate } from './beforeValidate.js'
 
 export type Config = {
-  separator?: string
-  callback?: (field: string) => string
+  // commented out for now until we can find a better pattern
+  // callback?: (value: string) => Promise<string> | string
   initial?: string
+  separator?: string
 }
 
 type Combo = (
@@ -31,23 +31,30 @@ type Combo = (
 export const ComboField: Combo = (
   overrides,
   fieldToUse: string[],
-  options: Config = { separator: ' ', initial: '' },
+  options: Config = { initial: '', separator: ' ' },
 ) => {
   const comboField = deepMerge<TextField, Partial<TextField>>(
     {
       name: 'combo',
       type: 'text',
-      hooks: {
-        beforeValidate: [beforeValidate(fieldToUse, options)],
-      },
       admin: {
         components: {
-          Field: Component,
+          Field: {
+            clientProps: {
+              config: {
+                options: {
+                  initial: options.initial,
+                  separator: options.separator,
+                },
+                watchFields: fieldToUse,
+              },
+            },
+            path: '@nouance/payload-better-fields-plugin/Combo#ComboComponent',
+          },
         },
       },
-      custom: {
-        watchFields: fieldToUse,
-        options: options,
+      hooks: {
+        beforeValidate: [beforeValidate(fieldToUse, options)],
       },
     },
     overrides,

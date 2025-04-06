@@ -1,147 +1,154 @@
-import React, { MouseEventHandler, useCallback } from 'react'
-import { Label, useField } from 'payload/components/forms'
-import Error from 'payload/dist/admin/components/forms/Error'
-import type { NumberField } from 'payload/types'
-import type { Config } from '.'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
-import '../../styles/range.scss'
+'use client'
+import type { NumberFieldClientProps } from 'payload'
 
-type Props = NumberField & {
-  path: string
-  readOnly?: boolean
-  placeholder?: string
+import {
+  FieldError as Error,
+  FieldDescription,
+  FieldLabel,
+  FieldLabel as Label,
+  RenderCustomComponent,
+  useField,
+} from '@payloadcms/ui'
+import { type MouseEventHandler, useCallback } from 'react'
+
+import type { Config } from './index.js'
+
+import './range.scss'
+
+type Props = {
   className?: string
-  custom: {
-    config?: Config
-  }
-}
+  config?: Config
+  path: string
+  placeholder?: string
+  readOnly?: boolean
+} & NumberFieldClientProps
 
-const RangeComponent: React.FC<Props> = ({
-  readOnly,
-  className,
-  required,
-  path,
-  label,
-  admin,
-  custom,
-  type,
-  min,
-  max,
-  ...others
-}) => {
-  const { config } = custom
-  const { value, setValue, showError, errorMessage } = useField<Props>({ path })
-  const placeholder = admin?.placeholder
+export const RangeComponent: React.FC<Props> = (props) => {
+  const { config, field, path, readOnly, validate } = props
+  const { admin: { className, description, placeholder, readOnly: adminReadOnly } = {}, label, required } = field
 
-  const beforeInput = admin?.components?.beforeInput
-  const afterInput = admin?.components?.afterInput
+  const memoizedValidate = useCallback(
+    (value: number & number[], options: any) => {
+      if (typeof validate === 'function') {
+        return validate(value, { ...options, required })
+      }
+    },
+    [validate, required],
+  )
+
+  const {
+    customComponents: { AfterInput, BeforeInput, Description, Label } = {},
+    errorMessage,
+    setValue,
+    showError,
+    value,
+  } = useField<string>({
+    path,
+    // @ts-expect-error - memoizedValidate is not typed
+    validate: memoizedValidate,
+  })
 
   const step = config?.step ?? 1
-  const usedMin = min ?? 1
-  const usedMax = max ?? 100
+  const usedMin = field.min ?? 1
+  const usedMax = field.max ?? 100
   const rangeValue = usedMax - usedMin
-  const showPreview = config?.showPreview
-  const markers = config?.markers
-
-  const classes = [
-    '',
-    'text',
-    className,
-    showError && 'error',
-    readOnly && 'read-only',
-    'container',
-  ]
-    .filter(Boolean)
-    .join(' ')
-
-  const isRequired = required
-  const isReadonly = readOnly || admin?.readOnly
+  const markers = config?.markers ?? []
 
   const getPosition = useCallback(
     (value: number) => {
       const remainder = value - usedMin
-
-      if (remainder === 0) return 0
-
+      if (remainder === 0) {
+        return 0
+      }
       return (remainder / rangeValue) * 100
     },
-    [rangeValue, usedMin, usedMax],
+    [rangeValue, usedMin],
   )
 
-  const handleReset: MouseEventHandler = e => {
+  const classes = ['', 'text', className, showError && 'error', readOnly && 'read-only', 'container']
+    .filter(Boolean)
+    .join(' ')
+
+  const isReadonly = Boolean(readOnly) || Boolean(adminReadOnly)
+
+  const handleReset: MouseEventHandler = (e) => {
     e.preventDefault()
     setValue(null)
   }
 
   return (
     <div className={`bfRangeFieldWrapper field-type`}>
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
-      <Error showError={showError} message={errorMessage ?? ''} />
+      <RenderCustomComponent
+        CustomComponent={Label}
+        Fallback={<FieldLabel label={label} path={path} required={required} />}
+      />
+
       <div className="containerWrapper">
-        {showPreview && (
+        {config?.showPreview && (
           <>
-            {/* @ts-expect-error */}
-            <div className="valuePreview">{Boolean(value) ? value : '/'}</div>
+            <div className="valuePreview">{value ? value : '/'}</div>
           </>
         )}
         <div className={classes}>
-          {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
+          {BeforeInput}
+
           <input
-            type="range"
-            onChange={e => {
+            className="rangeInput"
+            id={`field-${path.replace(/\./g, '__')}`}
+            max={usedMax}
+            min={usedMin}
+            name={path}
+            onChange={(e) => {
               setValue(e.target.value)
             }}
-            // @ts-expect-error
-            value={value}
-            id={`field-${path.replace(/\./gi, '__')}`}
-            name={path}
-            required={isRequired}
-            readOnly={isReadonly}
-            className="rangeInput"
-            min={usedMin}
-            max={usedMax}
-            step={step}
             placeholder={typeof placeholder === 'string' ? placeholder : ''}
-            {...(markers?.length && markers.length > 0
-              ? { list: `field-markers-${path.replace(/\./gi, '__')}` }
-              : {})}
+            readOnly={isReadonly}
+            required={required}
+            step={step}
+            type="range"
+            value={value || 0}
+            {...(markers?.length && markers.length > 0 ? { list: `field-markers-${path.replace(/\./g, '__')}` } : {})}
           />
-          {markers?.length && markers.length > 0 && (
-            <datalist className="markersList" id={`field-markers-${path.replace(/\./gi, '__')}`}>
-              {markers.map((marker, index) => {
-                return (
-                  <option
-                    data-test={getPosition(marker.value)}
-                    style={{
-                      left: `${getPosition(marker.value)}%`,
-                    }}
-                    value={marker.value}
-                    key={index}
-                  >
-                    {marker.label}
-                  </option>
-                )
-              })}
-            </datalist>
-          )}
-          {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
+
+          <datalist className="markersList" id={`field-markers-${path.replace(/\./g, '__')}`}>
+            {markers.map((marker, index) => {
+              return (
+                <option
+                  data-test={getPosition(marker.value)}
+                  key={index}
+                  style={{
+                    left: `${getPosition(marker.value)}%`,
+                  }}
+                  value={marker.value}
+                >
+                  {marker.label}
+                </option>
+              )
+            })}
+          </datalist>
         </div>
+
+        <Error message={errorMessage ?? ''} showError={showError} />
       </div>
-      {!isRequired && Boolean(value) && (
-        <button
-          className="btn btn--size-small btn--style-secondary resetButton"
-          onClick={handleReset}
-        >
+
+      {!required && Boolean(value) && (
+        <button className="btn btn--size-small btn--style-secondary resetButton" onClick={handleReset} type="button">
           Reset
         </button>
       )}
-      <FieldDescription
-        className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
+
+      <RenderCustomComponent
+        CustomComponent={Description}
+        Fallback={
+          <FieldDescription
+            className={`field-description-${path.replace(/\./g, '__')}`}
+            description={description ?? ''}
+            path={path}
+          />
+        }
       />
+
+      {AfterInput}
     </div>
   )
 }
-
-export default RangeComponent

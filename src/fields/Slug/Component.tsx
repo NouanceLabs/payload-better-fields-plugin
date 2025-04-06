@@ -1,147 +1,85 @@
-import React, { useMemo } from 'react'
-import { Label, useField, useFormFields } from 'payload/components/forms'
-import slugify from 'slugify'
-import TextInputField from 'payload/dist/admin/components/forms/field-types/Text/Input'
-import { CheckboxInput } from 'payload/dist/admin/components/forms/field-types/Checkbox/Input'
-import { Props as TextFieldType } from 'payload/dist/admin/components/forms/field-types/Text/types'
-import type { SlugifyOptions } from '../../types'
-import type { CheckboxField } from 'payload/types'
-import FieldDescription from 'payload/dist/admin/components/forms/FieldDescription'
+'use client'
+import type { TextFieldClientProps } from 'payload'
 
-import '../../styles/slug.scss'
+import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from '@payloadcms/ui'
+import { useCallback, useEffect } from 'react'
 
-type Props = TextFieldType & {
-  path: string
-  readOnly?: boolean
-  placeholder?: string
-  className?: string
-  custom: {
-    watchFields: string[]
-    slugifyOptions?: SlugifyOptions
-    editFieldConfig: CheckboxField
-    enableEditSlug: boolean
-  }
-}
+import './slug.scss'
+import { formatSlug } from './formatSlug.js'
 
-const SlugComponent: React.FC<Props> = ({
-  readOnly,
-  className,
-  required,
+type SlugComponentProps = {
+  checkboxFieldPath: string
+  fieldToUse: string
+} & TextFieldClientProps
+
+export const SlugComponent: React.FC<SlugComponentProps> = ({
+  checkboxFieldPath: checkboxFieldPathFromProps,
+  field,
+  fieldToUse,
   path,
-  placeholder,
-  label,
-  admin,
-  custom,
-  ...others
+  readOnly: readOnlyFromProps,
 }) => {
-  const { watchFields, slugifyOptions, editFieldConfig, enableEditSlug } = custom
-  const { value, setValue, showError, errorMessage } = useField<Props>({ path })
-  const beforeInput = admin?.components?.beforeInput
-  const afterInput = admin?.components?.afterInput
-  const checkboxPath = path.includes('.')
-    ? path.slice(0, path.lastIndexOf('.')) + '.' + editFieldConfig.name
-    : editFieldConfig.name
+  const { label } = field
 
-  const editSlugField = useField<Props>({ path: checkboxPath })
+  const checkboxFieldPath = path?.includes('.') ? `${path}.${checkboxFieldPathFromProps}` : checkboxFieldPathFromProps
 
-  const classes = [
-    'field-type',
-    'text',
-    className,
-    showError && 'error',
-    readOnly && 'read-only',
-    'container',
-  ]
-    .filter(Boolean)
-    .join(' ')
+  const { setValue, value } = useField<string>({ path: path || field.name })
 
-  const fields = useFormFields(([fields, dispatch]) => {
-    return watchFields.map(watch => fields[watch])
+  const { dispatchFields } = useForm()
+
+  // The value of the checkbox
+  // We're using separate useFormFields to minimise re-renders
+  const checkboxValue = useFormFields(([fields]) => {
+    return fields[checkboxFieldPath]?.value as string
   })
 
-  const isRequired = required
-  const isReadonly = readOnly || !Boolean(editSlugField.value)
+  // The value of the field we're listening to for the slug
+  const targetFieldValue = useFormFields(([fields]) => {
+    return fields[fieldToUse]?.value as string
+  })
 
-  const processedValue = useMemo(() => {
-    const separator = slugifyOptions?.replacement ?? '-'
+  useEffect(() => {
+    if (checkboxValue) {
+      if (targetFieldValue) {
+        const formattedSlug = formatSlug(targetFieldValue)
 
-    return fields
-      .filter(item => Boolean(item.value))
-      .reduce((accumulator, currentValue, currentIndex) => {
-        return (
-          String(accumulator) +
-          (currentIndex > 0 ? separator : '') +
-          slugify(String(currentValue.value), slugifyOptions)
-        )
-      }, '')
-  }, [fields])
-
-  React.useEffect(() => {
-    if (isReadonly) {
-      /* @ts-expect-error */
-      if (processedValue !== value) {
-        setValue(processedValue)
+        if (value !== formattedSlug) {
+          setValue(formattedSlug)
+        }
+      } else {
+        if (value !== '') {
+          setValue('')
+        }
       }
     }
-  }, [isReadonly, processedValue])
+  }, [targetFieldValue, checkboxValue, setValue, value])
 
-  const handleCheckbox: React.FormEventHandler<HTMLInputElement> = e => {
-    editSlugField.setValue(!Boolean(editSlugField.value))
-    e.stopPropagation()
-  }
+  const handleLock = useCallback(
+    (e: React.MouseEvent<Element>) => {
+      e.preventDefault()
+
+      dispatchFields({
+        type: 'UPDATE',
+        path: checkboxFieldPath,
+        value: !checkboxValue,
+      })
+    },
+    [checkboxValue, checkboxFieldPath, dispatchFields],
+  )
+
+  const readOnly = readOnlyFromProps || checkboxValue
 
   return (
-    <div className={`bfSlugFieldWrapper field-type`}>
-      <Label htmlFor={`field-${path.replace(/\./gi, '__')}`} label={label} required={isRequired} />
-      {Array.isArray(beforeInput) && beforeInput.map((Component, i) => <Component key={i} />)}
-      <div className={classes}>
-        <TextInputField
-          path={path}
-          name={others.name}
-          label={false}
-          required={isRequired}
-          description={admin?.description}
-          readOnly={isReadonly}
-          onChange={e => {
-            setValue(e.target.value)
-          }}
-          className={'slugInput'}
-          /* @ts-expect-error */
-          value={value}
-          showError={showError}
-          errorMessage={errorMessage}
-          style={{
-            marginBottom: 0,
-          }}
-        />
-        {custom.enableEditSlug && (
-          <div className={'checkbox'}>
-            <div className={'srOnly'}>
-              <Label
-                htmlFor={`field-${checkboxPath.replaceAll('.', '-')}`}
-                label={editFieldConfig?.label ?? ''}
-              />
-            </div>
-            <CheckboxInput
-              id={`field-${checkboxPath.replaceAll('.', '-')}`}
-              onToggle={handleCheckbox}
-              defaultChecked={editSlugField.value}
-              /* @ts-expect-error */
-              checked={editSlugField.value ?? false}
-              label={''}
-              name={checkboxPath}
-            />
-          </div>
-        )}
+    <div className="field-type slug-field-component">
+      <div className="label-wrapper">
+        <FieldLabel htmlFor={`field-${path}`} label={label} />
+
+        <Button buttonStyle="none" className="lock-button" onClick={handleLock}>
+          {checkboxValue ? 'Unlock' : 'Lock'}
+        </Button>
       </div>
-      {Array.isArray(afterInput) && afterInput.map((Component, i) => <Component key={i} />)}
-      <FieldDescription
-        className={`field-description-${path.replace(/\./g, '__')}`}
-        description={admin?.description}
-        value={value}
-      />
+
+      <TextInput onChange={setValue} path={path || field.name} readOnly={Boolean(readOnly)} value={value} />
     </div>
   )
 }
-
-export default SlugComponent

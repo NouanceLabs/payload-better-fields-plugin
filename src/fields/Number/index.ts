@@ -1,17 +1,14 @@
-import type { Field } from 'payload/types'
-import deepMerge from '../../utilities/deepMerge'
-import NumericComponent from './NumericComponent'
-import { NumberField as NumberFieldType } from 'payload/types'
-import { PartialRequired } from '../../utilities/partialRequired'
-import { NumericFormatProps, PatternFormatProps } from 'react-number-format'
+import type { Field, NumberField as NumberFieldType } from 'payload'
+import type { NumericFormatProps } from 'react-number-format'
+import type { PartialRequired } from 'src/types.js'
+
+import { deepMerge } from 'payload'
 
 type FieldTypes = NumberFieldType
 
-export interface NumericConfig extends NumericFormatProps {
-  callback?: (value: string) => number
-}
+interface NumericConfig extends NumericFormatProps {}
 
-export type Config = NumericConfig & {}
+export type Config = {} & NumericConfig
 
 type Number = (
   /**
@@ -40,14 +37,17 @@ export const NumberField: Number = (overrides, config) => {
             max: typeof config.max === 'string' ? parseInt(config.max) : config.max,
           }
         : {}),
+
       admin: {
-        readOnly: config.readOnly,
         components: {
-          Field: NumericComponent,
+          Field: {
+            clientProps: {
+              config,
+            },
+            path: '@nouance/payload-better-fields-plugin/Number#NumberComponent',
+          },
         },
-      },
-      custom: {
-        config: config,
+        readOnly: config.readOnly,
       },
     },
     overrides,

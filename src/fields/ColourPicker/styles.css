@@ -1,0 +1,109 @@
+.add-color.btn {
+  margin: 0;
+  padding: 0;
+  border: 1px solid #fff;
+}
+
+.bfColourPickerFieldWrapper {
+  max-width: fit-content;
+  margin-right: 1rem;
+  margin-bottom: 1rem;
+
+  .react-colorful,
+  .react-colorful__saturation,
+  .react-colorful__alpha,
+  .react-colorful__hue {
+    border-radius: 0;
+  }
+
+  .colourPickerWrapper {
+    &.readOnly {
+      &.react-colorful__pointer {
+        &:hover {
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  &__btn.btn {
+    margin: base(0.5);
+
+    &:first-of-type {
+      margin-left: unset;
+    }
+  }
+
+  .manual-field-input {
+    margin-bottom: 1rem;
+  }
+
+  &__colors {
+    display: flex;
+    flex-wrap: wrap;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .buttonContainer {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+
+  .previewField {
+    height: auto;
+    padding: 0.25rem 0.75rem;
+  }
+
+  .srOnly {
+    border: 0 !important;
+    clip: rect(1px, 1px, 1px, 1px) !important;
+    -webkit-clip-path: inset(50%) !important;
+    clip-path: inset(50%) !important;
+    height: 1px !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    padding: 0 !important;
+    position: absolute !important;
+    width: 1px !important;
+    white-space: nowrap !important;
+  }
+
+  .floatingPicker {
+    position: absolute;
+    z-index: 20;
+  }
+
+  .expandedContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.chip {
+  border: 1px solid var(--theme-elevation-150);
+  height: 1.5rem;
+  width: 1.5rem;
+  border-radius: var(--style-radius-s);
+  /* box-shadow: none; */
+
+  &.chip--selected {
+    box-shadow: 0 0 0 1px 1px;
+  }
+
+  &.chip--clickable {
+    cursor: pointer;
+  }
+
+  &:hover {
+    border-color: var(--theme-elevation-250);
+  }
+
+  &:focus-visible,
+  &:focus-within {
+    border-color: var(--theme-elevation-400);
+  }
+}

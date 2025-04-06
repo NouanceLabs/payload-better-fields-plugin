@@ -1,17 +1,15 @@
-import { Validate } from 'payload/types'
-import validateColor from 'validate-color'
+import type { Validate } from 'payload'
 
-const validate =
+import { validateHTMLColor } from 'validate-color'
+
+export const validate =
   (required?: boolean): Validate =>
-  value => {
-    if (!Boolean(required) && (!Boolean(value) || value === '')) {
+  (value) => {
+    if (!required && (!value || value === '')) {
       return true
-    } else if (Boolean(required) && (!Boolean(value) || value === '')) {
+    } else if (required && (!value || value === '')) {
       return 'This field is required.'
     }
-    if (validateColor(value)) return true
 
-    return 'This is not a valid colour value.'
+    return validateHTMLColor(value) || 'This is not a valid colour value.'
   }
-
-export default validate
