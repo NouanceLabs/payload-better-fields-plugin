@@ -7,7 +7,7 @@ Every field will come with its own usage instructions and structure. These are s
 
 ## ⚠️ Breaking changes 2.0 release ⚠️
 
-All fields have been changed for how they are imported. You will also need to install dependencies directly yourself. This should streamline the bundle size a lot especially for unused fields.
+**All fields have been changed for how they are imported.** You will also need to install dependencies directly yourself. This should streamline the bundle size a lot especially for unused fields.
 
 ## Payload compatibility
 
@@ -20,7 +20,7 @@ All fields have been changed for how they are imported. You will also need to in
 ## Installation
 
 ```bash
-  yarn add @nouance/payload-better-fields-plugin
+  pnpm add @nouance/payload-better-fields-plugin
   # OR
   npm i @nouance/payload-better-fields-plugin
 ```
@@ -54,7 +54,7 @@ If you want to further customise the CSS of these components, every component co
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { SlugField } from '@nouance/payload-better-fields-plugin'
+import { SlugField } from '@nouance/payload-better-fields-plugin/Slug'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -85,47 +85,18 @@ const Examples: CollectionConfig = {
 
 The `SlugField` accepts the following parameters
 
-- `overrides` - `TextField` required Textfield overrides
+- `fieldsToUse` - `string` defaults to `'title'`
 
-- `config`
+- `overrides`
 
-  - `useFields` - `string[]` defaults to `['title']`
+  - `slugOverrides` - `TextField` required Textfield overrides
 
-  - `appendOnDuplication` - `boolean` defaults to `false` | Adds a validation hook that appends `-1` to your slug to avoid conflicts (experimental)
-
-  - `slugify` - Options to be passed to the [slugify](https://www.npmjs.com/package/slugify) function
-
-  ```ts
-  @default
-  { lower: true, remove: /[*+~\/\\.()'"!?#\.,:@]/g }
-  ```
-
-- `checkbox`
-
-  - `enable` - `boolean` defaults to `true` | Enable or disable the checkbox field
-
-  - `overrides` - `CheckboxField` | Checkbox field overrides
+  - `checkboxOverrides` - `CheckboxField` | Checkbox field overrides
 
 Here is a more full example:
 
 ```ts
-...SlugField(
-  {
-    name: 'secondSlug',
-    admin: {
-      position: 'sidebar',
-    },
-  },
-  {
-    useFields: ['nested.heading'],
-  },
-  {
-    enable: true,
-    overrides: {
-      name: 'secondEdit',
-    },
-  },
-)
+...SlugField('title'),
 ```
 
 ### Notes
@@ -142,7 +113,7 @@ Here is a more full example:
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { ComboField } from '@nouance/payload-better-fields-plugin'
+import { ComboField } from '@nouance/payload-better-fields-plugin/Combo'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -182,7 +153,9 @@ The `ComboField` accepts the following parameters
 
   - `initial` - `string` The starting string value before all fields are concatenated
 
-  - `callback` - `(value: string) => string` You can apply a callback to modify each field value if you want to preprocess them
+Removed options:
+
+- `callback` - `(value: string) => string` You can apply a callback to modify each field value if you want to preprocess them
 
 ## Number field
 
@@ -194,7 +167,7 @@ The `ComboField` accepts the following parameters
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { NumberField } from '@nouance/payload-better-fields-plugin'
+import { NumberField } from '@nouance/payload-better-fields-plugin/Number'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -248,7 +221,7 @@ The `NumberField` accepts the following parameters
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { PatternField } from '@nouance/payload-better-fields-plugin'
+import { PatternField } from '@nouance/payload-better-fields-plugin/Pattern'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -311,7 +284,7 @@ We recommend using a text field in Payload.
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { RangeField } from '@nouance/payload-better-fields-plugin'
+import { RangeField } from '@nouance/payload-better-fields-plugin/Range'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -365,7 +338,7 @@ The `RangeField` accepts the following parameters
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { ColourTextField } from '@nouance/payload-better-fields-plugin'
+import { ColourTextField } from '@nouance/payload-better-fields-plugin/ColourText'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -402,7 +375,7 @@ The `ColourTextField` accepts the following parameters
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { TelephoneField } from '@nouance/payload-better-fields-plugin'
+import { TelephoneField } from '@nouance/payload-better-fields-plugin/Telephone'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -464,7 +437,7 @@ The `TelephoneField` accepts the following parameters
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { AlertBoxField } from '@nouance/payload-better-fields-plugin'
+import { AlertBoxField } from '@nouance/payload-better-fields-plugin/AlertBox'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -523,7 +496,7 @@ If you want to make this field appear conditionally, you should use the field's 
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { ColourPickerField } from '@nouance/payload-better-fields-plugin'
+import { ColourPickerField } from '@nouance/payload-better-fields-plugin/ColourPicker'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -576,7 +549,7 @@ The goal of this field is to help with management of timezones.
 
 ```ts
 import { CollectionConfig } from 'payload/types'
-import { DateField } from '@nouance/payload-better-fields-plugin'
+import { DateField } from '@nouance/payload-better-fields-plugin/Date'
 
 const Examples: CollectionConfig = {
   slug: 'examples',
@@ -622,11 +595,11 @@ For development purposes, there is a full working example of how this plugin mig
 
 ```bash
 git clone git@github.com:NouanceLabs/payload-better-fields-plugin.git \
-  cd payload-better-fields-plugin && yarn \
-  cd demo && yarn \
+  cd payload-better-fields-plugin && pnpm \
+  cd demo && pnpm \
   cp .env.example .env \
   vim .env \ # add your payload details
-  yarn dev
+  pnpm dev
 ```
 
 ## Contributors
