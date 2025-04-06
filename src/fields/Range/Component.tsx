@@ -106,7 +106,7 @@ export const RangeComponent: React.FC<Props> = (props) => {
             required={required}
             step={step}
             type="range"
-            value={value}
+            value={value || 0}
             {...(markers?.length && markers.length > 0 ? { list: `field-markers-${path.replace(/\./g, '__')}` } : {})}
           />
 

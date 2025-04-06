@@ -7,10 +7,6 @@ settings:
 importers:
 
   .:
-    dependencies:
-      libphonenumber-js:
-        specifier: ^1.11.20
-        version: 1.11.20
     devDependencies:
       '@eslint/eslintrc':
         specifier: ^3.2.0
@@ -32,7 +28,7 @@ importers:
         version: 3.22.0(@types/react@19.0.1)(graphql@16.10.0)(monaco-editor@0.52.2)(next@15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.22.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
       '@payloadcms/richtext-lexical':
         specifier: 3.22.0
-        version: 3.22.0(np4tyq7iw4ec3whu6hvhbfpzc4)
+        version: 3.22.0(f42af5150f93c6ce04891539a35a559e)
       '@payloadcms/ui':
         specifier: 3.22.0
         version: 3.22.0(@types/react@19.0.1)(monaco-editor@0.52.2)(next@15.1.0(@babel/core@7.26.0)(babel-plugin-macros@3.1.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(sass@1.77.4))(payload@3.22.0(graphql@16.10.0)(monaco-editor@0.52.2)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2))(react-dom@19.0.0(react@19.0.0))(react@19.0.0)(typescript@5.7.2)
@@ -81,6 +77,9 @@ importers:
       jest:
         specifier: 29.7.0
         version: 29.7.0(@types/node@22.10.2)(babel-plugin-macros@3.1.0)
+      libphonenumber-js:
+        specifier: ^1.11.20
+        version: 1.11.20
       mongodb-memory-server:
         specifier: ^10.1.2
         version: 10.1.2
@@ -7029,7 +7028,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@payloadcms/richtext-lexical@3.22.0(np4tyq7iw4ec3whu6hvhbfpzc4)':
+  '@payloadcms/richtext-lexical@3.22.0(f42af5150f93c6ce04891539a35a559e)':
     dependencies:
       '@faceless-ui/modal': 3.0.0-beta.2(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
       '@faceless-ui/scroll-info': 2.0.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)

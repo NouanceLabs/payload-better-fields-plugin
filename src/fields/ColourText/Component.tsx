@@ -10,8 +10,8 @@ import {
   TextInput as TextInputField,
   useField,
 } from '@payloadcms/ui'
-import React, { useCallback } from 'react'
-import { validateHTMLColor } from 'validate-color'
+import React, { useCallback, useMemo } from 'react'
+import validateColor from 'validate-color'
 
 import type { Config } from './index.js'
 
@@ -51,9 +51,21 @@ export const ColourTextComponent: React.FC<Props> = (props) => {
     .filter(Boolean)
     .join(' ')
 
-  const gradient =
-    'linear-gradient(45deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 45%, rgba(255,0,0,1) 50%, rgba(255,255,255,1) 55%, rgba(255,255,255,1) 100%)'
-  const colour = validateHTMLColor(value) ? value : gradient
+  const colour = useMemo(() => {
+    const gradient =
+      'linear-gradient(45deg, var(--theme-elevation-900) 0%, var(--theme-elevation-900) 45%, var(--theme-error-500) 50%, var(--theme-elevation-900) 55%, var(--theme-elevation-900) 100%)'
+
+    let validColour = false
+
+    try {
+      // @ts-expect-error - validateColor is not typed correctly here, the function works but TS thinks it doesn't exist
+      validColour = validateColor(value)
+    } catch {
+      console.log('There was an error validating the colour')
+    }
+
+    return validColour ? value : gradient
+  }, [value])
 
   return (
     <div className={`bfColourTextFieldWrapper field-type`}>
@@ -80,7 +92,13 @@ export const ColourTextComponent: React.FC<Props> = (props) => {
           value={value}
         />
 
-        <div aria-hidden={true} className="colourBox" style={{ background: colour }} />
+        <div
+          aria-hidden={true}
+          className="colourBox"
+          style={{
+            background: colour,
+          }}
+        />
       </div>
 
       <RenderCustomComponent

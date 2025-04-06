@@ -5,7 +5,8 @@ import { deepMerge, type Field, type TextField } from 'payload'
 import { beforeValidate } from './beforeValidate.js'
 
 export type Config = {
-  callback?: (value: string) => Promise<string> | string
+  // commented out for now until we can find a better pattern
+  // callback?: (value: string) => Promise<string> | string
   initial?: string
   separator?: string
 }

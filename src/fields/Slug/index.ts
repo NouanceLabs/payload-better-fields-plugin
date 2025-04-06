@@ -29,6 +29,7 @@ export const SlugField: Slug = (fieldToUse = 'title', overrides = {}) => {
     type: 'text',
     index: true,
     label: 'Slug',
+    unique: true,
     ...(slugOverrides || {}),
     admin: {
       position: 'sidebar',
