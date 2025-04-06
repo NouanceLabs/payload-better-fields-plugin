@@ -39,7 +39,8 @@ export const beforeValidate =
     const processedValue = fields
       .filter((item) => Boolean(item))
       .reduce((accumulator, currentValue, currentIndex) => {
-        const value = options.callback ? options.callback(String(currentValue)) : String(currentValue)
+        // const value = options.callback ? options.callback(String(currentValue)) : String(currentValue)
+        const value = String(currentValue)
 
         return String(accumulator) + (currentIndex > 0 ? separator : '') + value
       }, options.initial)
