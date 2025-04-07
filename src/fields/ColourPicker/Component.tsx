@@ -112,7 +112,7 @@ export const ColourPickerComponent: React.FC<Props> = (props) => {
             inert={isReadonly ? '' : null}
           >
             <Picker
-              color={value}
+              color={value || ''}
               onBlur={(e: FocusEvent) => {
                 if (e.relatedTarget === null) {
                   setIsAdding(false)
@@ -132,7 +132,7 @@ export const ColourPickerComponent: React.FC<Props> = (props) => {
             }}
             readOnly={isReadonly}
             ref={inputRef}
-            value={value}
+            value={value || ''}
           />
         </div>
       )}

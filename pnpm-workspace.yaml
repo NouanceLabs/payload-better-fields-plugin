@@ -1,0 +1,6 @@
+ignoredBuiltDependencies:
+  - '@swc/core'
+  - esbuild
+  - mongodb-memory-server
+onlyBuiltDependencies:
+  - sharp

@@ -606,4 +606,4 @@ git clone git@github.com:NouanceLabs/payload-better-fields-plugin.git \
 
 Thanks to the following people for contributing code to this plugin
 
-[MarkAtOmniux](https://github.com/MarkAtOmniux), [Kalon Robson](https://github.com/kalon-robson)
+[Idan Yekutiel](https://github.com/idanyekutiel), [MarkAtOmniux](https://github.com/MarkAtOmniux), [Kalon Robson](https://github.com/kalon-robson)
