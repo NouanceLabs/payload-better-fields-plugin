@@ -58,7 +58,7 @@ type Telephone = (
   /**
    * Field overrides
    */
-  overrides: Omit<PartialRequired<FieldTypes, 'name'>, 'type'>,
+  overrides: Omit<FieldTypes, 'type'>,
   config?: Config,
 ) => Field[]
 

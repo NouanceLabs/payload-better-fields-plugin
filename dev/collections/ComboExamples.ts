@@ -30,10 +30,10 @@ export const ComboExamples: CollectionConfig = {
       ['firstName', 'lastName'],
     ),
     ...ComboField({ name: 'identifier', admin: { readOnly: true } }, ['lastName'], {
-      callback: (value) => {
-        return value.toUpperCase()
-      },
-      initial: 'ID-',
+      // callback: (value) => {
+      //   return value.toUpperCase()
+      // },
+      // initial: 'ID-',
       separator: '-',
     }),
   ],

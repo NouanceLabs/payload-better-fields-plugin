@@ -14,7 +14,7 @@ type Number = (
   /**
    * Field overrides
    */
-  overrides: PartialRequired<FieldTypes, 'name'>,
+  overrides: Omit<FieldTypes, 'type'>,
   /**
    * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
    */
@@ -22,7 +22,7 @@ type Number = (
 ) => Field[]
 
 export const NumberField: Number = (overrides, config) => {
-  const numberField = deepMerge<FieldTypes, Partial<FieldTypes>>(
+  const numberField = deepMerge<FieldTypes, Omit<FieldTypes, 'type'>>(
     {
       name: 'number',
       type: 'number',

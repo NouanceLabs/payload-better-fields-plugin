@@ -1,5 +1,4 @@
 import type { Field, NumberField as NumberFieldType } from 'payload'
-import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
 
@@ -37,12 +36,12 @@ type Range = (
   /**
    * Field overrides
    */
-  overrides: Omit<PartialRequired<FieldTypes, 'name'>, 'type'>,
+  overrides: Omit<FieldTypes, 'type'>,
   config: Config,
 ) => Field[]
 
 export const RangeField: Range = (overrides, config = {}) => {
-  const rangeField = deepMerge<FieldTypes, Omit<Partial<FieldTypes>, 'type'>>(
+  const rangeField = deepMerge<FieldTypes, Omit<FieldTypes, 'type'>>(
     {
       name: 'range',
       type: 'number',

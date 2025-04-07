@@ -1,5 +1,4 @@
 import type { Field, TextField } from 'payload'
-import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge, deepMergeSimple } from 'payload'
 
@@ -13,7 +12,7 @@ type ColourPicker = (
   /**
    * Overrides for the underlying Text field from Payload
    */
-  overrides: PartialRequired<TextField, 'name'>,
+  overrides: Omit<TextField, 'type'>,
   config?: Config,
 ) => Field[]
 
@@ -27,7 +26,7 @@ export const ColourPickerField: ColourPicker = (overrides, config = { type: 'hex
     config,
   )
 
-  const colourPickerField = deepMerge<TextField, Partial<TextField>>(
+  const colourPickerField = deepMerge<TextField, Omit<TextField, 'type'>>(
     {
       name: 'ColourPickerField',
       type: 'text',

@@ -1,5 +1,3 @@
-import type { PartialRequired } from 'src/types.js'
-
 import { deepMerge, type Field, type TextField } from 'payload'
 
 import { beforeValidate } from './beforeValidate.js'
@@ -15,7 +13,7 @@ type Combo = (
   /**
    * Field overrides
    */
-  overrides: PartialRequired<TextField, 'name'>,
+  overrides: Omit<TextField, 'type'>,
   /**
    * An array of string mapping the field path names, nested fields are supported here
    * @default {string[]} ['title']
@@ -33,7 +31,7 @@ export const ComboField: Combo = (
   fieldToUse: string[],
   options: Config = { initial: '', separator: ' ' },
 ) => {
-  const comboField = deepMerge<TextField, Partial<TextField>>(
+  const comboField = deepMerge<TextField, Omit<TextField, 'type'>>(
     {
       name: 'combo',
       type: 'text',

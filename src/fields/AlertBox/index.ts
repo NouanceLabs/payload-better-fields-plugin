@@ -1,5 +1,4 @@
 import type { Field, UIField } from 'payload'
-import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
 
@@ -15,6 +14,10 @@ export type Config = {
   }
 } & BaseConfig
 
+interface BetterUIField extends Omit<UIField, 'type' | 'admin'> {
+  admin?: UIField['admin']
+}
+
 type AlertBox = (overrides: {
   /**
    * Config for the alert box.
@@ -24,7 +27,7 @@ type AlertBox = (overrides: {
   /**
    * Field overrides
    */
-  overrides: PartialRequired<UIField, 'name'>
+  overrides: BetterUIField
 }) => Field[]
 
 export const AlertBoxField: AlertBox = ({ config, overrides }) => {

@@ -1,6 +1,5 @@
 import type { Field, TextField as TextFieldType } from 'payload'
 import type { PatternFormatProps } from 'react-number-format'
-import type { PartialRequired } from 'src/types.js'
 
 import { deepMerge } from 'payload'
 
@@ -14,7 +13,7 @@ type Pattern = (
   /**
    * Field overrides
    */
-  overrides: PartialRequired<FieldTypes, 'name'>,
+  overrides: FieldTypes,
   /**
    * Config mapping to Numeric or Pattern formats from https://s-yadav.github.io/react-number-format/docs/numeric_format
    */
@@ -22,7 +21,7 @@ type Pattern = (
 ) => Field[]
 
 export const PatternField: Pattern = (overrides, config) => {
-  const patternField = deepMerge<FieldTypes, Partial<FieldTypes>>(
+  const patternField = deepMerge<FieldTypes, FieldTypes>(
     {
       name: 'pattern',
       type: 'text',
