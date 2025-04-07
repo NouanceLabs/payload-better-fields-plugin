@@ -5,6 +5,11 @@ We've tried to keep styling as consistent as possible with the existing admin UI
 
 Every field will come with its own usage instructions and structure. These are subject to change!
 
+## Sponsors
+<a href="https://oversight.studio">
+  <img src="https://github.com/user-attachments/assets/3b4a0f5c-dee7-49ae-8048-d8ce189a0d47" alt="Oversight PFP" width="50" height="50">
+</a>
+
 ## ⚠️ Breaking changes 2.0 release ⚠️
 
 **All fields have been changed for how they are imported.** You will also need to install dependencies directly yourself. This should streamline the bundle size a lot especially for unused fields.
