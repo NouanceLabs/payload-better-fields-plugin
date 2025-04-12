@@ -1,6 +1,6 @@
 {
   "name": "@nouance/payload-better-fields-plugin",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "homepage:": "https://github.com/NouanceLabs/payload-better-fields-plugin",
   "repository": "git@github.com:NouanceLabs/payload-better-fields-plugin.git",
   "description": "A Payload plugin that aims to provide improved fields for the admin panel",
@@ -17,96 +17,186 @@
   ],
   "exports": {
     "./AlertBox": {
-      "import": "./dist/exports/AlertBox.js",
-      "types": "./dist/exports/AlertBox.d.ts",
-      "default": "./dist/exports/AlertBox.js"
+      "import": "./dist/exports/AlertBox/index.js",
+      "types": "./dist/exports/AlertBox/index.d.ts",
+      "default": "./dist/exports/AlertBox/index.js"
+    },
+    "./AlertBox/client": {
+      "import": "./dist/exports/AlertBox/client.js",
+      "types": "./dist/exports/AlertBox/client.d.ts",
+      "default": "./dist/exports/AlertBox/client.js"
     },
     "./ColourPicker": {
-      "import": "./dist/exports/ColourPicker.js",
-      "types": "./dist/exports/ColourPicker.d.ts",
-      "default": "./dist/exports/ColourPicker.js"
+      "import": "./dist/exports/ColourPicker/index.js",
+      "types": "./dist/exports/ColourPicker/index.d.ts",
+      "default": "./dist/exports/ColourPicker/index.js"
+    },
+    "./ColourPicker/client": {
+      "import": "./dist/exports/ColourPicker/client.js",
+      "types": "./dist/exports/ColourPicker/client.d.ts",
+      "default": "./dist/exports/ColourPicker/client.js"
     },
     "./ColourText": {
-      "import": "./dist/exports/ColourText.js",
-      "types": "./dist/exports/ColourText.d.ts",
-      "default": "./dist/exports/ColourText.js"
+      "import": "./dist/exports/ColourText/index.js",
+      "types": "./dist/exports/ColourText/index.d.ts",
+      "default": "./dist/exports/ColourText/index.js"
+    },
+    "./ColourText/client": {
+      "import": "./dist/exports/ColourText/client.js",
+      "types": "./dist/exports/ColourText/client.d.ts",
+      "default": "./dist/exports/ColourText/client.js"
     },
     "./Number": {
-      "import": "./dist/exports/Number.js",
-      "types": "./dist/exports/Number.d.ts",
-      "default": "./dist/exports/Number.js"
+      "import": "./dist/exports/Number/index.js",
+      "types": "./dist/exports/Number/index.d.ts",
+      "default": "./dist/exports/Number/index.js"
+    },
+    "./Number/client": {
+      "import": "./dist/exports/Number/client.js",
+      "types": "./dist/exports/Number/client.d.ts",
+      "default": "./dist/exports/Number/client.js"
     },
     "./Telephone": {
-      "import": "./dist/exports/Telephone.js",
-      "types": "./dist/exports/Telephone.d.ts",
-      "default": "./dist/exports/Telephone.js"
+      "import": "./dist/exports/Telephone/index.js",
+      "types": "./dist/exports/Telephone/index.d.ts",
+      "default": "./dist/exports/Telephone/index.js"
+    },
+    "./Telephone/client": {
+      "import": "./dist/exports/Telephone/client.js",
+      "types": "./dist/exports/Telephone/client.d.ts",
+      "default": "./dist/exports/Telephone/client.js"
     },
     "./Slug": {
-      "import": "./dist/exports/Slug.js",
-      "types": "./dist/exports/Slug.d.ts",
-      "default": "./dist/exports/Slug.js"
+      "import": "./dist/exports/Slug/index.js",
+      "types": "./dist/exports/Slug/index.d.ts",
+      "default": "./dist/exports/Slug/index.js"
+    },
+    "./Slug/client": {
+      "import": "./dist/exports/Slug/client.js",
+      "types": "./dist/exports/Slug/client.d.ts",
+      "default": "./dist/exports/Slug/client.js"
     },
     "./Range": {
-      "import": "./dist/exports/Range.js",
-      "types": "./dist/exports/Range.d.ts",
-      "default": "./dist/exports/Range.js"
+      "import": "./dist/exports/Range/index.js",
+      "types": "./dist/exports/Range/index.d.ts",
+      "default": "./dist/exports/Range/index.js"
+    },
+    "./Range/client": {
+      "import": "./dist/exports/Range/client.js",
+      "types": "./dist/exports/Range/client.d.ts",
+      "default": "./dist/exports/Range/client.js"
     },
     "./Pattern": {
-      "import": "./dist/exports/Pattern.js",
-      "types": "./dist/exports/Pattern.d.ts",
-      "default": "./dist/exports/Pattern.js"
+      "import": "./dist/exports/Pattern/index.js",
+      "types": "./dist/exports/Pattern/index.d.ts",
+      "default": "./dist/exports/Pattern/index.js"
+    },
+    "./Pattern/client": {
+      "import": "./dist/exports/Pattern/client.js",
+      "types": "./dist/exports/Pattern/client.d.ts",
+      "default": "./dist/exports/Pattern/client.js"
     },
     "./Combo": {
-      "import": "./dist/exports/Combo.js",
-      "types": "./dist/exports/Combo.d.ts",
-      "default": "./dist/exports/Combo.js"
+      "import": "./dist/exports/Combo/index.js",
+      "types": "./dist/exports/Combo/index.d.ts",
+      "default": "./dist/exports/Combo/index.js"
+    },
+    "./Combo/client": {
+      "import": "./dist/exports/Combo/client.js",
+      "types": "./dist/exports/Combo/client.d.ts",
+      "default": "./dist/exports/Combo/client.js"
     }
   },
   "publishConfig": {
     "./AlertBox": {
-      "import": "./dist/exports/AlertBox.js",
-      "types": "./dist/exports/AlertBox.d.ts",
-      "default": "./dist/exports/AlertBox.js"
+      "import": "./dist/exports/AlertBox/index.js",
+      "types": "./dist/exports/AlertBox/index.d.ts",
+      "default": "./dist/exports/AlertBox/index.js"
+    },
+    "./AlertBox/client": {
+      "import": "./dist/exports/AlertBox/client.js",
+      "types": "./dist/exports/AlertBox/client.d.ts",
+      "default": "./dist/exports/AlertBox/client.js"
     },
     "./ColourPicker": {
-      "import": "./dist/exports/ColourPicker.js",
-      "types": "./dist/exports/ColourPicker.d.ts",
-      "default": "./dist/exports/ColourPicker.js"
+      "import": "./dist/exports/ColourPicker/index.js",
+      "types": "./dist/exports/ColourPicker/index.d.ts",
+      "default": "./dist/exports/ColourPicker/index.js"
+    },
+    "./ColourPicker/client": {
+      "import": "./dist/exports/ColourPicker/client.js",
+      "types": "./dist/exports/ColourPicker/client.d.ts",
+      "default": "./dist/exports/ColourPicker/client.js"
     },
     "./ColourText": {
-      "import": "./dist/exports/ColourText.js",
-      "types": "./dist/exports/ColourText.d.ts",
-      "default": "./dist/exports/ColourText.js"
+      "import": "./dist/exports/ColourText/index.js",
+      "types": "./dist/exports/ColourText/index.d.ts",
+      "default": "./dist/exports/ColourText/index.js"
+    },
+    "./ColourText/client": {
+      "import": "./dist/exports/ColourText/client.js",
+      "types": "./dist/exports/ColourText/client.d.ts",
+      "default": "./dist/exports/ColourText/client.js"
     },
     "./Number": {
-      "import": "./dist/exports/Number.js",
-      "types": "./dist/exports/Number.d.ts",
-      "default": "./dist/exports/Number.js"
+      "import": "./dist/exports/Number/index.js",
+      "types": "./dist/exports/Number/index.d.ts",
+      "default": "./dist/exports/Number/index.js"
+    },
+    "./Number/client": {
+      "import": "./dist/exports/Number/client.js",
+      "types": "./dist/exports/Number/client.d.ts",
+      "default": "./dist/exports/Number/client.js"
     },
     "./Telephone": {
-      "import": "./dist/exports/Telephone.js",
-      "types": "./dist/exports/Telephone.d.ts",
-      "default": "./dist/exports/Telephone.js"
+      "import": "./dist/exports/Telephone/index.js",
+      "types": "./dist/exports/Telephone/index.d.ts",
+      "default": "./dist/exports/Telephone/index.js"
+    },
+    "./Telephone/client": {
+      "import": "./dist/exports/Telephone/client.js",
+      "types": "./dist/exports/Telephone/client.d.ts",
+      "default": "./dist/exports/Telephone/client.js"
     },
     "./Slug": {
-      "import": "./dist/exports/Slug.js",
-      "types": "./dist/exports/Slug.d.ts",
-      "default": "./dist/exports/Slug.js"
+      "import": "./dist/exports/Slug/index.js",
+      "types": "./dist/exports/Slug/index.d.ts",
+      "default": "./dist/exports/Slug/index.js"
+    },
+    "./Slug/client": {
+      "import": "./dist/exports/Slug/client.js",
+      "types": "./dist/exports/Slug/client.d.ts",
+      "default": "./dist/exports/Slug/client.js"
     },
     "./Range": {
-      "import": "./dist/exports/Range.js",
-      "types": "./dist/exports/Range.d.ts",
-      "default": "./dist/exports/Range.js"
+      "import": "./dist/exports/Range/index.js",
+      "types": "./dist/exports/Range/index.d.ts",
+      "default": "./dist/exports/Range/index.js"
+    },
+    "./Range/client": {
+      "import": "./dist/exports/Range/client.js",
+      "types": "./dist/exports/Range/client.d.ts",
+      "default": "./dist/exports/Range/client.js"
     },
     "./Pattern": {
-      "import": "./dist/exports/Pattern.js",
-      "types": "./dist/exports/Pattern.d.ts",
-      "default": "./dist/exports/Pattern.js"
+      "import": "./dist/exports/Pattern/index.js",
+      "types": "./dist/exports/Pattern/index.d.ts",
+      "default": "./dist/exports/Pattern/index.js"
+    },
+    "./Pattern/client": {
+      "import": "./dist/exports/Pattern/client.js",
+      "types": "./dist/exports/Pattern/client.d.ts",
+      "default": "./dist/exports/Pattern/client.js"
     },
     "./Combo": {
-      "import": "./dist/exports/Combo.js",
-      "types": "./dist/exports/Combo.d.ts",
-      "default": "./dist/exports/Combo.js"
+      "import": "./dist/exports/Combo/index.js",
+      "types": "./dist/exports/Combo/index.d.ts",
+      "default": "./dist/exports/Combo/index.js"
+    },
+    "./Combo/client": {
+      "import": "./dist/exports/Combo/client.js",
+      "types": "./dist/exports/Combo/client.d.ts",
+      "default": "./dist/exports/Combo/client.js"
     }
   },
   "main": "./dist/index.js",
@@ -115,7 +205,7 @@
     "dist"
   ],
   "scripts": {
-    "build": "pnpm copyfiles && pnpm build:types && pnpm build:swc",
+    "build": "pnpm clean && pnpm copyfiles && pnpm build:types && pnpm build:swc",
     "build:swc": "swc ./src -d ./dist --config-file .swcrc --strip-leading-paths",
     "build:types": "tsc --outDir dist --rootDir ./src",
     "clean": "rimraf {dist,*.tsbuildinfo}",
@@ -169,8 +259,7 @@
     "slug": "^10.0.0",
     "sort-package-json": "^2.10.0",
     "typescript": "5.7.2",
-    "libphonenumber-js": "^1.11.20",
-    "validate-color": "^2.2.4"
+    "libphonenumber-js": "^1.11.20"
   },
   "peerDependencies": {
     "colord": "^2.9.3",
@@ -179,8 +268,7 @@
     "react-colorful": "^5.6.1",
     "react-number-format": "^5.3.1",
     "react-phone-number-input": "^3.3.7",
-    "slug": "^10.0.0",
-    "validate-color": "^2.2.4"
+    "slug": "^10.0.0"
   },
   "engines": {
     "node": "^18.20.2 || >=20.9.0"

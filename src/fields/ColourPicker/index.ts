@@ -34,7 +34,7 @@ export const ColourPickerField: ColourPicker = (overrides, config = { type: 'hex
         components: {
           Field: {
             clientProps: configWithDefaults,
-            path: '@nouance/payload-better-fields-plugin/ColourPicker#ColourPickerComponent',
+            path: '@nouance/payload-better-fields-plugin/ColourPicker/client#ColourPickerComponent',
           },
         },
       },

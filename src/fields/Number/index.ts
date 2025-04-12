@@ -44,7 +44,7 @@ export const NumberField: Number = (overrides, config) => {
             clientProps: {
               config,
             },
-            path: '@nouance/payload-better-fields-plugin/Number#NumberComponent',
+            path: '@nouance/payload-better-fields-plugin/Number/client#NumberComponent',
           },
         },
         readOnly: config.readOnly,

@@ -1,7 +1,5 @@
 import type { Validate } from 'payload'
 
-import { validateHTMLColor } from 'validate-color'
-
 export const validate =
   (required?: boolean): Validate =>
   (value) => {
@@ -11,5 +9,7 @@ export const validate =
       return 'This field is required.'
     }
 
-    return validateHTMLColor(value) || 'This is not a valid colour value.'
+    // Gotta validate the colour value in the future, validate-color is not ESM
+    // eslint-disable-next-line no-constant-binary-expression
+    return true || 'This is not a valid colour value.'
   }

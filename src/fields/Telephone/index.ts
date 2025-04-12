@@ -78,7 +78,7 @@ export const TelephoneField: Telephone = (
             clientProps: {
               config,
             },
-            path: '@nouance/payload-better-fields-plugin/Telephone#TelephoneComponent',
+            path: '@nouance/payload-better-fields-plugin/Telephone/client#TelephoneComponent',
           },
         },
       },

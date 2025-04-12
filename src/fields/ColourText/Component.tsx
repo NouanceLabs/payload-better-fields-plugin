@@ -11,11 +11,10 @@ import {
   useField,
 } from '@payloadcms/ui'
 import React, { useCallback, useMemo } from 'react'
-import validateColor from 'validate-color'
 
 import type { Config } from './index.js'
 
-import './colourText.scss'
+import './styles.css'
 
 type Props = Config & TextFieldClientProps
 
@@ -55,14 +54,14 @@ export const ColourTextComponent: React.FC<Props> = (props) => {
     const gradient =
       'linear-gradient(45deg, var(--theme-elevation-900) 0%, var(--theme-elevation-900) 45%, var(--theme-error-500) 50%, var(--theme-elevation-900) 55%, var(--theme-elevation-900) 100%)'
 
-    let validColour = false
+    const validColour = true
 
-    try {
-      // @ts-expect-error - validateColor is not typed correctly here, the function works but TS thinks it doesn't exist
-      validColour = validateColor(value)
-    } catch {
-      console.log('There was an error validating the colour')
-    }
+    // try {
+    //   // @ts-expect-error - validateColor is not typed correctly here, the function works but TS thinks it doesn't exist
+    //   validColour = validateColor(value)
+    // } catch {
+    //   console.log('There was an error validating the colour')
+    // }
 
     return validColour ? value : gradient
   }, [value])

@@ -4,7 +4,7 @@ import type { TextFieldClientProps } from 'payload'
 import { Button, FieldLabel, TextInput, useField, useForm, useFormFields } from '@payloadcms/ui'
 import { useCallback, useEffect } from 'react'
 
-import './slug.scss'
+import './styles.css'
 import { formatSlug } from './formatSlug.js'
 
 type SlugComponentProps = {

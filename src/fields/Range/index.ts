@@ -51,7 +51,7 @@ export const RangeField: Range = (overrides, config = {}) => {
             clientProps: {
               config,
             },
-            path: '@nouance/payload-better-fields-plugin/Range#RangeComponent',
+            path: '@nouance/payload-better-fields-plugin/Range/client#RangeComponent',
           },
         },
       },

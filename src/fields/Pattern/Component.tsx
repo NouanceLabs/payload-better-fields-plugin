@@ -7,7 +7,7 @@ import { PatternFormat } from 'react-number-format'
 
 import type { Config } from './index.js'
 
-import './pattern.scss'
+import './styles.css'
 
 type Props = {
   className?: string

@@ -47,7 +47,7 @@ export const ComboField: Combo = (
                 watchFields: fieldToUse,
               },
             },
-            path: '@nouance/payload-better-fields-plugin/Combo#ComboComponent',
+            path: '@nouance/payload-better-fields-plugin/Combo/client#ComboComponent',
           },
         },
       },

@@ -21,11 +21,11 @@ export const ColourTextField: ColourText = (overrides) => {
       admin: {
         components: {
           Field: {
-            path: '@nouance/payload-better-fields-plugin/ColourText#ColourTextComponent',
+            path: '@nouance/payload-better-fields-plugin/ColourText/client#ColourTextComponent',
           },
         },
       },
-      validate: validate(overrides.required),
+      // validate: validate(overrides.required),
     },
     overrides,
   )

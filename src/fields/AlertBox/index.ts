@@ -14,7 +14,7 @@ export type Config = {
   }
 } & BaseConfig
 
-interface BetterUIField extends Omit<UIField, 'type' | 'admin'> {
+interface BetterUIField extends Omit<UIField, 'admin' | 'type'> {
   admin?: UIField['admin']
 }
 
@@ -45,7 +45,7 @@ export const AlertBoxField: AlertBox = ({ config, overrides }) => {
                 ...config.icon,
               },
             },
-            path: '@nouance/payload-better-fields-plugin/AlertBox#AlertBoxComponent',
+            path: '@nouance/payload-better-fields-plugin/AlertBox/client#AlertBoxComponent',
           },
         },
         custom: {

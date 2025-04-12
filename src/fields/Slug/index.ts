@@ -40,7 +40,7 @@ export const SlugField: Slug = (fieldToUse = 'title', overrides = {}) => {
             checkboxFieldPath: checkBoxField.name,
             fieldToUse,
           },
-          path: '@nouance/payload-better-fields-plugin/Slug#SlugComponent',
+          path: '@nouance/payload-better-fields-plugin/Slug/client#SlugComponent',
         },
       },
     },

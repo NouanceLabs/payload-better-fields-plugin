@@ -32,7 +32,7 @@ export const PatternField: Pattern = (overrides, config) => {
             clientProps: {
               config,
             },
-            path: '@nouance/payload-better-fields-plugin/Pattern#PatternComponent',
+            path: '@nouance/payload-better-fields-plugin/Pattern/client#PatternComponent',
           },
         },
         readOnly: config.readOnly,

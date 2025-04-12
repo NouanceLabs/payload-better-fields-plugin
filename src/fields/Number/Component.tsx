@@ -8,7 +8,7 @@ import { NumericFormat } from 'react-number-format'
 
 import type { Config } from './index.js'
 
-import '../Slug/slug.scss'
+import './styles.css'
 
 type Props = {
   className?: string
